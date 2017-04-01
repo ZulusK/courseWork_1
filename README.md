@@ -6,8 +6,8 @@ _[Documentation]_
 
 __Facecope__ is a desktop application for control and management image files stored in the user's local file system. It will automate indexing user-selected photos by different criteria:
 1. registered face in the photo
-1. time of creation
-1. geotag
-1. template name
-1. etc.
+2. time of creation
+3. geotag
+4. template name
+5. etc.
 As mentioned above, the main purpose Facecope - automation of routine management of images, browsing, organizing and limited photo editing, indexing them on your hard drive.
