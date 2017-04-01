@@ -3,8 +3,6 @@
 
 _[Technical documentation](https://docs.google.com/document/d/1uAafzIcO1uX_CPPadWWjw2VOkqY7Sk7aB99loCDafI4/edit?usp=sharing)_
 
-1. aa
-2. bb
 __Facecope__ is a desktop application for control and management image files stored in the user's local file system. It will automate indexing user-selected photos by different criteria:
 1. registered face in the photo
 2. time of creation
