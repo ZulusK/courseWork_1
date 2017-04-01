@@ -1,7 +1,7 @@
 #Facecope#
 ### The photo management program ###
 
-_[Documentation]_
+[_Documentation_]
 (https://docs.google.com/document/d/1uAafzIcO1uX_CPPadWWjw2VOkqY7Sk7aB99loCDafI4/edit?usp=sharing)
 
 __Facecope__ is a desktop application for control and management image files stored in the user's local file system. It will automate indexing user-selected photos by different criteria:
