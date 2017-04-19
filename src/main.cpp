@@ -1,4 +1,3 @@
-//
-// Created by zulus on 19.04.17.
-//
+int main(int argc, char ** argv){
 
+}
