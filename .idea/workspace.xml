@@ -12,10 +12,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c95522f6-31d7-497d-8766-0290bdc8d51d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/playground/picInfo.cpp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/playground/videoDemo.cpp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/playground/trackDemo.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeLists.txt" afterPath="$PROJECT_DIR$/CMakeLists.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/playground/helloWorld.cpp" afterPath="$PROJECT_DIR$/src/playground/helloWorld.cpp" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -32,7 +30,7 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="348">
@@ -81,10 +79,22 @@
       <file leaf-file-name="helloWorld.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/playground/helloWorld.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="928">
-              <caret line="32" column="18" lean-forward="false" selection-start-line="32" selection-start-column="18" selection-end-line="32" selection-end-column="18" />
+            <state relative-caret-position="377">
+              <caret line="36" column="5" lean-forward="false" selection-start-line="36" selection-start-column="5" selection-end-line="36" selection-end-column="5" />
               <folding>
                 <element signature="e#40#62#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="trackDemo.cpp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/playground/trackDemo.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="464">
+              <caret line="55" column="32" lean-forward="false" selection-start-line="55" selection-start-column="32" selection-end-line="55" selection-end-column="32" />
+              <folding>
+                <element signature="e#0#22#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -93,8 +103,8 @@
       <file leaf-file-name="videoDemo.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/playground/videoDemo.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="29">
-              <caret line="19" column="30" lean-forward="false" selection-start-line="19" selection-start-column="30" selection-end-line="19" selection-end-column="30" />
+            <state relative-caret-position="449">
+              <caret line="40" column="9" lean-forward="false" selection-start-line="37" selection-start-column="8" selection-end-line="40" selection-end-column="9" />
               <folding>
                 <element signature="e#40#62#0" expanded="true" />
               </folding>
@@ -125,11 +135,12 @@
         <option value="$PROJECT_DIR$/src/main.cpp" />
         <option value="$PROJECT_DIR$/src/playground/test.cpp" />
         <option value="$PROJECT_DIR$/src/playground/immodify.cpp.cpp" />
-        <option value="$PROJECT_DIR$/src/playground/helloWorld.cpp" />
         <option value="$PROJECT_DIR$/src/playground/cascadeClasified.cpp" />
         <option value="$PROJECT_DIR$/src/playground/picInfo.cpp" />
         <option value="$PROJECT_DIR$/src/playground/videoDemo.cpp" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/src/playground/helloWorld.cpp" />
+        <option value="$PROJECT_DIR$/src/playground/trackDemo.cpp" />
       </list>
     </option>
   </component>
@@ -406,12 +417,12 @@
       <option name="presentableId" value="Default" />
       <updated>1492615786541</updated>
       <workItem from="1492615795545" duration="1830000" />
-      <workItem from="1492640510730" duration="4758000" />
+      <workItem from="1492640510730" duration="5427000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6588000" />
+    <option name="totallyTimeSpent" value="7257000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="24" width="1366" height="699" extended-state="6" />
@@ -529,16 +540,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/playground/helloWorld.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="928">
-          <caret line="32" column="18" lean-forward="false" selection-start-line="32" selection-start-column="18" selection-end-line="32" selection-end-column="18" />
-          <folding>
-            <element signature="e#40#62#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/playground/cascadeClasified.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="227">
@@ -567,22 +568,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/playground/videoDemo.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="29">
-          <caret line="19" column="30" lean-forward="false" selection-start-line="19" selection-start-column="30" selection-end-line="19" selection-end-column="30" />
-          <folding>
-            <element signature="e#40#62#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="348">
           <caret line="12" column="36" lean-forward="false" selection-start-line="12" selection-start-column="36" selection-end-line="12" selection-end-column="36" />
           <folding>
             <marker date="1492647367148" expanded="true" signature="0:408" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/playground/videoDemo.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="449">
+          <caret line="40" column="9" lean-forward="false" selection-start-line="37" selection-start-column="8" selection-end-line="40" selection-end-column="9" />
+          <folding>
+            <element signature="e#40#62#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/playground/helloWorld.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="377">
+          <caret line="36" column="5" lean-forward="false" selection-start-line="36" selection-start-column="5" selection-end-line="36" selection-end-column="5" />
+          <folding>
+            <element signature="e#40#62#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/playground/trackDemo.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="464">
+          <caret line="55" column="32" lean-forward="false" selection-start-line="55" selection-start-column="32" selection-end-line="55" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#22#0" expanded="true" />
           </folding>
         </state>
       </provider>

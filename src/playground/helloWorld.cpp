@@ -27,12 +27,12 @@ int main(int argc, char **argv) {
     cvShowImage("Hello World", hw);
     // ждём нажатия клавиши
     while (true) {
-        int key = cvWaitKey(0);
-        std::cout<<key<<std::end;
-        if (key == 27) {
+        char c = cvWaitKey(33);
+        if (c == 27) { // если нажата ESC - выходим
             break;
         } else {
-            cvPutText(hw, "Hello world", pt, &font, CV_RGB(0, 255-key, key));
+            cvPutText(hw, "Hello world", pt, &font, CV_RGB(rand()%c, rand()%c, rand()%c));
+            cvShowImage("Hello World", hw);
         }
     }
     // освобождаем ресурсы
