@@ -24,10 +24,12 @@ public:
 
 signals:
   void UpdateItem(int, QImage);
+
 private slots:
   void List(QFileInfoList fileList, QSize size);
   void setThumbs(int index, QImage img);
   void on_treeView_clicked(const QModelIndex &index);
+  void resizeEvent(QResizeEvent *event);
 
 private:
   Ui::FileBrowserWindow *ui;

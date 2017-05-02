@@ -14,6 +14,12 @@
    <string>FileBrowserWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
+   <property name="maximumSize">
+    <size>
+     <width>736</width>
+     <height>467</height>
+    </size>
+   </property>
    <widget class="QSplitter" name="splitter">
     <property name="geometry">
      <rect>
@@ -22,12 +28,6 @@
       <width>721</width>
       <height>451</height>
      </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
     </property>
     <property name="maximumSize">
      <size>
@@ -46,10 +46,19 @@
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="selectionMode">
+      <enum>QAbstractItemView::ContiguousSelection</enum>
+     </property>
      <property name="iconSize">
       <size>
-       <width>200</width>
-       <height>300</height>
+       <width>120</width>
+       <height>80</height>
       </size>
      </property>
      <property name="movement">
