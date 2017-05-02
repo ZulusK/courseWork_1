@@ -26,8 +26,8 @@
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
     </property>
-    <widget class="QTreeView" name="dirTree"/>
-    <widget class="QListView" name="dirList">
+    <widget class="QTreeView" name="treeView"/>
+    <widget class="QListView" name="listView">
      <property name="movement">
       <enum>QListView::Static</enum>
      </property>
