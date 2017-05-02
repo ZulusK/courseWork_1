@@ -2,7 +2,7 @@
 #define MYLISTMODEL_H
 
 #include <QAbstractListModel>
-
+#include <QList>
 class MyListModel : public QAbstractListModel {
   Q_OBJECT
 
@@ -19,6 +19,7 @@ public:
 
   QVariant data(const QModelIndex &index,
                 int role = Qt::DisplayRole) const override;
+  void addData(const QString & str);
 
 private:
   QStringList stringList;

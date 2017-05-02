@@ -17,41 +17,48 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>30</y>
+     <y>0</y>
      <width>601</width>
-     <height>431</height>
+     <height>461</height>
     </rect>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
-     <widget class="QListView" name="listView">
-      <property name="viewMode">
-       <enum>QListView::IconMode</enum>
-      </property>
-     </widget>
+     <widget class="QLineEdit" name="lineEdit"/>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
+     <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QPushButton" name="addBtn">
-        <property name="text">
-         <string>add</string>
+       <widget class="QListView" name="listView">
+        <property name="viewMode">
+         <enum>QListView::IconMode</enum>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="removeBtn">
-        <property name="text">
-         <string>remove</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="changeBtn">
-        <property name="text">
-         <string>change</string>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QPushButton" name="addBtn">
+          <property name="text">
+           <string>add</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="removeBtn">
+          <property name="text">
+           <string>remove</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="changeBtn">
+          <property name="text">
+           <string>change</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </item>
