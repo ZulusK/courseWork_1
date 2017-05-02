@@ -14,6 +14,9 @@ public:
   explicit FileBrowserWindow(QWidget *parent = 0);
   ~FileBrowserWindow();
 
+private slots:
+    void on_dirTree_clicked(const QModelIndex &index);
+
 private:
   Ui::FileBrowserWindow *ui;
   QFileSystemModel *dirModel;
