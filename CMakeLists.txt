@@ -129,3 +129,19 @@ project(rgband)
 find_package( OpenCV REQUIRED )
 add_executable(${CMAKE_PROJECT_NAME} "src/playground/RGBand.cpp")
 target_link_libraries(${CMAKE_PROJECT_NAME} ${OpenCV_LIBS})
+
+project(hsvand)
+find_package( OpenCV REQUIRED )
+add_executable(${CMAKE_PROJECT_NAME} "src/playground/hsvand.cpp")
+target_link_libraries(${CMAKE_PROJECT_NAME} ${OpenCV_LIBS})
+
+project(skin)
+find_package( OpenCV REQUIRED )
+add_executable(${CMAKE_PROJECT_NAME} "src/playground/skinDetector.cpp")
+target_link_libraries(${CMAKE_PROJECT_NAME} ${OpenCV_LIBS})
+
+
+project(filter)
+find_package( OpenCV REQUIRED )
+add_executable(${CMAKE_PROJECT_NAME} "src/playground/filter.cpp")
+target_link_libraries(${CMAKE_PROJECT_NAME} ${OpenCV_LIBS})
