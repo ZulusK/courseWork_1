@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
     cvCopy(src, image);
 
     // сбрасываем ROI
-    cvResetImageROI(image);
+//    cvResetImageROI(image);
     // показываем изображение
     cvShowImage("ROI", image);
 
