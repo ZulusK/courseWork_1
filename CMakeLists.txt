@@ -109,3 +109,23 @@ project(alpha)
 find_package( OpenCV REQUIRED )
 add_executable(${CMAKE_PROJECT_NAME} "src/playground/alphaBlending.cpp")
 target_link_libraries(${CMAKE_PROJECT_NAME} ${OpenCV_LIBS})
+
+project(threahold)
+find_package( OpenCV REQUIRED )
+add_executable(${CMAKE_PROJECT_NAME} "src/playground/threahold.cpp")
+target_link_libraries(${CMAKE_PROJECT_NAME} ${OpenCV_LIBS})
+
+project(threahold2)
+find_package( OpenCV REQUIRED )
+add_executable(${CMAKE_PROJECT_NAME} "src/playground/threahold2.cpp")
+target_link_libraries(${CMAKE_PROJECT_NAME} ${OpenCV_LIBS})
+
+project(threahold3)
+find_package( OpenCV REQUIRED )
+add_executable(${CMAKE_PROJECT_NAME} "src/playground/threahold3.cpp")
+target_link_libraries(${CMAKE_PROJECT_NAME} ${OpenCV_LIBS})
+
+project(rgband)
+find_package( OpenCV REQUIRED )
+add_executable(${CMAKE_PROJECT_NAME} "src/playground/RGBand.cpp")
+target_link_libraries(${CMAKE_PROJECT_NAME} ${OpenCV_LIBS})
