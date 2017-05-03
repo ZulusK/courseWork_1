@@ -78,31 +78,88 @@
 //     Published by O'Reilly Media, October 3, 2008
 // p83
 
+//#include <cv.h>
+//#include <highgui.h>
+//#include <stdio.h>
+//
+//int main(int argc, char** argv)
+//{
+//    CvMat *cmatrix = cvCreateMat(5,5,CV_32FC1);
+//    float element_3_2 = 7.7;
+//    *((float*)CV_MAT_ELEM_PTR( *cmatrix, 3,2) ) = element_3_2;
+//    cvmSet(cmatrix,4,4,0.5000);
+//    cvSetReal2D(cmatrix,3,3,0.5000);
+//    printf("Example 3_17, writing cfg.xml\n");
+//    // открываем файл для записи
+//    CvFileStorage* fs = cvOpenFileStorage(
+//            "cfg.xml",
+//            0,
+//            CV_STORAGE_WRITE
+//    );
+//    // записываем значения
+//    cvWriteInt( fs, "frame_count", 10 );
+//    cvStartWriteStruct( fs, "frame_size", CV_NODE_SEQ);
+//    cvWriteInt( fs, 0, 320 );
+//    cvWriteInt( fs, 0, 200 );
+//    cvEndWriteStruct(fs);
+//    cvWrite( fs, "color_cvt_matrix", cmatrix );
+//    cvReleaseFileStorage( &fs );
+//    return 0;
+//}
+
+
+// Несколько модифицированный пример Example 3-19.
+// демонстрирующий считывание значений из xml-файла
+//
+// из книги:
+//   Learning OpenCV: Computer Vision with the OpenCV Library
+//     by Gary Bradski and Adrian Kaehler
+//     Published by O'Reilly Media, October 3, 2008
+// p84
+
 #include <cv.h>
 #include <highgui.h>
 #include <stdio.h>
 
 int main(int argc, char** argv)
 {
-    CvMat *cmatrix = cvCreateMat(5,5,CV_32FC1);
-    float element_3_2 = 7.7;
-    *((float*)CV_MAT_ELEM_PTR( *cmatrix, 3,2) ) = element_3_2;
-    cvmSet(cmatrix,4,4,0.5000);
-    cvSetReal2D(cmatrix,3,3,0.5000);
-    printf("Example 3_17, writing cfg.xml\n");
-    // открываем файл для записи
+    printf("Example 3_19 Reading in cfg.xml\n");
+
+    // открываем файл для чтения
     CvFileStorage* fs = cvOpenFileStorage(
             "cfg.xml",
             0,
-            CV_STORAGE_WRITE
+            CV_STORAGE_READ
     );
-    // записываем значения
-    cvWriteInt( fs, "frame_count", 10 );
-    cvStartWriteStruct( fs, "frame_size", CV_NODE_SEQ);
-    cvWriteInt( fs, 0, 320 );
-    cvWriteInt( fs, 0, 200 );
-    cvEndWriteStruct(fs);
-    cvWrite( fs, "color_cvt_matrix", cmatrix );
+
+    //
+    // считываем значения
+    //
+    int frame_count = cvReadIntByName(
+            fs,
+            0,
+            "frame_count",
+            5 // значение по-умолчанию
+    );
+
+    CvSeq* s = cvGetFileNodeByName(fs,0,"frame_size")->data.seq;
+
+    int frame_width = cvReadInt(
+            (CvFileNode*)cvGetSeqElem(s,0)
+    );
+
+    int frame_height = cvReadInt(
+            (CvFileNode*)cvGetSeqElem(s,1)
+    );
+
+    CvMat* color_cvt_matrix = (CvMat*) cvRead(
+            fs,
+            0
+    );
+
+    // показываем
+    printf("frame_count=%d, frame_width=%d, frame_height=%d\n",frame_count,frame_width,frame_height);
+
     cvReleaseFileStorage( &fs );
     return 0;
 }

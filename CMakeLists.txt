@@ -90,4 +90,12 @@ find_package( OpenCV REQUIRED )
 add_executable(${CMAKE_PROJECT_NAME} "src/playground/xmlExample.cpp")
 target_link_libraries(${CMAKE_PROJECT_NAME} ${OpenCV_LIBS})
 
+project(noice)
+find_package( OpenCV REQUIRED )
+add_executable(${CMAKE_PROJECT_NAME} "src/playground/noice.cpp")
+target_link_libraries(${CMAKE_PROJECT_NAME} ${OpenCV_LIBS})
 
+project(morfologicTrans)
+find_package( OpenCV REQUIRED )
+add_executable(${CMAKE_PROJECT_NAME} "src/playground/morTrans.cpp")
+target_link_libraries(${CMAKE_PROJECT_NAME} ${OpenCV_LIBS})
