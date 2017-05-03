@@ -2,15 +2,64 @@ cmake_minimum_required(VERSION 2.8.9)
 include_directories(src/include)
 set(CMAKE_CXX_STANDARD 14)
 
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "bin")
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "bin")
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "bin")
-
+#set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "bin")
+#set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "bin")
+#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "bin")
 file(GLOB FACECOPE_SOURCES "src/main.cpp" "src/playground/*.cpp")
 
 project(facecope)
+find_package( OpenCV REQUIRED )
 add_executable(${CMAKE_PROJECT_NAME} ${FACECOPE_SOURCES})
+target_link_libraries(${CMAKE_PROJECT_NAME} ${OpenCV_LIBS})
+
+
+project(captureVideo)
+find_package( OpenCV REQUIRED )
+add_executable(${CMAKE_PROJECT_NAME} "src/playground/captureVideo.cpp")
+target_link_libraries(${CMAKE_PROJECT_NAME} ${OpenCV_LIBS})
+
 #`pkg-config opencv --cflags --libs`
+project(cascadeClasified)
+find_package( OpenCV REQUIRED )
+add_executable(${CMAKE_PROJECT_NAME} "src/playground/cascadeClasified.cpp")
+target_link_libraries(${CMAKE_PROJECT_NAME} ${OpenCV_LIBS})
 
+project(helloWorld)
+find_package( OpenCV REQUIRED )
+add_executable(${CMAKE_PROJECT_NAME} "src/playground/helloWorld.cpp")
+target_link_libraries(${CMAKE_PROJECT_NAME} ${OpenCV_LIBS})
 
+project(imdisplay)
+find_package( OpenCV REQUIRED )
+add_executable(${CMAKE_PROJECT_NAME} "src/playground/imdisplay.cpp")
+target_link_libraries(${CMAKE_PROJECT_NAME} ${OpenCV_LIBS})
 
+project(immodify)
+find_package( OpenCV REQUIRED )
+add_executable(${CMAKE_PROJECT_NAME} "src/playground/immodify.cpp")
+target_link_libraries(${CMAKE_PROJECT_NAME} ${OpenCV_LIBS})
+
+project(picinfo)
+find_package( OpenCV REQUIRED )
+add_executable(${CMAKE_PROJECT_NAME} "src/playground/picInfo.cpp")
+target_link_libraries(${CMAKE_PROJECT_NAME} ${OpenCV_LIBS})
+
+project(trackDemo)
+find_package( OpenCV REQUIRED )
+add_executable(${CMAKE_PROJECT_NAME} "src/playground/trackDemo.cpp")
+target_link_libraries(${CMAKE_PROJECT_NAME} ${OpenCV_LIBS})
+
+project(videoDemo)
+find_package( OpenCV REQUIRED )
+add_executable(${CMAKE_PROJECT_NAME}  "src/playground/videoDemo.cpp")
+target_link_libraries(${CMAKE_PROJECT_NAME} ${OpenCV_LIBS})
+
+project(webcam)
+find_package( OpenCV REQUIRED )
+add_executable(${CMAKE_PROJECT_NAME} "src/playground/webcam.cpp")
+target_link_libraries(${CMAKE_PROJECT_NAME} ${OpenCV_LIBS})
+
+project(mouseTracking)
+find_package( OpenCV REQUIRED )
+add_executable(${CMAKE_PROJECT_NAME} "src/playground/mouseTracking.cpp")
+target_link_libraries(${CMAKE_PROJECT_NAME} ${OpenCV_LIBS})
