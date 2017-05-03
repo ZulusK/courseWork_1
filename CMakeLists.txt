@@ -79,3 +79,8 @@ find_package( OpenCV REQUIRED )
 add_executable(${CMAKE_PROJECT_NAME} "src/playground/roi.cpp")
 target_link_libraries(${CMAKE_PROJECT_NAME} ${OpenCV_LIBS})
 
+project(roiModify)
+find_package( OpenCV REQUIRED )
+add_executable(${CMAKE_PROJECT_NAME} "src/playground/roiModify.cpp")
+target_link_libraries(${CMAKE_PROJECT_NAME} ${OpenCV_LIBS})
+
