@@ -30,18 +30,31 @@ int main(int argc, char* argv[])
     cvNamedWindow("cvFilter2D",CV_WINDOW_AUTOSIZE);
 
     float kernel[9];
-    kernel[0]=0;
-    kernel[1]=0;
-    kernel[2]=0;
+    // сглаживание
+    // увеличение чёткости
+//    kernel[0]=-0.1;
+//    kernel[1]=-0.1;
+//    kernel[2]=-0.1;
+//
+//    kernel[3]=-0.1;
+//    kernel[4]=2;
+//    kernel[5]=-0.1;
+//
+//    kernel[6]=-0.1;
+//    kernel[7]=-0.1;
+//    kernel[8]=-0.1;
+// увеличение яркости
+    kernel[0]=-0.1;
+    kernel[1]=0.2;
+    kernel[2]=-0.1;
 
-    kernel[3]=0;
-    kernel[4]=1;
-    kernel[5]=0;
+    kernel[3]=0.2;
+    kernel[4]=3;
+    kernel[5]=0.2;
 
-    kernel[6]=0;
-    kernel[7]=1;
-    kernel[8]=0;
-
+    kernel[6]=-0.1;
+    kernel[7]=0.2;
+    kernel[8]=-0.1;
     // матрица
     CvMat kernel_matrix=cvMat(3,3,CV_32FC1,kernel);
 
