@@ -150,3 +150,8 @@ project(sobel)
 find_package( OpenCV REQUIRED )
 add_executable(${CMAKE_PROJECT_NAME} "src/playground/sobel.cpp")
 target_link_libraries(${CMAKE_PROJECT_NAME} ${OpenCV_LIBS})
+
+project(sobelFilter)
+find_package( OpenCV REQUIRED )
+add_executable(${CMAKE_PROJECT_NAME} "src/playground/sobelFilter.cpp")
+target_link_libraries(${CMAKE_PROJECT_NAME} ${OpenCV_LIBS})
