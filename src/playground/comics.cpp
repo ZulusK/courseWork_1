@@ -12,10 +12,10 @@
 
 
 int xorder = 10;
-int xorder_max = 100;
+int xorder_max = 255;
 
 int yorder = 100;
-int yorder_max = 200;
+int yorder_max = 255;
 
 //
 // функция-обработчик ползунка -
@@ -32,53 +32,79 @@ void myTrackbarYorder(int pos) {
 }
 
 
+int main(int argc, char *argv[]) {
+    IplImage *src = 0, *r_plane = 0, *g_plane = 0, *b_plane = 0;
+    IplImage *g_bin = 0, *r_bin = 0, *b_bin = 0, *bin = 0, *smooth=0;
 
-int main(int argc, char* argv[])
-{
-    IplImage *src=0, *dst=0, *dst2=0;
+    // получаем любую подключённую камеру
+    CvCapture *capture = cvCreateCameraCapture(CV_CAP_ANY); //cvCaptureFromCAM( 0 );
+    assert(capture);
+//    cvSetCaptureProperty(capture, CV_CAP_PROP_FRAME_WIDTH, 1280);//1280);
+//    cvSetCaptureProperty(capture, CV_CAP_PROP_FRAME_HEIGHT, 960);//960);
+    // узнаем ширину и высоту кадра
+    double width = cvGetCaptureProperty(capture, CV_CAP_PROP_FRAME_WIDTH);
+    double height = cvGetCaptureProperty(capture, CV_CAP_PROP_FRAME_HEIGHT);
 
-    // имя картинки задаётся первым параметром
-    char* filename = (char*)(argc >= 2 ? argv[1] : "Image0.jpg");
-    // получаем картинку в градациях серого
-    src = cvLoadImage(filename, 0);
-
-    printf("[i] image: %s\n", filename);
-    assert( src != 0 );
-
-    // покажем изображение
-    cvNamedWindow( "original", 1 );
-    cvShowImage( "original", src );
-
+    cvNamedWindow("capture", CV_WINDOW_AUTOSIZE);
+    cvNamedWindow("comics", CV_WINDOW_AUTOSIZE);
+    cvNamedWindow("bin", CV_WINDOW_AUTOSIZE);
+    cvCreateTrackbar("xorder", "capture", &xorder, xorder_max, myTrackbarXorder);
+    cvCreateTrackbar("yorder", "capture", &yorder, yorder_max, myTrackbarYorder);
+    src = cvQueryFrame(capture);
+    smooth=cvCloneImage(src);
     // получим бинарное изображение
-    dst2 = cvCreateImage( cvSize(src->width, src->height), IPL_DEPTH_8U, 1);
-    cvCanny(src, dst2, 50, 200);
+    bin = cvCreateImage(cvGetSize(src), IPL_DEPTH_8U, 1);
+    g_bin = cvCreateImage(cvGetSize(src), IPL_DEPTH_8U, 1);
+    b_bin = cvCreateImage(cvGetSize(src), IPL_DEPTH_8U, 1);
+    r_bin = cvCreateImage(cvGetSize(src), IPL_DEPTH_8U, 1);
+    r_plane = cvCreateImage(cvGetSize(src), IPL_DEPTH_8U, 1);
+    g_plane = cvCreateImage(cvGetSize(src), IPL_DEPTH_8U, 1);
+    b_plane = cvCreateImage(cvGetSize(src), IPL_DEPTH_8U, 1);
 
-    cvNamedWindow( "bin", 1 );
-    cvShowImage( "bin", dst2);
+    float kernel[9];
+    // увеличение чёткости
+    kernel[0]=-0.1;
+    kernel[1]=-0.1;
+    kernel[2]=-0.1;
 
-    //cvScale(src, dst);
-    cvSub(src, dst2, dst2);
-    cvNamedWindow( "sub", 1 );
-    cvShowImage( "sub", dst2);
+    kernel[3]=-0.1;
+    kernel[4]=2;
+    kernel[5]=-0.1;
 
-    int aperture = argc == 3 ? atoi(argv[2]) : 3;
+    kernel[6]=-0.1;
+    kernel[7]=-0.1;
+    kernel[8]=-0.1;
+    // матрица
+    CvMat kernel_matrix=cvMat(3,3,CV_32FC1,kernel);
 
-    cvCreateTrackbar("xorder", "original", &xorder, xorder_max, myTrackbarXorder);
-    cvCreateTrackbar("yorder", "original", &yorder, yorder_max, myTrackbarYorder);
-
-    while(1){
+    while (1) {
+        src = cvQueryFrame(capture);
+        // накладываем фильтр
+        cvFilter2D(src, smooth, &kernel_matrix, cvPoint(-1,-1));
+        cvShowImage("capture", smooth);
+//        cvSmooth(src, smooth, CV_GAUSSIAN, 3,3);
 
         // проверяем, чтобы порядок производных по X и Y был отличен от 0
-        if(xorder==0 && yorder==0){
+        if (xorder == 0 && yorder == 0) {
             printf("[i] Error: bad params for cvSobel() !\n");
-            cvZero(dst2);
-        }
-        else{
-            // применяем оператор Собеля
-            cvCanny(src, dst2, xorder, yorder);
-            cvSub(src, dst2, dst2);
-            // преобразуем изображение к 8-битному
-            cvShowImage( "sub", dst2);
+        } else {
+            // разбиваем на отельные каналы
+            cvSplit(smooth, b_plane, g_plane, r_plane, 0);
+            // преобразуем в градации серого
+            cvCanny(b_plane, b_bin, xorder, yorder);
+            cvCanny(r_plane, r_bin, xorder, yorder);
+            cvCanny(g_plane, g_bin, xorder, yorder);
+            // складываем
+            cvAnd(b_bin, g_bin, bin);
+            cvAnd(b_bin, bin, bin);
+
+            cvSub(b_plane, bin, b_plane);
+            cvSub(r_plane, bin, r_plane);
+            cvSub(g_plane, bin, g_plane);
+            cvMerge(b_plane, g_plane, r_plane, NULL, smooth);
+            cvShowImage("bin", bin);
+            cvShowImage("comics", smooth);
+
         }
 
         char c = cvWaitKey(33);
@@ -86,14 +112,14 @@ int main(int argc, char* argv[])
             break;
         }
     }
-
-    // ждём нажатия клавиши
-    cvWaitKey(0);
-
     // освобождаем ресурсы
     cvReleaseImage(&src);
-    cvReleaseImage(&dst);
-    cvReleaseImage(&dst2);
+    cvReleaseImage(&r_bin);
+    cvReleaseImage(&g_bin);
+    cvReleaseImage(&b_bin);
+    cvReleaseImage(&g_plane);
+    cvReleaseImage(&b_plane);
+    cvReleaseImage(&r_plane);
     // удаляем окна
     cvDestroyAllWindows();
     return 0;

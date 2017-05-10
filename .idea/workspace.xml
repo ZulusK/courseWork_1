@@ -2,44 +2,44 @@
 <project version="4">
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" buildAllGenerated="true">
     <generated>
-      <config projectName="facecope" targetName="facecope" />
-      <config projectName="noice" targetName="noice" />
-      <config projectName="mouseTracking" targetName="mouseTracking" />
-      <config projectName="webcam" targetName="imdisplay" />
-      <config projectName="threahold2" targetName="threahold2" />
-      <config projectName="roiModify" targetName="roiModify" />
-      <config projectName="webcam" targetName="helloWorld" />
-      <config projectName="imdisplay" targetName="imdisplay" />
-      <config projectName="webcam" targetName="trackDemo" />
-      <config projectName="filter" targetName="filter" />
-      <config projectName="imdisplay" targetName="helloWorld" />
-      <config projectName="skin" targetName="skin" />
-      <config projectName="webcam" targetName="captureVideo" />
-      <config projectName="fill" targetName="fill" />
-      <config projectName="webcam" targetName="webcam" />
-      <config projectName="webcam" targetName="picinfo" />
-      <config projectName="s" targetName="s" />
-      <config projectName="webcam" targetName="immodify" />
-      <config projectName="comics" targetName="comics" />
-      <config projectName="webcam" targetName="cascadeClasified" />
-      <config projectName="threahold" targetName="threahold" />
-      <config projectName="sobelFilter" targetName="sobelFilter" />
-      <config projectName="threahold3" targetName="threahold3" />
-      <config projectName="smooth" targetName="smooth" />
-      <config projectName="sobel" targetName="sobel" />
-      <config projectName="cascadeClasified" targetName="cascadeClasified" />
-      <config projectName="resize" targetName="resize" />
-      <config projectName="hsvand" targetName="hsvand" />
-      <config projectName="alpha" targetName="alpha" />
-      <config projectName="roi" targetName="roi" />
-      <config projectName="webcam" targetName="facecope" />
-      <config projectName="laplas" targetName="laplas" />
-      <config projectName="canny" targetName="canny" />
       <config projectName="xmlExample" targetName="xmlExample" />
+      <config projectName="hsvand" targetName="hsvand" />
+      <config projectName="webcam" targetName="imdisplay" />
+      <config projectName="roi" targetName="roi" />
+      <config projectName="imdisplay" targetName="helloWorld" />
+      <config projectName="alpha" targetName="alpha" />
+      <config projectName="sobel" targetName="sobel" />
       <config projectName="webcam" targetName="videoDemo" />
+      <config projectName="facecope" targetName="facecope" />
+      <config projectName="filter" targetName="filter" />
+      <config projectName="sobelFilter" targetName="sobelFilter" />
       <config projectName="rgband" targetName="rgband" />
+      <config projectName="webcam" targetName="webcam" />
       <config projectName="morfologicTrans" targetName="morfologicTrans" />
+      <config projectName="webcam" targetName="picinfo" />
+      <config projectName="fill" targetName="fill" />
+      <config projectName="canny" targetName="canny" />
+      <config projectName="webcam" targetName="immodify" />
+      <config projectName="mouseTracking" targetName="mouseTracking" />
+      <config projectName="s" targetName="s" />
+      <config projectName="roiModify" targetName="roiModify" />
+      <config projectName="webcam" targetName="facecope" />
+      <config projectName="noice" targetName="noice" />
+      <config projectName="webcam" targetName="trackDemo" />
+      <config projectName="comics" targetName="comics" />
+      <config projectName="smooth" targetName="smooth" />
+      <config projectName="cascadeClasified" targetName="cascadeClasified" />
+      <config projectName="laplas" targetName="laplas" />
+      <config projectName="threahold2" targetName="threahold2" />
+      <config projectName="webcam" targetName="cascadeClasified" />
+      <config projectName="imdisplay" targetName="imdisplay" />
+      <config projectName="webcam" targetName="captureVideo" />
+      <config projectName="skin" targetName="skin" />
+      <config projectName="threahold" targetName="threahold" />
       <config projectName="captureVideo" targetName="captureVideo" />
+      <config projectName="threahold3" targetName="threahold3" />
+      <config projectName="resize" targetName="resize" />
+      <config projectName="webcam" targetName="helloWorld" />
     </generated>
   </component>
   <component name="CMakeSettings" AUTO_RELOAD="true">
@@ -49,12 +49,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c95522f6-31d7-497d-8766-0290bdc8d51d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/.name" afterPath="$PROJECT_DIR$/.idea/.name" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeLists.txt" afterPath="$PROJECT_DIR$/CMakeLists.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/playground/canny.cpp" afterPath="$PROJECT_DIR$/src/playground/canny.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/playground/comics.cpp" afterPath="$PROJECT_DIR$/src/playground/comics.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/playground/threahold.cpp" afterPath="$PROJECT_DIR$/src/playground/threahold.cpp" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -69,36 +65,24 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5">
+    <splitter split-orientation="horizontal" split-proportion="0.40629575">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="canny.cpp" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/playground/canny.cpp">
+          <file leaf-file-name="RGBand.cpp" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/playground/RGBand.cpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="330">
-                  <caret line="35" column="41" lean-forward="false" selection-start-line="35" selection-start-column="41" selection-end-line="35" selection-end-column="41" />
-                  <folding>
-                    <element signature="e#78#93#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="threahold.cpp" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/playground/threahold.cpp">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="504">
-                  <caret line="24" column="35" lean-forward="false" selection-start-line="24" selection-start-column="35" selection-end-line="24" selection-end-column="35" />
+                <state relative-caret-position="412">
+                  <caret line="163" column="41" lean-forward="true" selection-start-line="161" selection-start-column="8" selection-end-line="163" selection-end-column="41" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="comics.cpp" pinned="false" current-in-tab="false">
+          <file leaf-file-name="comics.cpp" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/playground/comics.cpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="762">
-                  <caret line="99" column="1" lean-forward="false" selection-start-line="99" selection-start-column="1" selection-end-line="99" selection-end-column="1" />
+                <state relative-caret-position="306">
+                  <caret line="83" column="37" lean-forward="false" selection-start-line="83" selection-start-column="37" selection-end-line="83" selection-end-column="37" />
                   <folding>
                     <element signature="e#130#145#0" expanded="true" />
                   </folding>
@@ -106,21 +90,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="sobel.cpp" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/playground/sobel.cpp">
+          <file leaf-file-name="smooth.cpp" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/playground/smooth.cpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="762">
-                  <caret line="56" column="1" lean-forward="false" selection-start-line="56" selection-start-column="1" selection-end-line="56" selection-end-column="1" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="sobelFilter.cpp" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/playground/sobelFilter.cpp">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="402">
-                  <caret line="80" column="5" lean-forward="true" selection-start-line="58" selection-start-column="4" selection-end-line="80" selection-end-column="5" />
+                <state relative-caret-position="412">
+                  <caret line="25" column="40" lean-forward="false" selection-start-line="25" selection-start-column="40" selection-end-line="25" selection-end-column="40" />
                   <folding />
                 </state>
               </provider>
@@ -129,14 +103,26 @@
         </leaf>
       </split-first>
       <split-second>
-        <leaf>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="comics.cpp" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/playground/comics.cpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="306">
-                  <caret line="77" column="45" lean-forward="false" selection-start-line="77" selection-start-column="45" selection-end-line="77" selection-end-column="45" />
+                <state relative-caret-position="192">
+                  <caret line="49" column="22" lean-forward="false" selection-start-line="49" selection-start-column="22" selection-end-line="49" selection-end-column="22" />
                   <folding>
                     <element signature="e#130#145#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="filter.cpp" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/playground/filter.cpp">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="402">
+                  <caret line="68" column="17" lean-forward="true" selection-start-line="68" selection-start-column="17" selection-end-line="68" selection-end-column="17" />
+                  <folding>
+                    <element signature="e#84#99#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -638,18 +624,19 @@
       <workItem from="1493817395880" duration="6416000" />
       <workItem from="1494356407403" duration="660000" />
       <workItem from="1494362727986" duration="209000" />
-      <workItem from="1494402281217" duration="4584000" />
+      <workItem from="1494402281217" duration="5183000" />
+      <workItem from="1494449524558" duration="4445000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28811000" />
+    <option name="totallyTimeSpent" value="33855000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="24" width="1366" height="699" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24963397" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15080526" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.7019231" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -680,7 +667,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32852563" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32852563" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24963397" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.027086383" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -759,20 +746,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="546">
           <caret line="36" column="5" lean-forward="false" selection-start-line="36" selection-start-column="5" selection-end-line="36" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/playground/webcam.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="37" column="16" lean-forward="false" selection-start-line="37" selection-start-column="16" selection-end-line="37" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/playground/smooth.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="25" column="40" lean-forward="false" selection-start-line="25" selection-start-column="40" selection-end-line="25" selection-end-column="40" />
         </state>
       </provider>
     </entry>
@@ -874,16 +847,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/playground/filter.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1200">
-          <caret line="50" column="18" lean-forward="false" selection-start-line="50" selection-start-column="18" selection-end-line="50" selection-end-column="18" />
-          <folding>
-            <element signature="e#84#99#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/include/opencv2/objdetect/objdetect_c.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="48">
@@ -932,7 +895,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="354">
           <caret line="18" column="29" lean-forward="false" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="29" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -940,7 +902,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="24">
           <caret line="8" column="13" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="75" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -948,19 +909,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="546">
           <caret line="74" column="4" lean-forward="false" selection-start-line="74" selection-start-column="4" selection-end-line="74" selection-end-column="65" />
-          <folding>
-            <element signature="e#162#177#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/playground/RGBand.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="546">
-          <caret line="94" column="25" lean-forward="false" selection-start-line="94" selection-start-column="18" selection-end-line="94" selection-end-column="25" />
-          <folding>
-            <element signature="e#139#154#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -968,7 +916,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
           <caret line="37" column="12" lean-forward="false" selection-start-line="37" selection-start-column="12" selection-end-line="37" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -976,7 +923,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="258">
           <caret line="40" column="9" lean-forward="false" selection-start-line="37" selection-start-column="8" selection-end-line="40" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -984,7 +930,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-240">
           <caret line="5" column="2" lean-forward="false" selection-start-line="5" selection-start-column="2" selection-end-line="5" selection-end-column="2" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -992,17 +937,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="522">
           <caret line="172" column="59" lean-forward="false" selection-start-line="172" selection-start-column="59" selection-end-line="172" selection-end-column="59" />
-          <folding>
-            <marker date="1494405985770" expanded="true" signature="0:2081" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/playground/threahold.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="24" column="35" lean-forward="false" selection-start-line="24" selection-start-column="35" selection-end-line="24" selection-end-column="35" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1010,13 +944,44 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="816">
           <caret line="55" column="32" lean-forward="false" selection-start-line="55" selection-start-column="32" selection-end-line="55" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/playground/sobelFilter.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="964">
+          <caret line="75" column="0" lean-forward="false" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/playground/sobel.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="552">
+          <caret line="56" column="1" lean-forward="false" selection-start-line="56" selection-start-column="1" selection-end-line="56" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/playground/webcam.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="47" column="41" lean-forward="true" selection-start-line="45" selection-start-column="12" selection-end-line="47" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/playground/threahold.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="24" column="35" lean-forward="false" selection-start-line="24" selection-start-column="35" selection-end-line="24" selection-end-column="35" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/playground/canny.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
+        <state relative-caret-position="42">
           <caret line="35" column="41" lean-forward="false" selection-start-line="35" selection-start-column="41" selection-end-line="35" selection-end-column="41" />
           <folding>
             <element signature="e#78#93#0" expanded="true" />
@@ -1024,26 +989,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/playground/sobel.cpp">
+    <entry file="file://$PROJECT_DIR$/src/playground/RGBand.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="762">
-          <caret line="56" column="1" lean-forward="false" selection-start-line="56" selection-start-column="1" selection-end-line="56" selection-end-column="1" />
+        <state relative-caret-position="412">
+          <caret line="163" column="41" lean-forward="true" selection-start-line="161" selection-start-column="8" selection-end-line="163" selection-end-column="41" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/playground/sobelFilter.cpp">
+    <entry file="file://$PROJECT_DIR$/src/playground/smooth.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="412">
+          <caret line="25" column="40" lean-forward="false" selection-start-line="25" selection-start-column="40" selection-end-line="25" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/playground/filter.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="402">
-          <caret line="80" column="5" lean-forward="true" selection-start-line="58" selection-start-column="4" selection-end-line="80" selection-end-column="5" />
-          <folding />
+          <caret line="68" column="17" lean-forward="true" selection-start-line="68" selection-start-column="17" selection-end-line="68" selection-end-column="17" />
+          <folding>
+            <element signature="e#84#99#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/playground/comics.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="77" column="45" lean-forward="false" selection-start-line="77" selection-start-column="45" selection-end-line="77" selection-end-column="45" />
+        <state relative-caret-position="192">
+          <caret line="49" column="22" lean-forward="false" selection-start-line="49" selection-start-column="22" selection-end-line="49" selection-end-column="22" />
           <folding>
             <element signature="e#130#145#0" expanded="true" />
           </folding>
