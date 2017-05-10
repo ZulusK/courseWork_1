@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
     cvCvtColor(image, gray, CV_RGB2GRAY);
 
     // получаем границы
-    cvCanny(gray, dst, 10, 100, 3);
+    cvCanny(gray, dst, 100, 250, 3);
 
     // показываем картинки
     cvShowImage("original",image);
