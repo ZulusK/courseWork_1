@@ -19,16 +19,17 @@ int main(int argc, const char **argv) {
     cout
             << "\nThis program demonstrates using the cv::CascadeClassifier class to detect objects (Face + eyes) in a video stream.\n"
                     "You can use Haar or LBP features.\n\n";
-    face_cascade_name = "../res/haarcascades/haarcascade_frontalcatface.xml";
+    face_cascade_name = "../res/haarcascades/haarcascade_frontalface_default.xml";
     eyes_cascade_name = "../res/haarcascades/haarcascade_eye.xml";
+
     VideoCapture capture;
     Mat frame;
     //-- 1. Load the cascades
-    if (!face_cascade.load(face_cascade_name)) {
-        printf("--(!)Error loading face cascade\n");
+    if (!eyes_cascade.load(eyes_cascade_name)) {
+        printf("--(!)Error loading eyes cascade\n");
         return -1;
     };
-    if (!eyes_cascade.load(eyes_cascade_name)) {
+    if (!face_cascade.load(face_cascade_name)) {
         printf("--(!)Error loading eyes cascade\n");
         return -1;
     };
