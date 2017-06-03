@@ -16,4 +16,8 @@ cv::Point2f getCenter(const cv::Rect &rect);
 
 float getRotation(const cv::Rect &rect1, const cv::Rect &rect2);
 
+cv::Size getSize(const cv::Mat &M, float scale);
+
+cv::Size getSize(const cv::Rect &R, float scale);
+
 #endif //FISHERFACE_UTILS_H

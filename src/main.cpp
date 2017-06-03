@@ -10,18 +10,27 @@ using namespace cv;
 
 String window_name = "Capture - Face detection";
 
-void detectAndDisplay(Mat& frame,FaceDetector & detector) {
+void detectAndDisplay(Mat &frame, FaceDetector &detector) {
     std::vector<Rect> rects;
     std::vector<Mat> faces;
+    std::vector<PersonFace *> persons;
     //-- Detect faces
-    detector.detectFaces(frame,rects,true);
-    detector.getFaces(frame,faces,false,true);
+//    detector.detectFaces(frame, rects, true);
+    detector.getFaces(frame, persons, true,true);
 //    for (size_t i = 0; i < rects.size(); i++) {
 //        rectangle(frame,rects[i],Scalar(255, 0, 255));
 //    }
     //-- Show what you got
-    if(!faces.empty())
-    imshow(window_name, faces[0]);
+    if (!persons.empty())
+        imshow(window_name, persons[0]->getFaceRGB());
+    else{
+        imshow(window_name, frame);
+    }
+    for (int i = 0; i < persons.size(); i++) {
+        delete persons[i];
+    }
+    persons.clear();
+    rects.clear();
 }
 
 
@@ -45,7 +54,7 @@ int main(int argc, char **argv) {
             break;
         }
         //-- 3. Apply the classifier to the frame
-        detectAndDisplay(frame,detector);
+        detectAndDisplay(frame, detector);
         char c = (char) waitKey(10);
         if (c == 27) { break; } // escape
     }

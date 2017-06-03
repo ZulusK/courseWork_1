@@ -18,20 +18,19 @@ private:
     cv::Rect eyes[2];
     cv::Rect smile;
     long id;
+
+
 public:
-    PersonFace(const cv::Mat &faceRGB, long id = 0);
 
     PersonFace(const cv::Mat &faceRGB, const cv::Mat &faceGray, long id = 0);
+
+    PersonFace(const cv::Mat &faceRGB, long id = 0);
 
     ~PersonFace();
 
     long getId() const;
 
     void setId(long id);
-
-    void setFaceRGB(const cv::Mat &faceRGB);
-
-    void setFaceGray(const cv::Mat &faceGray);
 
     void setEyes(cv::Rect &left, cv::Rect &rect);
 
@@ -44,6 +43,9 @@ public:
     const cv::Rect *getEyes() const;
 
     const cv::Rect &getSmile() const;
+
+    void setFaceRGB(const cv::Mat &faceRGB);
+
 };
 
 

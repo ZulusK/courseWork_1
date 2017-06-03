@@ -1,112 +1,45 @@
 //
-// Created by Danil Kazimirov on 02.06.17.
+// Created by Danil Kazimirov on 03.06.17.
 //
 
 #include <FaceDetector.h>
-#include <string>
-#include <fstream>
-#include <opencv2/imgproc.hpp>
-#include <iostream>
 #include <Utils.h>
+#include <iostream>
 
 using namespace std;
 using namespace cv;
-
 enum {
     FACE = 0xA,
     EYE,
     SMILE
 };
 
-
-FaceDetector::FaceDetector(const string &cascadeFolderPath) {
-    CascadeClassifier *face_cascade;
-    CascadeClassifier *eyes_cascade;
-    CascadeClassifier *smile_cascade;
-
-    //load face cascade from file
+FaceDetector::FaceDetector(const std::string &cascadeFolderPath) {
     if (isValidPath(cascadeFolderPath + FACE_CASCADE_NAME)) {
-        face_cascade = new CascadeClassifier();
-        face_cascade->load(cascadeFolderPath + FACE_CASCADE_NAME);
-        cascades[FACE] = face_cascade;
+        cascades[FACE] = new CascadeClassifier();
+        cascades[FACE]->load(cascadeFolderPath + FACE_CASCADE_NAME);
     }
-
-    //load eye cascade from file
     if (isValidPath(cascadeFolderPath + EYE_CASCADE_NAME)) {
-        eyes_cascade = new CascadeClassifier();
-        eyes_cascade->load(cascadeFolderPath + EYE_CASCADE_NAME);
-        cascades[EYE] = eyes_cascade;
+        cascades[EYE] = new CascadeClassifier();
+        cascades[EYE]->load(cascadeFolderPath + EYE_CASCADE_NAME);
     }
-
-    //load smile cascade from file
     if (isValidPath(cascadeFolderPath + SMILE_CASCADE_NAME)) {
-        smile_cascade = new CascadeClassifier();
-        smile_cascade->load(cascadeFolderPath + SMILE_CASCADE_NAME);
-        cascades[SMILE] = smile_cascade;
+        cascades[SMILE] = new CascadeClassifier();
+        cascades[SMILE]->load(cascadeFolderPath + SMILE_CASCADE_NAME);
     }
-
-
-    this->default_scale = 1.5;
+    this->def_scaleFactor = 1.5;
+    this->def_face_min = Size(50, 50);
+    this->def_eye_min = 0.3;
+    this->def_smile_min = 0.4;
+    this->def_eye_max = 0.5;
+    this->def_smile_max = 0.55;
 }
 
-FaceDetector::~FaceDetector() {
+FaceDetector::~ FaceDetector() {
     for (auto it = cascades.begin(); it != cascades.end(); it++) {
         delete it->second;
     }
     cascades.clear();
-}
-
-
-Mat FaceDetector::normalizeFace(cv::Mat &image) {
-    vector<Rect> eyes;
-    Mat gray = toGrayscale(image);
-    //find eyes
-    if (cascades.find(EYE) != cascades.end()) {
-        findObject(*cascades[EYE], gray, eyes, default_scale, default_min_size, default_min_size);
-    }
-    Mat dst;
-
-    if (eyes.size() > 2) {
-        float angle = getRotation(eyes[0], eyes[1]);
-        Mat rot_mat = getRotationMatrix2D(Point2f(image.cols / 2.0, image.rows / 2.0), angle, 1.0);
-        warpAffine(image, dst, rot_mat, image.size());
-    } else {
-        dst = image.clone();
-    }
-    return dst;
-}
-
-Mat FaceDetector::getFace(const Mat &image, const Rect &rect, bool normalized) {
-    Mat cropped = image(rect);
-    if (!normalized) {
-        return cropped;
-    } else {
-        return normalizeFace(cropped);
-    }
-}
-
-void FaceDetector::getFaces(const Mat &image, vector<Mat> &faces, bool toGray, bool normalized) {
-    vector<Rect> rects;
-    Mat gray = toGrayscale(image);
-    detectFaces(gray, rects, true);
-    if (toGray) {
-        getFaces(gray, rects, faces, true, normalized);
-    } else {
-        getFaces(image, rects, faces, false, normalized);
-    }
-}
-
-void FaceDetector::getFaces(const Mat &image, vector<Rect> &rects, vector<Mat> &faces, bool toGray, bool normalized) {
-    if (toGray) {
-        auto gray = toGrayscale(image);
-        for (auto it = rects.begin(); it != rects.end(); it++) {
-            faces.push_back(getFace(gray, *it, normalized));
-        }
-    } else {
-        for (auto it = rects.begin(); it != rects.end(); it++) {
-            faces.push_back(getFace(image, *it, normalized));
-        }
-    }
 }
 
 bool FaceDetector::isLoaded_face() {
@@ -121,128 +54,172 @@ bool FaceDetector::isLoaded_smile() {
     return cascades.find(SMILE) != cascades.end() && !cascades[SMILE]->empty();
 }
 
-void FaceDetector::findObject(CascadeClassifier &classifier, const cv::Mat &grayImage, std::vector<cv::Rect> &rects,
-                              double scaleFactor,
-                              cv::Size minSize, cv::Size maxSize) {
+void FaceDetector::detectObject(CascadeClassifier &classifier, const cv::Mat &grayImage, std::vector<cv::Rect> &rects,
+                                double scaleFactor,
+                                cv::Size minSize, cv::Size maxSize) {
     if (!classifier.empty() || grayImage.channels() > 1) {
-        classifier.detectMultiScale(grayImage, rects, scaleFactor, 3, 0 | CASCADE_SCALE_IMAGE, minSize, maxSize);
+        classifier.detectMultiScale(grayImage, rects, scaleFactor, 2, 0 | CASCADE_SCALE_IMAGE, minSize, maxSize);
     }
 }
 
-void FaceDetector::detectEyes(const cv::Mat &image, std::vector<cv::Rect> &rects, double scaleFactor, cv::Size minSize,
-                              cv::Size maxSize) {
-    if (isLoaded_eye()) {
-        auto gray = toGrayscale(image);
-        findObject(*cascades[EYE], gray, rects, scaleFactor, minSize, maxSize);
+void FaceDetector::removeArtifactsFaces(cv::Mat &grayImage, std::vector<cv::Rect> &rects) {
+    if (grayImage.channels() > 1 || !isLoaded_eye()) {
+        return;
+    }
+    for (int i = 0; i < rects.size(); i++) {
+        vector<Rect> eyes;
+        detectObject(*cascades[EYE], grayImage, eyes, def_scaleFactor,
+                     Size(grayImage.cols * def_eye_min, grayImage.rows * def_eye_min),
+                     Size(grayImage.cols * def_eye_max, grayImage.rows * def_eye_max));
+        if (eyes.size() < 2) {
+            rects.erase(rects.begin() + i);
+            i--;
+        }
     }
 }
 
-
-void
-FaceDetector::detectFaces(const Mat &image, vector<Rect> &rects, bool removeArtifacts, double scaleFactor, Size minSize,
-                          Size maxSize) {
+void FaceDetector::detectFace(const cv::Mat &originalImage, std::vector<cv::Rect> rects, bool detectAllDegreese,
+                              bool removeArtifacts) {
     if (isLoaded_face()) {
-        auto gray = toGrayscale(image);
-        findObject(*cascades[FACE], gray, rects, scaleFactor, minSize, maxSize);
-        if (removeArtifacts && isLoaded_eye()) {
-            for (int i = 0; i < rects.size(); i++) {
-                vector<Rect> eyes;
-                findObject(*cascades[EYE], gray(rects[i]), eyes, default_scale, default_min_size, default_max_size);
-                if (eyes.empty()) {
-                    rects.erase(rects.begin() + i);
-                    i--;
+        Mat grayImage = toGrayscale(originalImage);
+        detectObject(*cascades[FACE], grayImage, rects, def_scaleFactor, def_face_min, def_face_max);
+        if (removeArtifacts) {
+            removeArtifactsFaces(grayImage, rects);
+        }
+    }
+}
+
+void FaceDetector::detectEye(const cv::Mat &originalImage, std::vector<cv::Rect> rects) {
+    if (isLoaded_eye()) {
+        Mat grayImage = toGrayscale(originalImage);
+        detectObject(*cascades[EYE], grayImage, rects, def_scaleFactor,
+                     Size(grayImage.cols * def_eye_min, grayImage.rows * def_eye_min),
+                     Size(grayImage.cols * def_eye_max, grayImage.rows * def_eye_max));
+    }
+}
+
+void FaceDetector::detectSmile(const cv::Mat &originalImage, std::vector<cv::Rect> rects) {
+    if (isLoaded_smile()) {
+        Mat grayImage = toGrayscale(originalImage);
+        detectObject(*cascades[SMILE], grayImage, rects, def_scaleFactor,
+                     Size(grayImage.cols * def_smile_min, grayImage.rows * def_smile_min),
+                     Size(grayImage.cols * def_smile_min, grayImage.rows * def_smile_max));
+    }
+}
+
+Mat FaceDetector::cutFace(const cv::Mat &image, const cv::Rect &rect, bool normalize) {
+    Mat roi = image(rect);
+    if (normalize) {
+        roi = normalizeFace(roi);
+    }
+    return roi;
+}
+
+
+void FaceDetector::getFaces(const cv::Mat &image, std::vector<PersonFace *> &persons, bool detectAllDegreese,
+                            bool normalized) {
+    if (isLoaded_face() && isLoaded_eye()) {
+        Mat grayImage = toGrayscale(image);
+        vector<Rect> rects;
+        detectObject(*cascades[FACE], grayImage, rects, def_scaleFactor, def_face_min, def_face_max);
+
+        //remove artifacts
+        for (int i = 0; i < rects.size(); i++) {
+            vector<Rect> eyes;
+            detectObject(*cascades[EYE], grayImage(rects[i]), eyes, def_scaleFactor,
+                         Size(rects[i].width * def_eye_min, rects[i].height * def_eye_min),
+                         Size(rects[i].width * def_eye_max, rects[i].height * def_eye_max));
+            if (eyes.size() < 1) {
+                rects.erase(rects.begin() + i);
+                i--;
+            } else {
+                PersonFace *personFace;
+                if (normalized && eyes.size() > 1) {
+                    Mat norm_face = normalizeFace(image(rects[i]), eyes[0], eyes[1]);
+                    personFace = new PersonFace(norm_face, 0);
+                } else {
+                    personFace = new PersonFace(image(rects[i]), 0);
                 }
+                persons.push_back(personFace);
             }
         }
     }
 }
 
-void FaceDetector::detectSmile(const cv::Mat &image, std::vector<cv::Rect> &rects, double scaleFactor, cv::Size minSize,
-                               cv::Size maxSize) {
-    if (isLoaded_smile()) {
-        auto gray = toGrayscale(image);
-        findObject(*cascades[SMILE], gray, rects, scaleFactor, minSize, maxSize);
+Mat FaceDetector::normalizeFace(const cv::Mat &image) {
+    vector<Rect> eyes;
+    detectEye(image, eyes);
+    if (eyes.size() > 2) {
+        return normalizeFace(image, eyes[0], eyes[1]);
+    } else {
+        return image;
     }
 }
 
-const Size &FaceDetector::getDefault_min_size() const {
-    return default_min_size;
+Mat FaceDetector::normalizeFace(const cv::Mat &image, cv::Rect &eye_1, cv::Rect &eye_2) {
+    float angle = getRotation(eye_1, eye_2);
+    if (angle > 15) {
+        angle = 15;
+    } else if (angle < -15) {
+        angle = -15;
+    }
+    cout << angle << endl;
+    Mat rot_mat = getRotationMatrix2D(Point2f(image.cols / 2.0, image.rows / 2.0), angle, 1.0);
+    Mat dst;
+    warpAffine(image, dst, rot_mat, image.size());
+    return dst;
 }
 
-void FaceDetector::setDefault_min_size(const Size &default_min_size) {
-    this->default_min_size = default_min_size;
+const Size &FaceDetector::getDef_face_min() const {
+    return def_face_min;
 }
 
-const Size &FaceDetector::getDefault_max_size() const {
-    return default_max_size;
+void FaceDetector::setDef_face_min(const Size &def_face_min) {
+    this->def_face_min = def_face_min;
 }
 
-void FaceDetector::setDefault_max_size(const Size &default_max_size) {
-    this->default_max_size = default_max_size;
+const Size &FaceDetector::getDef_face_max() const {
+    return def_face_max;
 }
 
-double FaceDetector::getDefault_scale() const {
-    return default_scale;
+void FaceDetector::setDef_face_max(const Size &def_face_max) {
+    this->def_face_max = def_face_max;
 }
 
-void FaceDetector::setDefault_scale(double default_scale) {
-    if (default_scale > 1)
-        this->default_scale = default_scale;
+float FaceDetector::getDef_eye_min() const {
+    return def_eye_min;
 }
 
-void FaceDetector::getFaces(const cv::Mat &image, std::vector<cv::Rect> &rects, std::vector<PersonFace *> &persons,
-                            bool normalized) {
-    Mat gray = toGrayscale(image);
-    detectFaces(image, rects, false,default_scale,default_min_size,default_max_size);
-
+void FaceDetector::setDef_eye_min(float def_eye_min) {
+    if (def_eye_min >= 0)
+        this->def_eye_min = def_eye_min;
 }
 
-float FaceDetector::getDef_faceScale_min() const {
-    return def_faceScale_min;
+float FaceDetector::getDef_eye_max() const {
+    return def_eye_max;
 }
 
-void FaceDetector::setDef_faceScale_min(float def_faceScale_min) {
-    FaceDetector::def_faceScale_min = def_faceScale_min;
+void FaceDetector::setDef_eye_max(float def_eye_max) {
+    if (def_eye_max >= 0)
+        def_eye_max = def_eye_max;
 }
 
-float FaceDetector::getDef_eyeScale_min() const {
-    return def_eyeScale_min;
+float FaceDetector::getDef_smile_min() const {
+    return def_smile_min;
 }
 
-void FaceDetector::setDef_eyeScale_min(float def_eyeScale_min) {
-    FaceDetector::def_eyeScale_min = def_eyeScale_min;
+void FaceDetector::setDef_smile_min(float def_smile_min) {
+    if (def_smile_min >= 0)
+        this->def_smile_min = def_smile_min;
 }
 
-float FaceDetector::getDef_mouthScale_min() const {
-    return def_mouthScale_min;
+float FaceDetector::getDef_smile_max() const {
+    return def_smile_max;
 }
 
-void FaceDetector::setDef_mouthScale_min(float def_mouthScale_min) {
-    FaceDetector::def_mouthScale_min = def_mouthScale_min;
-}
-
-float FaceDetector::getDef_faceScale_max() const {
-    return def_faceScale_max;
-}
-
-void FaceDetector::setDef_faceScale_max(float def_faceScale_max) {
-    FaceDetector::def_faceScale_max = def_faceScale_max;
-}
-
-float FaceDetector::getDef_eyeScale_max() const {
-    return def_eyeScale_max;
-}
-
-void FaceDetector::setDef_eyeScale_max(float def_eyeScale_max) {
-    FaceDetector::def_eyeScale_max = def_eyeScale_max;
-}
-
-float FaceDetector::getDef_mouthScale_max() const {
-    return def_mouthScale_max;
-}
-
-void FaceDetector::setDef_mouthScale_max(float def_mouthScale_max) {
-    FaceDetector::def_mouthScale_max = def_mouthScale_max;
+void FaceDetector::setDef_smile_max(float def_smile_max) {
+    if (def_smile_max >= 0)
+        this->def_smile_max = def_smile_max;
 }
 
 double FaceDetector::getDef_scaleFactor() const {
@@ -250,5 +227,6 @@ double FaceDetector::getDef_scaleFactor() const {
 }
 
 void FaceDetector::setDef_scaleFactor(double def_scaleFactor) {
-    FaceDetector::def_scaleFactor = def_scaleFactor;
+    if (def_scaleFactor >= 0)
+        this->def_scaleFactor = def_scaleFactor;
 }

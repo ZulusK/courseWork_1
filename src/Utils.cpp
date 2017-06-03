@@ -41,7 +41,7 @@ float getRotation(const Rect &rect1, const Rect &rect2) {
     auto p1 = getCenter(rect1);
     auto p2 = getCenter(rect2);
 
-    if (p1.x >= p2.x)
+    if (p1.x <= p2.x)
         angle = atan((p1.y - p2.y) / (p1.x - p2.x));
     else
         angle = atan((p2.y - p1.y) / (p2.x - p1.x));
@@ -49,4 +49,12 @@ float getRotation(const Rect &rect1, const Rect &rect2) {
     angle *= 180;
     angle /= M_PI;
     return angle;
+}
+
+Size getSize(const Mat &M, float scale) {
+    return Size(M.cols * scale, M.rows * scale);
+}
+
+Size getSize(const Rect &R, float scale) {
+    return Size(R.width * scale, R.height * scale);
 }

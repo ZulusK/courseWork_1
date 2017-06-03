@@ -9,25 +9,26 @@ using namespace std;
 using namespace cv;
 
 
+PersonFace::PersonFace(const cv::Mat &faceRGB, const cv::Mat &faceGray, long id) {
+    setId(id);
+    this->faceGray = faceGray.clone();
+    this->faceRGB = faceRGB.clone();
+}
+
 PersonFace::PersonFace(const cv::Mat &faceRGB, long id) {
     setId(id);
-    setFaceRGB(faceRGB);
-}
-
-
-
-void PersonFace::setFaceRGB(const Mat &faceRGB) {
     this->faceRGB = faceRGB.clone();
-    this->faceGray = toGrayscale(faceRGB);
-}
-
-void PersonFace::setFaceGray(const Mat &faceGray) {
-    this->faceGray = faceGray;
+    this->faceGray = toGrayscale(this->faceRGB);
 }
 
 void PersonFace::setEyes(Rect &left, Rect &right) {
-    this->eyes[0] = left;
-    this->eyes[1] = right;
+    if (left.x > right.x) {
+        this->eyes[1] = left;
+        this->eyes[0] = right;
+    } else {
+        this->eyes[0] = left;
+        this->eyes[1] = right;
+    }
 }
 
 void PersonFace::setSmile(const Rect &smile) {
@@ -48,4 +49,17 @@ const Rect *PersonFace::getEyes() const {
 
 const Rect &PersonFace::getSmile() const {
     return smile;
+}
+
+void PersonFace::setId(long id) {
+    this->id = id;
+}
+
+PersonFace::~PersonFace() {
+
+}
+
+void PersonFace::setFaceRGB(const Mat &faceRGB) {
+    this->faceRGB = faceRGB;
+    this->faceGray = toGrayscale(this->faceRGB);
 }
