@@ -7,6 +7,7 @@
 #include <fstream>
 #include <opencv2/imgproc.hpp>
 #include <iostream>
+#include <Utils.h>
 
 using namespace std;
 using namespace cv;
@@ -17,26 +18,6 @@ enum {
     SMILE
 };
 
-bool isValidPath(const string &path) {
-    fstream fin(path);
-    if (fin.is_open()) {
-        fin.close();
-        return true;
-    } else {
-        return false;
-    }
-}
-
-Mat toGrayscale(const Mat &src) {
-    // Create and return grayscaled image:
-    if (src.channels() > 1) {
-        Mat dst;
-        cvtColor(src, dst, COLOR_BGR2GRAY);
-        return dst;
-    } else {
-        return src;
-    }
-}
 
 FaceDetector::FaceDetector(const string &cascadeFolderPath) {
     CascadeClassifier *face_cascade;
@@ -75,54 +56,23 @@ FaceDetector::~FaceDetector() {
     cascades.clear();
 }
 
-/**
- * get center of rectangle
- * @param rect
- * @return
- */
-Point2f getCenter(const Rect &rect) {
-    return Point2f(rect.x + rect.width / 2.0, rect.y + rect.height / 2.0);
-}
-
-/**
- * get angle between centers of two first rects
- * @param rects
- * @return degreese of rotation
- */
-float getRootation(const vector<Rect> &rects) {
-    float angle = 0;
-    if (rects.size() > 2) {
-        auto eye1 = getCenter(rects[0]);
-        auto eye2 = getCenter(rects[1]);
-        //if eye 1 is left eye
-        if (eye1.x >= eye2.x)
-            angle = atan((eye1.y - eye2.y) / (eye1.x - eye2.x));
-        else
-            angle = atan((eye2.y - eye1.y) / (eye2.x - eye1.x));
-
-        angle *= 180;
-        angle /= M_PI;
-        cout<<angle<<endl;
-    }
-    return angle;
-}
 
 Mat FaceDetector::normalizeFace(cv::Mat &image) {
-    vector<Rect> smile;
     vector<Rect> eyes;
     Mat gray = toGrayscale(image);
     //find eyes
     if (cascades.find(EYE) != cascades.end()) {
         findObject(*cascades[EYE], gray, eyes, default_scale, default_min_size, default_min_size);
     }
-    //find smile
-//    if (cascades.find(SMILE) != cascades.end()) {
-//        findObject(*cascades[SMILE], gray, smile, default_scale, default_min_size, default_min_size);
-//    }
-    float angle = getRootation(eyes);
-    Mat rot_mat = getRotationMatrix2D(Point2f(image.cols / 2.0, image.rows / 2.0), angle, 1.0);
     Mat dst;
-    warpAffine(image, dst, rot_mat, image.size());
+
+    if (eyes.size() > 2) {
+        float angle = getRotation(eyes[0], eyes[1]);
+        Mat rot_mat = getRotationMatrix2D(Point2f(image.cols / 2.0, image.rows / 2.0), angle, 1.0);
+        warpAffine(image, dst, rot_mat, image.size());
+    } else {
+        dst = image.clone();
+    }
     return dst;
 }
 
@@ -238,4 +188,67 @@ double FaceDetector::getDefault_scale() const {
 void FaceDetector::setDefault_scale(double default_scale) {
     if (default_scale > 1)
         this->default_scale = default_scale;
+}
+
+void FaceDetector::getFaces(const cv::Mat &image, std::vector<cv::Rect> &rects, std::vector<PersonFace *> &persons,
+                            bool normalized) {
+    Mat gray = toGrayscale(image);
+    detectFaces(image, rects, false,default_scale,default_min_size,default_max_size);
+
+}
+
+float FaceDetector::getDef_faceScale_min() const {
+    return def_faceScale_min;
+}
+
+void FaceDetector::setDef_faceScale_min(float def_faceScale_min) {
+    FaceDetector::def_faceScale_min = def_faceScale_min;
+}
+
+float FaceDetector::getDef_eyeScale_min() const {
+    return def_eyeScale_min;
+}
+
+void FaceDetector::setDef_eyeScale_min(float def_eyeScale_min) {
+    FaceDetector::def_eyeScale_min = def_eyeScale_min;
+}
+
+float FaceDetector::getDef_mouthScale_min() const {
+    return def_mouthScale_min;
+}
+
+void FaceDetector::setDef_mouthScale_min(float def_mouthScale_min) {
+    FaceDetector::def_mouthScale_min = def_mouthScale_min;
+}
+
+float FaceDetector::getDef_faceScale_max() const {
+    return def_faceScale_max;
+}
+
+void FaceDetector::setDef_faceScale_max(float def_faceScale_max) {
+    FaceDetector::def_faceScale_max = def_faceScale_max;
+}
+
+float FaceDetector::getDef_eyeScale_max() const {
+    return def_eyeScale_max;
+}
+
+void FaceDetector::setDef_eyeScale_max(float def_eyeScale_max) {
+    FaceDetector::def_eyeScale_max = def_eyeScale_max;
+}
+
+float FaceDetector::getDef_mouthScale_max() const {
+    return def_mouthScale_max;
+}
+
+void FaceDetector::setDef_mouthScale_max(float def_mouthScale_max) {
+    FaceDetector::def_mouthScale_max = def_mouthScale_max;
+}
+
+double FaceDetector::getDef_scaleFactor() const {
+    return def_scaleFactor;
+}
+
+void FaceDetector::setDef_scaleFactor(double def_scaleFactor) {
+    FaceDetector::def_scaleFactor = def_scaleFactor;
 }

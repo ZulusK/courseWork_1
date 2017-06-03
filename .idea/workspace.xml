@@ -2,45 +2,45 @@
 <project version="4">
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true" buildAllGenerated="true">
     <generated>
-      <config projectName="fisherface" targetName="roi" />
-      <config projectName="fisherface" targetName="Facecope" />
-      <config projectName="fisherface" targetName="smooth" />
-      <config projectName="fisherface" targetName="morfologicTrans" />
-      <config projectName="fisherface" targetName="cascadeClasified" />
-      <config projectName="fisherface" targetName="facecope" />
-      <config projectName="fisherface" targetName="sobelFilter" />
-      <config projectName="fisherface" targetName="faceDetector" />
-      <config projectName="fisherface" targetName="trackDemo" />
-      <config projectName="fisherface" targetName="rgband" />
-      <config projectName="fisherface" targetName="canny" />
-      <config projectName="fisherface" targetName="sobel" />
-      <config projectName="fisherface" targetName="captureVideo" />
-      <config projectName="fisherface" targetName="imdisplay" />
-      <config projectName="fisherface" targetName="integral" />
-      <config projectName="fisherface" targetName="aphine" />
-      <config projectName="fisherface" targetName="roiModify" />
-      <config projectName="fisherface" targetName="videoDemo" />
       <config projectName="fisherface" targetName="helloWorld" />
-      <config projectName="fisherface" targetName="houghtTransform" />
-      <config projectName="fisherface" targetName="threahold3" />
-      <config projectName="fisherface" targetName="threahold2" />
-      <config projectName="fisherface" targetName="fisherface" />
+      <config projectName="fisherface" targetName="aphine" />
       <config projectName="fisherface" targetName="comics" />
-      <config projectName="fisherface" targetName="webcam" />
-      <config projectName="fisherface" targetName="picinfo" />
-      <config projectName="fisherface" targetName="laplas" />
-      <config projectName="fisherface" targetName="immodify" />
+      <config projectName="fisherface" targetName="rgband" />
+      <config projectName="fisherface" targetName="imdisplay" />
+      <config projectName="fisherface" targetName="roi" />
+      <config projectName="fisherface" targetName="houghtTransform" />
+      <config projectName="fisherface" targetName="integral" />
+      <config projectName="fisherface" targetName="morfologicTrans" />
+      <config projectName="fisherface" targetName="threahold2" />
+      <config projectName="fisherface" targetName="alpha" />
+      <config projectName="fisherface" targetName="videoDemo" />
+      <config projectName="fisherface" targetName="threahold3" />
+      <config projectName="fisherface" targetName="smooth" />
+      <config projectName="fisherface" targetName="facecope" />
+      <config projectName="fisherface" targetName="mouseTracking" />
+      <config projectName="fisherface" targetName="roiModify" />
+      <config projectName="fisherface" targetName="sobel" />
+      <config projectName="fisherface" targetName="contourCircle" />
+      <config projectName="fisherface" targetName="Facecope" />
+      <config projectName="fisherface" targetName="captureVideo" />
+      <config projectName="fisherface" targetName="sobelFilter" />
       <config projectName="fisherface" targetName="noice" />
       <config projectName="fisherface" targetName="hsvand" />
-      <config projectName="fisherface" targetName="contourCircle" />
-      <config projectName="fisherface" targetName="alpha" />
-      <config projectName="fisherface" targetName="resize" />
-      <config projectName="fisherface" targetName="threahold" />
-      <config projectName="fisherface" targetName="xmlExample" />
-      <config projectName="fisherface" targetName="mouseTracking" />
+      <config projectName="fisherface" targetName="faceDetector" />
+      <config projectName="fisherface" targetName="cascadeClasified" />
       <config projectName="fisherface" targetName="contour" />
-      <config projectName="fisherface" targetName="filter" />
       <config projectName="fisherface" targetName="fill" />
+      <config projectName="fisherface" targetName="immodify" />
+      <config projectName="fisherface" targetName="fisherface" />
+      <config projectName="fisherface" targetName="trackDemo" />
+      <config projectName="fisherface" targetName="webcam" />
+      <config projectName="fisherface" targetName="threahold" />
+      <config projectName="fisherface" targetName="laplas" />
+      <config projectName="fisherface" targetName="canny" />
+      <config projectName="fisherface" targetName="picinfo" />
+      <config projectName="fisherface" targetName="xmlExample" />
+      <config projectName="fisherface" targetName="filter" />
+      <config projectName="fisherface" targetName="resize" />
     </generated>
   </component>
   <component name="CMakeSettings" AUTO_RELOAD="true">
@@ -50,12 +50,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c95522f6-31d7-497d-8766-0290bdc8d51d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/PersonRecognizer.cpp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/include/PersonRecognizer.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/PersonFace.cpp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Utils.cpp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/include/PersonFace.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/include/Utils.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/FaceDetector.cpp" afterPath="$PROJECT_DIR$/src/FaceDetector.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/include/FaceDetector.h" afterPath="$PROJECT_DIR$/src/include/FaceDetector.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main.cpp" afterPath="$PROJECT_DIR$/src/main.cpp" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -74,50 +75,69 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <file leaf-file-name="Utils.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Utils.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="17" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
+            <state relative-caret-position="310">
+              <caret line="46" column="47" lean-forward="false" selection-start-line="46" selection-start-column="47" selection-end-line="46" selection-end-column="47" />
               <folding>
-                <marker date="1496438105494" expanded="true" signature="0:2109" ph="..." />
-                <marker date="1496438105494" expanded="true" signature="100:227" ph="..." />
+                <element signature="e#50#68#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FaceDetector.cpp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/FaceDetector.cpp">
+      <file leaf-file-name="Utils.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/include/Utils.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="121" column="18" lean-forward="false" selection-start-line="121" selection-start-column="18" selection-end-line="121" selection-end-column="18" />
+            <state relative-caret-position="216">
+              <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
               <folding>
-                <element signature="e#0#2#0" expanded="false" />
-                <element signature="e#50#75#0" expanded="true" />
-                <element signature="e#207#250#1" expanded="false" />
-                <element signature="e#253#424#0" expanded="false" />
-                <element signature="e#1640#1795#0" expanded="false" />
-                <element signature="e#3260#3478#0" expanded="false" />
-                <element signature="e#3827#4297#0" expanded="false" />
-                <element signature="e#6461#6547#0" expanded="false" />
-                <element signature="e#6549#6668#0" expanded="false" />
-                <element signature="e#6670#6756#0" expanded="false" />
-                <element signature="e#6758#6877#0" expanded="false" />
-                <element signature="e#6879#6954#0" expanded="false" />
-                <element signature="e#6956#7089#0" expanded="false" />
+                <element signature="e#105#135#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FaceDetector.h" pinned="false" current-in-tab="false">
+      <file leaf-file-name="FaceDetector.h" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/include/FaceDetector.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="55" column="92" lean-forward="false" selection-start-line="55" selection-start-column="92" selection-end-line="55" selection-end-column="92" />
+            <state relative-caret-position="334">
+              <caret line="69" column="7" lean-forward="true" selection-start-line="69" selection-start-column="7" selection-end-line="69" selection-end-column="7" />
               <folding>
                 <element signature="e#119#151#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FaceDetector.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/FaceDetector.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-241">
+              <caret line="200" column="4" lean-forward="false" selection-start-line="200" selection-start-column="4" selection-end-line="200" selection-end-column="29" />
+              <folding>
+                <element signature="e#0#2#0" expanded="false" />
+                <element signature="e#226#269#1" expanded="false" />
+                <element signature="e#273#1255#0" expanded="false" />
+                <element signature="e#1257#1412#0" expanded="false" />
+                <element signature="e#1415#2006#0" expanded="false" />
+                <element signature="e#2008#2226#0" expanded="false" />
+                <element signature="e#2228#2573#0" expanded="false" />
+                <element signature="e#2575#3045#0" expanded="false" />
+                <element signature="e#3047#3163#0" expanded="false" />
+                <element signature="e#3165#3278#0" expanded="false" />
+                <element signature="e#3280#3399#0" expanded="false" />
+                <element signature="e#3401#3816#0" expanded="false" />
+                <element signature="e#3818#4141#0" expanded="false" />
+                <element signature="e#4144#4876#0" expanded="false" />
+                <element signature="e#4878#5207#0" expanded="false" />
+                <element signature="e#5209#5295#0" expanded="false" />
+                <element signature="e#5297#5416#0" expanded="false" />
+                <element signature="e#5418#5504#0" expanded="false" />
+                <element signature="e#5506#5625#0" expanded="false" />
+                <element signature="e#5627#5702#0" expanded="false" />
+                <element signature="e#5704#5837#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -135,16 +155,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PersonRecognizer.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/PersonRecognizer.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FindInProjectRecents">
@@ -153,7 +163,11 @@
       <find>face</find>
       <find>iplima</find>
       <find>operator</find>
+      <find>cv::</find>
     </findStrings>
+    <replaceStrings>
+      <replace />
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -161,10 +175,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/CMakeList.txt" />
-        <option value="$PROJECT_DIR$/src/playground/Makefile" />
-        <option value="$PROJECT_DIR$/src/playground/test.cpp" />
-        <option value="$PROJECT_DIR$/src/playground/immodify.cpp.cpp" />
         <option value="$PROJECT_DIR$/src/playground/cascadeClasified.cpp" />
         <option value="$PROJECT_DIR$/src/playground/picInfo.cpp" />
         <option value="$PROJECT_DIR$/src/playground/videoDemo.cpp" />
@@ -207,9 +217,15 @@
         <option value="$PROJECT_DIR$/src/PeronRecognizer.cpp" />
         <option value="$PROJECT_DIR$/src/PersonRecognizer.h" />
         <option value="$PROJECT_DIR$/src/include/PersonRecognizer.h" />
-        <option value="$PROJECT_DIR$/src/include/FaceDetector.h" />
         <option value="$PROJECT_DIR$/src/main.cpp" />
+        <option value="$PROJECT_DIR$/src/PersonFace.h" />
+        <option value="$PROJECT_DIR$/src/include/PersonFace.cpp" />
+        <option value="$PROJECT_DIR$/src/include/Utils.h" />
+        <option value="$PROJECT_DIR$/src/Utils.cpp" />
+        <option value="$PROJECT_DIR$/src/include/PersonFace.h" />
+        <option value="$PROJECT_DIR$/src/PersonFace.cpp" />
         <option value="$PROJECT_DIR$/src/FaceDetector.cpp" />
+        <option value="$PROJECT_DIR$/src/include/FaceDetector.h" />
       </list>
     </option>
   </component>
@@ -283,7 +299,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="haarcascades" />
+              <option name="myItemId" value="include" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -298,13 +314,13 @@
     <property name="settings.editor.selected.configurable" value="fileTemplates" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/include" />
-      <recent name="$PROJECT_DIR$/samples" />
-      <recent name="$PROJECT_DIR$/src" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$/src/include" />
+      <recent name="$PROJECT_DIR$/samples" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -760,12 +776,12 @@
       <workItem from="1496415342735" duration="12569000" />
       <workItem from="1496476608858" duration="664000" />
       <workItem from="1496478537850" duration="3670000" />
-      <workItem from="1496502951964" duration="6999000" />
+      <workItem from="1496502951964" duration="9381000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="72003000" />
+    <option name="totallyTimeSpent" value="74385000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -780,12 +796,12 @@
     <frame x="-1" y="-11" width="1368" height="735" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27121213" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1280303" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294509" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44093177" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3078203" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.8702163" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.8702163" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294509" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.9366906" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -835,39 +851,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <option name="time" value="2" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///usr/local/include/opencv2/photo/photo_c.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-31">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/include/opencv2/imgproc/imgproc_c.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-31">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/include/opencv2/core/core_c.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="65" column="6" lean-forward="false" selection-start-line="65" selection-start-column="6" selection-end-line="65" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/include/opencv/cvaux.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="48" column="26" lean-forward="false" selection-start-line="48" selection-start-column="26" selection-end-line="48" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/samples/playground/lapslasFilter.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="354">
@@ -1132,23 +1120,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="17" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
-          <folding>
-            <marker date="1496438105494" expanded="true" signature="0:2109" ph="..." />
-            <marker date="1496438105494" expanded="true" signature="100:227" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/include/PersonRecognizer.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
           <folding>
-            <element signature="e#126#153#0" expanded="true" />
+            <element signature="e#126#153#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1163,14 +1140,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/PersonRecognizer.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/include/opencv2/core/mat.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-364">
@@ -1179,13 +1148,62 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/include/FaceDetector.h">
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="55" column="92" lean-forward="false" selection-start-line="55" selection-start-column="92" selection-end-line="55" selection-end-column="92" />
+        <state relative-caret-position="0">
+          <caret line="0" column="17" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
           <folding>
-            <element signature="e#119#151#0" expanded="true" />
+            <marker date="1496438105494" expanded="true" signature="0:2109" ph="..." />
+            <marker date="1496438105494" expanded="true" signature="100:227" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Utils.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="46" column="47" lean-forward="false" selection-start-line="46" selection-start-column="47" selection-end-line="46" selection-end-column="47" />
+          <folding>
+            <element signature="e#50#68#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/include/PersonFace.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="502">
+          <caret line="39" column="4" lean-forward="false" selection-start-line="39" selection-start-column="4" selection-end-line="39" selection-end-column="4" />
+          <folding>
+            <element signature="e#115#132#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PersonFace.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="37" column="4" lean-forward="false" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="19" />
+          <folding>
+            <element signature="e#50#73#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/include/Utils.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding>
+            <element signature="e#105#135#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PersonRecognizer.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1201,22 +1219,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/FaceDetector.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="121" column="18" lean-forward="false" selection-start-line="121" selection-start-column="18" selection-end-line="121" selection-end-column="18" />
+        <state relative-caret-position="-241">
+          <caret line="200" column="4" lean-forward="false" selection-start-line="200" selection-start-column="4" selection-end-line="200" selection-end-column="29" />
           <folding>
             <element signature="e#0#2#0" expanded="false" />
-            <element signature="e#50#75#0" expanded="true" />
-            <element signature="e#207#250#1" expanded="false" />
-            <element signature="e#253#424#0" expanded="false" />
-            <element signature="e#1640#1795#0" expanded="false" />
-            <element signature="e#3260#3478#0" expanded="false" />
-            <element signature="e#3827#4297#0" expanded="false" />
-            <element signature="e#6461#6547#0" expanded="false" />
-            <element signature="e#6549#6668#0" expanded="false" />
-            <element signature="e#6670#6756#0" expanded="false" />
-            <element signature="e#6758#6877#0" expanded="false" />
-            <element signature="e#6879#6954#0" expanded="false" />
-            <element signature="e#6956#7089#0" expanded="false" />
+            <element signature="e#226#269#1" expanded="false" />
+            <element signature="e#273#1255#0" expanded="false" />
+            <element signature="e#1257#1412#0" expanded="false" />
+            <element signature="e#1415#2006#0" expanded="false" />
+            <element signature="e#2008#2226#0" expanded="false" />
+            <element signature="e#2228#2573#0" expanded="false" />
+            <element signature="e#2575#3045#0" expanded="false" />
+            <element signature="e#3047#3163#0" expanded="false" />
+            <element signature="e#3165#3278#0" expanded="false" />
+            <element signature="e#3280#3399#0" expanded="false" />
+            <element signature="e#3401#3816#0" expanded="false" />
+            <element signature="e#3818#4141#0" expanded="false" />
+            <element signature="e#4144#4876#0" expanded="false" />
+            <element signature="e#4878#5207#0" expanded="false" />
+            <element signature="e#5209#5295#0" expanded="false" />
+            <element signature="e#5297#5416#0" expanded="false" />
+            <element signature="e#5418#5504#0" expanded="false" />
+            <element signature="e#5506#5625#0" expanded="false" />
+            <element signature="e#5627#5702#0" expanded="false" />
+            <element signature="e#5704#5837#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/include/FaceDetector.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="334">
+          <caret line="69" column="7" lean-forward="true" selection-start-line="69" selection-start-column="7" selection-end-line="69" selection-end-column="7" />
+          <folding>
+            <element signature="e#119#151#0" expanded="true" />
           </folding>
         </state>
       </provider>
