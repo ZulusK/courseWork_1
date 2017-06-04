@@ -22,19 +22,20 @@ void detectAndDisplay(Mat &frame, FaceDetector &detector) {
 //    }
     //-- Show what you got
     if (!persons.empty()) {
-//        for (int i = 0; i < persons.size(); i++) {
-        int i = 0;
-        Mat image = persons[0]->getFaceRGB();
-        rectangle(image, persons[0]->getEyes()[0], Scalar(255, 0, 255));
-        rectangle(image, persons[0]->getEyes()[1], Scalar(255, 0, 255));
-        imshow(window_name + to_string(i), persons[0]->getFaceRGB());
-        delete persons[i];
-//        }
+        for (int i = 0; i < persons.size(); i++) {
+            Mat image = persons[i]->getFaceRGB();
+            rectangle(image, persons[i]->getEyes()[0], Scalar(255, 0, 255));
+            rectangle(image, persons[i]->getEyes()[1], Scalar(255, 0, 255));
+            imshow(window_name + to_string(i), persons[i]->getFaceRGB());
+        }
+
     }
 //    else {
     imshow(window_name, frame);
 //    }
-
+    for (int i = 0; i < persons.size(); i++) {
+        delete persons[i];
+    }
     persons.clear();
     rects.clear();
 }

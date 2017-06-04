@@ -11,7 +11,7 @@ using namespace std;
 
 Mat toGrayscale(const Mat &src) {
     // Create and return grayscaled image:
-    if (src.channels() > 1) {
+    if (src.channels() == 3) {
         Mat dst;
         cvtColor(src, dst, COLOR_BGR2GRAY);
         return dst;
@@ -72,8 +72,6 @@ void rotateRect(cv::Rect &R, const cv::Point2f center, float angle) {
     float dx = R.x - center.x;
     float dy = R.y - center.y;
     //move to new CS
-//    float old_x = dx;
-//    float old_y = dy;
     R.x = ca * dx - sa * dy + center.x;
     R.y = sa * dx + ca * dy + center.y;
 }
@@ -122,43 +120,9 @@ Rect copyEye(const Rect &eye, const Rect &frame) {
         return copyRigthEye(eye, frame);
     }
 }
-//Vec2D Vec2D_multByNumber(Vec2D a, double number) {
-//    return (Vec2D){
-//            .x = a.x * number,
-//            .y = a.y * number
-//    };
-//}
-//
-//Point2f Vec2D_rotate(Point2f self, float radians) {
-//    double ca = cosf(radians);
-//    double sa = sinf(radians);
-//    return (Point2f) {
-//            .x = ca * self.x - sa * self.y,
-//            .y = sa * self.x + ca * self.y
-//    };
-//}
 
-//Point2f Vec2D_normalize(Point2f self) {
-//    double length = Vec2D_length(self);
-//    if (length == 0) return self;
-//
-//    return Vec2D_multByNumber(self, 1.0 / length);
-//}
-//
-//double Vec2D_length(Point2f self) {
-//    return sqrt(self.x * self.x + self.y * self.y);
-//}
-//
-//Vec2D Vec2D_add(Vec2D a, Vec2D b) {
-//    return (Vec2D){
-//            .x = a.x + b.x,
-//            .y = a.y + b.y
-//    };
-//}
-//
-//Vec2D Vec2D_substract(Vec2D a, Vec2D b) {
-//    return (Vec2D){
-//            .x = a.x - b.x,
-//            .y = a.y - b.y
-//    };
-//}
+void disableArea(Mat &image, const Rect &rect) {
+    Point eye_center(rect.x + rect.width / 2, rect.y + rect.height / 2);
+    int radius = max(rect.width, rect.height);
+    circle(image, eye_center, radius, Scalar(255, 0, 0), 4, 8, 0);
+}

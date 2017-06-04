@@ -68,7 +68,7 @@ void detectAndDisplay(Mat frame) {
         eyes_cascade.detectMultiScale(faceROI, eyes, 1.1, 2, 0 | CASCADE_SCALE_IMAGE, Size(30, 30));
         for (size_t j = 0; j < eyes.size(); j++) {
             Point eye_center(faces[i].x + eyes[j].x + eyes[j].width / 2, faces[i].y + eyes[j].y + eyes[j].height / 2);
-            int radius = cvRound((eyes[j].width + eyes[j].height) * 0.25);
+            int radius = max(faces[i].width, faces[i].height);
             circle(frame, eye_center, radius, Scalar(255, 0, 0), 4, 8, 0);
         }
     }

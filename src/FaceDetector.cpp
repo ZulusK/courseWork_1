@@ -33,6 +33,7 @@ FaceDetector::FaceDetector(const std::string &cascadeFolderPath) {
     this->def_smile_min = 0.4;
     this->def_eye_max = 0.5;
     this->def_smile_max = 0.55;
+    this->def_rotate_step = 45;
 }
 
 FaceDetector::~ FaceDetector() {
@@ -78,7 +79,7 @@ void FaceDetector::removeArtifactsFaces(cv::Mat &grayImage, std::vector<cv::Rect
     }
 }
 
-void FaceDetector::detectFace(const cv::Mat &originalImage, std::vector<cv::Rect> rects, bool detectAllDegreese,
+void FaceDetector::detectFace(const cv::Mat &originalImage, std::vector<cv::Rect> rects,
                               bool removeArtifacts) {
     if (isLoaded_face()) {
         Mat grayImage = toGrayscale(originalImage);
@@ -116,7 +117,7 @@ Mat FaceDetector::getFace(const cv::Mat &image, const cv::Rect &rect, bool norma
 }
 
 
-void FaceDetector::getFaces(const cv::Mat &image, std::vector<PersonFace *> &persons, bool detectAllDegreese,
+void FaceDetector::getFaces(cv::Mat &image, std::vector<PersonFace *> &persons,
                             bool normalized) {
     if (isLoaded_face() && isLoaded_eye()) {
         Mat grayImage = toGrayscale(image);
@@ -143,18 +144,45 @@ void FaceDetector::getFaces(const cv::Mat &image, std::vector<PersonFace *> &per
                 //cut face
                 Mat cut = cutFace(image(rects[i]), eyes[0], eyes[1]);
                 //normalize face
-                if (normalized) {
-                    Mat norm_face = normalizeFace(cut, eyes[0], eyes[1]);
-                    personFace = new PersonFace(norm_face, 0);
-                } else {
-                    personFace = new PersonFace(cut, 0);
+                if (!cut.empty()) {
+                    if (normalized) {
+                        Mat norm_face = normalizeFace(cut, eyes[0], eyes[1]);
+                        if (!norm_face.empty())
+                            personFace = new PersonFace(norm_face, 0);
+                        else
+                            personFace = new PersonFace(cut, 0);
+                    } else {
+                        personFace = new PersonFace(cut, 0);
+                    }
+                    //add eye to face
+                    personFace->setEyes(eyes[0], eyes[1]);
+                    //add person to list
+                    persons.push_back(personFace);
                 }
-                //add eye to face
-                personFace->setEyes(eyes[0], eyes[1]);
-                //add person to list
-                persons.push_back(personFace);
             }
         }
+        for (int i = 0; i < rects.size(); i++) {
+            disableArea(image, rects[i]);
+        }
+    }
+}
+
+void FaceDetector::getFaces(const cv::Mat &image, std::vector<PersonFace *> &persons, bool detectAllDegreese,
+                            bool normalized) {
+    Mat copy = image.clone();
+    if (detectAllDegreese) {
+        Point2f center(image.cols / 2.0, image.rows / 2.0);
+        Mat rot_mat = getRotationMatrix2D(center, def_rotate_step, 1.0);
+        for (int i = 0; i < 360; i += def_rotate_step) {
+            //get faces for this degrees
+            getFaces(copy, persons, normalized);
+            //rotate image
+            Mat rotated;
+            warpAffine(copy, rotated, rot_mat, image.size());
+            copy = rotated;
+        }
+    } else {
+        getFaces(copy, persons, normalized);
     }
 }
 
@@ -266,4 +294,21 @@ double FaceDetector::getDef_scaleFactor() const {
 void FaceDetector::setDef_scaleFactor(double def_scaleFactor) {
     if (def_scaleFactor >= 0)
         this->def_scaleFactor = def_scaleFactor;
+}
+
+const map<int, CascadeClassifier *> &FaceDetector::getCascades() const {
+    return cascades;
+}
+
+void FaceDetector::setCascades(const map<int, CascadeClassifier *> &cascades) {
+    FaceDetector::cascades = cascades;
+}
+
+float FaceDetector::getDef_rotate_step() const {
+    return def_rotate_step;
+}
+
+void FaceDetector::setDef_rotate_step(float def_rotate_step) {
+    if (def_rotate_step > 0 && def_rotate_step < 180)
+        this->def_rotate_step = def_rotate_step;
 }

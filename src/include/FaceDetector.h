@@ -27,6 +27,7 @@ private:
     float def_smile_min;
     float def_smile_max;
 
+    float def_rotate_step;
     double def_scaleFactor;
 
     /**
@@ -77,6 +78,16 @@ private:
      */
     cv::Mat cutFace(const cv::Mat &image, cv::Rect &eye_1, cv::Rect &eye_2);
 
+    /**
+     * @brief get found faces framed by rectangles from image
+     * @param image reference to image to process
+     * @param rects reference to vector for storing the found framing rectangles
+     * @param persons reference to vector for storing the found persons
+     * @param normalized should face be normalized (eq. rotated)
+     */
+    void getFaces(cv::Mat &image, std::vector<PersonFace *> &persons,
+                  bool normalized);
+
 public:
     /**
     * @brief constructor of FaceDetector, load cascade from xml-file
@@ -93,11 +104,10 @@ public:
      * @brief finds faces in the image and returns the rectangles that surround them.
      * @param image reference to image to process
      * @param rects reference to vector for storing the found framing rectangles
-     * @param detectAllDegreese find faces at all possible angles of rotation
      * @param removeArtifacts  remove area without faces (uses extra calculating)
      */
     void
-    detectFace(const cv::Mat &originalImage, std::vector<cv::Rect> rects, bool detectAllDegreese, bool removeArtifacts);
+    detectFace(const cv::Mat &originalImage, std::vector<cv::Rect> rects, bool removeArtifacts);
 
     /**
     * @brief finds eyes in the image and returns the rectangles that surround them.
@@ -180,6 +190,14 @@ public:
     double getDef_scaleFactor() const;
 
     void setDef_scaleFactor(double def_scaleFactor);
+
+    const std::map<int, cv::CascadeClassifier *> &getCascades() const;
+
+    void setCascades(const std::map<int, cv::CascadeClassifier *> &cascades);
+
+    float getDef_rotate_step() const;
+
+    void setDef_rotate_step(float def_rotate_step);
 };
 
 

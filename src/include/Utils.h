@@ -28,4 +28,6 @@ float toDegrees(float radians);
 
 cv::Rect copyEye(const cv::Rect &eye, const cv::Rect &frame);
 
+void disableArea(cv::Mat &image, const cv::Rect &rect);
+
 #endif //FISHERFACE_UTILS_H
