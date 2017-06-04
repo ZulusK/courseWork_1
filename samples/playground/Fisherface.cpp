@@ -17,37 +17,18 @@
  */
 
 #include "opencv2/core/core.hpp"
-//#include "opencv2/contrib/contrib.hpp"
-//#include <opencv2/face/facerec.hpp>
-#include <opencv2/face.hpp>
+#include "opencv2/face.hpp"
 #include "opencv2/highgui/highgui.hpp"
-#include <opencv2/face/predict_collector.hpp>
+#include "opencv2/imgproc/imgproc.hpp"
+#include "opencv2/objdetect/objdetect.hpp"
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
 
 using namespace cv;
-using namespace face;
 using namespace std;
-
-static Mat norm_0_255(InputArray _src) {
-    Mat src = _src.getMat();
-    // Create and return normalized image:
-    Mat dst;
-    switch(src.channels()) {
-        case 1:
-            cv::normalize(_src, dst, 0, 255, NORM_MINMAX, CV_8UC1);
-            break;
-        case 3:
-            cv::normalize(_src, dst, 0, 255, NORM_MINMAX, CV_8UC3);
-            break;
-        default:
-            src.copyTo(dst);
-            break;
-    }
-    return dst;
-}
-
+using namespace face;
 static void read_csv(const string& filename, vector<Mat>& images, vector<int>& labels, char separator = ';') {
     std::ifstream file(filename.c_str(), ifstream::in);
     if (!file) {
@@ -60,7 +41,10 @@ static void read_csv(const string& filename, vector<Mat>& images, vector<int>& l
         getline(liness, path, separator);
         getline(liness, classlabel);
         if(!path.empty() && !classlabel.empty()) {
-            images.push_back(imread(path, 0));
+            Mat m=imread(path,0);
+            Mat r;
+            resize(m, r, Size(300,300));
+            images.push_back(r);
             labels.push_back(atoi(classlabel.c_str()));
         }
     }
@@ -69,21 +53,20 @@ static void read_csv(const string& filename, vector<Mat>& images, vector<int>& l
 int main(int argc, const char *argv[]) {
     // Check for valid command line arguments, print usage
     // if no arguments were given.
-    if (argc < 2) {
-        cout << "usage: " << argv[0] << " <csv.ext> <output_folder> " << endl;
-        exit(1);
-    }
-    string output_folder = ".";
-    if (argc == 3) {
-        output_folder = string(argv[2]);
-    }
-    // Get the path to your CSV.
-    string fn_csv = string(argv[1]);
-    // These vectors hold the images and corresponding labels.
+//    if (argc <2) {
+//        cout << "usage: " << argv[0] << " </path/to/haar_cascade> </path/to/csv.ext> </path/to/device id>" << endl;
+//        cout << "\t </path/to/csv.ext> -- Path to the CSV file with the face database." << endl;
+//        cout << "\t <device id> -- The webcam device id to grab frames from." << endl;
+//        exit(1);
+//    }
+    // Get the path to your CSV:
+    string fn_haar = "../src/haarcascades/haarcascade_frontalface_default.xml";
+    string fn_csv = "../samples/photo.csv";
+    int deviceId = 0;
+    // These vectors hold the images and corresponding labels:
     vector<Mat> images;
     vector<int> labels;
-    // Read in the data. This can fail if no valid
-    // input filename is given.
+    // Read in the data (fails if no valid input filename is given, but you'll get an error message):
     try {
         read_csv(fn_csv, images, labels);
     } catch (cv::Exception& e) {
@@ -91,104 +74,85 @@ int main(int argc, const char *argv[]) {
         // nothing more we can do
         exit(1);
     }
-    // Quit if there are not enough images for this demo.
-    if(images.size() <= 1) {
-        string error_message = "This demo needs at least 2 images to work. Please add more images to your data set!";
-        CV_Error(CV_StsError, error_message);
-    }
     // Get the height from the first image. We'll need this
     // later in code to reshape the images to their original
-    // size:
-    int height = images[0].rows;
-    // The following lines simply get the last images from
-    // your dataset and remove it from the vector. This is
-    // done, so that the training data (which we learn the
-    // cv::FaceRecognizer on) and the test data we test
-    // the model with, do not overlap.
-    Mat testSample = images[images.size() - 1];
-    int testLabel = labels[labels.size() - 1];
-    images.pop_back();
-    labels.pop_back();
-    // The following lines create an Fisherfaces model for
-    // face recognition and train it with the images and
-    // labels read from the given CSV file.
-    // If you just want to keep 10 Fisherfaces, then call
-    // the factory method like this:
-    //
-    //      cv::createFisherFaceRecognizer(10);
-    //
-    // However it is not useful to discard Fisherfaces! Please
-    // always try to use _all_ available Fisherfaces for
-    // classification.
-    //
-    // If you want to create a FaceRecognizer with a
-    // confidence threshold (e.g. 123.0) and use _all_
-    // Fisherfaces, then call it with:
-    //
-    //      cv::createFisherFaceRecognizer(0, 123.0);
-    //
-    Ptr<FaceRecognizer> model = createFisherFaceRecognizer();
+    // size AND we need to reshape incoming faces to this size:
+    int im_width = images[0].cols;
+    int im_height = images[0].rows;
+    // Create a FaceRecognizer and train it on the given images:
+    Ptr<FaceRecognizer> model = createFisherFaceRecognizer(0,400);
     model->train(images, labels);
-    // The following line predicts the label of a given
-    // test image:
-    int predictedLabel = model->predict(testSample);
+
+    // That's it for learning the Face Recognition model. You now
+    // need to create the classifier for the task of Face Detection.
+    // We are going to use the haar cascade you have specified in the
+    // command line arguments:
     //
-    // To get the confidence of a prediction call the model with:
-    //
-    //      int predictedLabel = -1;
-    //      double confidence = 0.0;
-    //      model->predict(testSample, predictedLabel, confidence);
-    //
-    string result_message = format("Predicted class = %d / Actual class = %d.", predictedLabel, testLabel);
-    cout << result_message << endl;
-    // Here is how to get the eigenvalues of this Eigenfaces model:
-    Mat eigenvalues = model->getMat("eigenvalues");
-    // And we can do the same to display the Eigenvectors (read Eigenfaces):
-    Mat W = model->getMat("eigenvectors");
-    // Get the sample mean from the training data
-    Mat mean = model->getMat("mean");
-    // Display or save:
-    if(argc == 2) {
-        imshow("mean", norm_0_255(mean.reshape(1, images[0].rows)));
-    } else {
-        imwrite(format("%s/mean.png", output_folder.c_str()), norm_0_255(mean.reshape(1, images[0].rows)));
+    CascadeClassifier haar_cascade;
+    haar_cascade.load(fn_haar);
+    // Get a handle to the Video device:
+    VideoCapture cap(deviceId);
+    // Check if we can use this device at all:
+    if(!cap.isOpened()) {
+        cerr << "Capture Device ID " << deviceId << "cannot be opened." << endl;
+        return -1;
     }
-    // Display or save the first, at most 16 Fisherfaces:
-    for (int i = 0; i < min(16, W.cols); i++) {
-        string msg = format("Eigenvalue #%d = %.5f", i, eigenvalues.at<double>(i));
-        cout << msg << endl;
-        // get eigenvector #i
-        Mat ev = W.col(i).clone();
-        // Reshape to original size & normalize to [0...255] for imshow.
-        Mat grayscale = norm_0_255(ev.reshape(1, height));
-        // Show the image & apply a Bone colormap for better sensing.
-        Mat cgrayscale;
-        applyColorMap(grayscale, cgrayscale, COLORMAP_BONE);
-        // Display or save:
-        if(argc == 2) {
-            imshow(format("fisherface_%d", i), cgrayscale);
-        } else {
-            imwrite(format("%s/fisherface_%d.png", output_folder.c_str(), i), norm_0_255(cgrayscale));
+    // Holds the current frame from the Video device:
+    Mat frame;
+    for(;;) {
+        cap >> frame;
+        // Clone the current frame:
+        Mat original = frame.clone();
+        // Convert the current frame to grayscale:
+        Mat gray;
+        cvtColor(original, gray, CV_BGR2GRAY);
+        // Find the faces in the frame:
+        vector< Rect_<int> > faces;
+        haar_cascade.detectMultiScale(gray, faces);
+        // At this point you have the position of the faces in
+        // faces. Now we'll get the faces, make a prediction and
+        // annotate it in the video. Cool or what?
+        for(int i = 0; i < faces.size(); i++) {
+            // Process face by face:
+            Rect face_i = faces[i];
+            // Crop the face from the image. So simple with OpenCV C++:
+            Mat face = gray(face_i);
+            // Resizing the face is necessary for Eigenfaces and Fisherfaces. You can easily
+            // verify this, by reading through the face recognition tutorial coming with OpenCV.
+            // Resizing IS NOT NEEDED for Local Binary Patterns Histograms, so preparing the
+            // input data really depends on the algorithm used.
+            //
+            // I strongly encourage you to play around with the algorithms. See which work best
+            // in your scenario, LBPH should always be a contender for robust face recognition.
+            //
+            // Since I am showing the Fisherfaces algorithm here, I also show how to resize the
+            // face you have just found:
+            Mat face_resized;
+            cv::resize(face, face_resized, Size(im_width, im_height), 1.0, 1.0, INTER_CUBIC);
+            // Now perform the prediction, see how easy that is:
+            int prediction = model->predict(face_resized);
+//            if(prediction>0){
+//                model->train(face_resized,prediction);
+//            }
+            // And finally write all we've found out to the original image!
+            // First of all draw a green rectangle around the detected face:
+            rectangle(original, face_i, CV_RGB(0, 255,0), 1);
+            // Create the text we will annotate the box with:
+            string box_text = format("Prediction = %d", prediction);
+            // Calculate the position for annotated text (make sure we don't
+            // put illegal values in there):
+            int pos_x = std::max(face_i.tl().x - 10, 0);
+            int pos_y = std::max(face_i.tl().y - 10, 0);
+            // And now put it into the image:
+            putText(original, box_text, Point(pos_x, pos_y), FONT_HERSHEY_PLAIN, 1.0, CV_RGB(0,255,0), 2.0);
         }
-    }
-    // Display or save the image reconstruction at some predefined steps:
-    for(int num_component = 0; num_component < min(16, W.cols); num_component++) {
-        // Slice the Fisherface from the model:
-        Mat ev = W.col(num_component);
-        Mat projection = subspaceProject(ev, mean, images[0].reshape(1,1));
-        Mat reconstruction = subspaceReconstruct(ev, mean, projection);
-        // Normalize the result:
-        reconstruction = norm_0_255(reconstruction.reshape(1, images[0].rows));
-        // Display or save:
-        if(argc == 2) {
-            imshow(format("fisherface_reconstruction_%d", num_component), reconstruction);
-        } else {
-            imwrite(format("%s/fisherface_reconstruction_%d.png", output_folder.c_str(), num_component), reconstruction);
-        }
-    }
-    // Display if we are not writing to an output folder:
-    if(argc == 2) {
-        waitKey(0);
+        // Show the result:
+        imshow("face_recognizer", original);
+        // And display it:
+        char key = (char) waitKey(20);
+        // Exit this loop on escape:
+        if(key == 27)
+            break;
     }
     return 0;
 }

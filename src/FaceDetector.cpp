@@ -140,19 +140,21 @@ void FaceDetector::getFaces(cv::Mat &image, std::vector<PersonFace *> &persons,
                 //copy eye
                 if (eyes.size() < 2) {
                     eyes.push_back(copyEye(eyes[0], rects[i]));
-                }
-                //cut face
-                Mat cut = cutFace(image(rects[i]), eyes[0], eyes[1]);
-                //normalize face
-                if (!cut.empty()) {
-                    if (normalized) {
-                        Mat norm_face = normalizeFace(cut, eyes[0], eyes[1]);
-                        if (!norm_face.empty())
-                            personFace = new PersonFace(norm_face, 0);
-                        else
+                    personFace = new PersonFace(image(rects[i]), 0);
+                } else {
+                    //cut face
+                    Mat cut = cutFace(image(rects[i]), eyes[0], eyes[1]);
+                    //normalize face
+                    if (!cut.empty()) {
+                        if (normalized) {
+                            Mat norm_face = normalizeFace(cut, eyes[0], eyes[1]);
+                            if (!norm_face.empty())
+                                personFace = new PersonFace(norm_face, 0);
+                            else
+                                personFace = new PersonFace(cut, 0);
+                        } else {
                             personFace = new PersonFace(cut, 0);
-                    } else {
-                        personFace = new PersonFace(cut, 0);
+                        }
                     }
                     //add eye to face
                     personFace->setEyes(eyes[0], eyes[1]);
