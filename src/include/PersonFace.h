@@ -5,47 +5,83 @@
 #ifndef FISHERFACE_PERSONFACE_H
 #define FISHERFACE_PERSONFACE_H
 
-#include <vector>
 #include <opencv2/imgproc.hpp>
+#include <Facecope.h>
+
+#define ROTATE_FACE_MAX_ANGLE 15
 
 /**
  * @brief defines class, that contains person's face
  */
-class PersonFace {
-private:
-    cv::Mat faceRGB;
-    cv::Mat faceGray;
+class facecope::PersonFace {
+    // face's image
+    cv::Mat face_rgb;
+    // rects, that are bound of eyes
     cv::Rect eyes[2];
-    cv::Rect smile;
+    // id of face
     long id;
+    // flag, was face normalized
+    bool normalized;
+private:
+    /**
+     * @brief normalize rotation
+     */
+    void normalize_rotatation();
 
+    /**
+     * @brief normalize size (cropp)
+     */
+    void normalize_size();
 
 public:
+    /**
+     * @brief constructor
+     * @param original ref. to image, that contains face
+     * @param eye_1 ref. to first eye
+     * @param eye_2 ref. to second eye
+     * @param id id of face
+     */
+    PersonFace(const cv::Mat &original, const cv::Rect &eye_1, const cv::Rect &eye_2, long id = -1);
 
-    PersonFace(const cv::Mat &faceRGB, const cv::Mat &faceGray, long id = 0);
-
-    PersonFace(const cv::Mat &faceRGB, long id = 0);
-
+    /**
+     * @brief default destructor
+     */
     ~PersonFace();
 
-    long getId() const;
+    /**
+     * @brief get id of face( return -1 if not recognized)
+     * @return id of face
+     */
+    long get_id() const;
 
-    void setId(long id);
+    /**
+     * @brief set id of face
+     * @param id new value of face's id
+     */
+    void set_id(long id);
 
-    void setEyes(cv::Rect &left, cv::Rect &rect);
+    /**
+     * @brief get ref. to face_rgb
+     * @return ref. to face_rgb
+     */
+    const cv::Mat &get_face_rgb() const;
 
-    void setSmile(const cv::Rect &smile);
+    /**
+     * @brief get eyes
+     * @return pointer to array of two eyes ( [0] - left, [1] - right)
+     */
+    const cv::Rect *get_eyes() const;
 
-    const cv::Mat &getFaceRGB() const;
+    /**
+     * @brief check, is image normalized (eq. rotated and cropped)
+     * @return true, if normalized, else - false
+     */
+    bool is_normalized();
 
-    const cv::Mat &getFaceGray() const;
-
-    const cv::Rect *getEyes() const;
-
-    const cv::Rect &getSmile() const;
-
-    void setFaceRGB(const cv::Mat &faceRGB);
-
+    /**
+     * @brief normalize face ( rotate and cropp), after this, is_normalized will return true
+     */
+    void normalize();
 };
 
 

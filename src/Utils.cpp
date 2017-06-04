@@ -30,18 +30,16 @@ bool isValidPath(const string &path) {
     }
 }
 
-
 Point2f getCenter(const Rect &rect) {
     return Point2f(rect.x + rect.width / 2.0, rect.y + rect.height / 2.0);
 }
 
-
-float getRotation(const Rect &rect1, const Rect &rect2) {
+float getRotation_radians(const Rect &rect1, const Rect &rect2) {
     float angle = 0;
     auto p1 = getCenter(rect1);
     auto p2 = getCenter(rect2);
 
-    if (p1.x <= p2.x)
+    if (p1.x >= p2.x)
         angle = atan((p1.y - p2.y) / (p1.x - p2.x));
     else
         angle = atan((p2.y - p1.y) / (p2.x - p1.x));

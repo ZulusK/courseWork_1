@@ -216,7 +216,7 @@ Mat FaceDetector::cutFace(const cv::Mat &image, cv::Rect &eye_1, cv::Rect &eye_2
 }
 
 Mat FaceDetector::normalizeFace(const cv::Mat &image, cv::Rect &eye_1, cv::Rect &eye_2) {
-    float radians = getRotation(eye_1, eye_2);
+    float radians = -getRotation_radians(eye_1, eye_2);
     float degrees = toDegrees(radians);
     if (degrees > 15) {
         degrees = 15;

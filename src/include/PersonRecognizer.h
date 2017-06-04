@@ -4,22 +4,26 @@
 
 #ifndef FISHERFACE_PERSONRECOGNIZER_H
 #define FISHERFACE_PERSONRECOGNIZER_H
+
 #include <opencv2/face.hpp>
 #include <opencv2/imgproc.hpp>
 #include <string>
-enum{
-    FACE_ORIGINAL_WIDTH=150,
-    FACE_ORIGINAL_EIGHT=150,
+#include <Facecope.h>
+
+enum {
+    FACE_WIDTH = 200,
+    FACE_HEIGTH = 200,
 };
+
 /**
  * @brief defines face recognizer class
  */
-class PersonRecognizer {
-private:
+class facecope::PersonRecognizer {
+public:
 
+    PersonRecognizer(const std::string &storagePath);
 
-    PersonRecognizer(const std::string & storagePath);
-
+    void recognize(std::map<long, facecope::Face> persons);
 };
 
 

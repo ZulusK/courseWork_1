@@ -14,7 +14,7 @@ bool isValidPath(const std::string &path);
 
 cv::Point2f getCenter(const cv::Rect &rect);
 
-float getRotation(const cv::Rect &rect1, const cv::Rect &rect2);
+float getRotation_radians(const cv::Rect &rect1, const cv::Rect &rect2);
 
 cv::Size getSize(const cv::Mat &M, float scale);
 
