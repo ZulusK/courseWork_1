@@ -137,8 +137,10 @@ void FaceDetector::getFaces(const cv::Mat &image, std::vector<PersonFace *> &per
                 if (normalized && eyes.size() > 1) {
                     Mat norm_face = normalizeFace(image(rects[i]), eyes[0], eyes[1]);
                     personFace = new PersonFace(norm_face, 0);
+                    personFace->setEyes(eyes[0], eyes[1]);
                 } else {
                     personFace = new PersonFace(image(rects[i]), 0);
+                    personFace->setEyes(eyes[0], eyes[0]);
                 }
                 persons.push_back(personFace);
             }
@@ -157,16 +159,24 @@ Mat FaceDetector::normalizeFace(const cv::Mat &image) {
 }
 
 Mat FaceDetector::normalizeFace(const cv::Mat &image, cv::Rect &eye_1, cv::Rect &eye_2) {
-    float angle = getRotation(eye_1, eye_2);
-    if (angle > 15) {
-        angle = 15;
-    } else if (angle < -15) {
-        angle = -15;
+    float radians = getRotation(eye_1, eye_2);
+    float degrees = toDegrees(radians);
+    if (degrees > 15) {
+        degrees = 15;
+        radians = toRadians(degrees);
+    } else if (degrees < -15) {
+        degrees = -15;
+        radians = toRadians(degrees);
     }
-    cout << angle << endl;
-    Mat rot_mat = getRotationMatrix2D(Point2f(image.cols / 2.0, image.rows / 2.0), angle, 1.0);
+
+    Point2f center(image.cols / 2.0, image.rows / 2.0);
+    Mat rot_mat = getRotationMatrix2D(center, degrees, 1.0);
     Mat dst;
     warpAffine(image, dst, rot_mat, image.size());
+
+    rotateRect(eye_1, center, -radians);
+    rotateRect(eye_2, center, -radians);
+
     return dst;
 }
 

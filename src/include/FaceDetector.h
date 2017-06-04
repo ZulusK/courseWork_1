@@ -46,21 +46,26 @@ private:
                       cv::Size maxSize);
 
     /**
-     *
-     * @param image
-     * @return
+     * @brief normalize face by afinne transformation (eq. rotate)
+     * @param image ref. to image to process
+     * @return normalized face
      */
     cv::Mat normalizeFace(const cv::Mat &image);
 
     /**
-     *
-     * @param image
-     * @param eye_1
-     * @param eye_2
-     * @return
+     * @brief normalize face by afinne transformation (eq. rotate)
+     * @param image ref. to image to process
+     * @param eye_1 ref. to first eye
+     * @param eye_2 ref. to second eye
+     * @return normalized face
      */
     cv::Mat normalizeFace(const cv::Mat &image, cv::Rect &eye_1, cv::Rect &eye_2);
 
+    /**
+     * @brief remove rectangles, that don't contains face
+     * @param grayImage ref. to gray-scaled image
+     * @param rects ref. to vector, that contains all bounding rectangles
+     */
     void removeArtifactsFaces(cv::Mat &grayImage, std::vector<cv::Rect> &rects);
 
 public:

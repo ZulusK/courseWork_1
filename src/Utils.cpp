@@ -45,10 +45,15 @@ float getRotation(const Rect &rect1, const Rect &rect2) {
         angle = atan((p1.y - p2.y) / (p1.x - p2.x));
     else
         angle = atan((p2.y - p1.y) / (p2.x - p1.x));
-
-    angle *= 180;
-    angle /= M_PI;
     return angle;
+}
+
+float toDegrees(float radians) {
+    return radians / M_PI * 180.0;
+}
+
+float toRadians(float degree) {
+    return degree * M_PI / 180.0;
 }
 
 Size getSize(const Mat &M, float scale) {
@@ -58,3 +63,58 @@ Size getSize(const Mat &M, float scale) {
 Size getSize(const Rect &R, float scale) {
     return Size(R.width * scale, R.height * scale);
 }
+
+
+void rotateRect(cv::Rect &R, const cv::Point2f center, float angle) {
+    float ca = cos(angle);
+    float sa = sin(angle);
+    //copy val
+    float dx = R.x - center.x;
+    float dy = R.y - center.y;
+    //move to new CS
+//    float old_x = dx;
+//    float old_y = dy;
+    R.x = ca * dx - sa * dy+center.x;
+    R.y = sa * dx + ca * dy+center.y;
+}
+
+//Vec2D Vec2D_multByNumber(Vec2D a, double number) {
+//    return (Vec2D){
+//            .x = a.x * number,
+//            .y = a.y * number
+//    };
+//}
+//
+//Point2f Vec2D_rotate(Point2f self, float radians) {
+//    double ca = cosf(radians);
+//    double sa = sinf(radians);
+//    return (Point2f) {
+//            .x = ca * self.x - sa * self.y,
+//            .y = sa * self.x + ca * self.y
+//    };
+//}
+
+//Point2f Vec2D_normalize(Point2f self) {
+//    double length = Vec2D_length(self);
+//    if (length == 0) return self;
+//
+//    return Vec2D_multByNumber(self, 1.0 / length);
+//}
+//
+//double Vec2D_length(Point2f self) {
+//    return sqrt(self.x * self.x + self.y * self.y);
+//}
+//
+//Vec2D Vec2D_add(Vec2D a, Vec2D b) {
+//    return (Vec2D){
+//            .x = a.x + b.x,
+//            .y = a.y + b.y
+//    };
+//}
+//
+//Vec2D Vec2D_substract(Vec2D a, Vec2D b) {
+//    return (Vec2D){
+//            .x = a.x - b.x,
+//            .y = a.y - b.y
+//    };
+//}

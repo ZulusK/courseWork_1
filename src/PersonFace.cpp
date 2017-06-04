@@ -11,13 +11,23 @@ using namespace cv;
 
 PersonFace::PersonFace(const cv::Mat &faceRGB, const cv::Mat &faceGray, long id) {
     setId(id);
-    this->faceGray = faceGray.clone();
     this->faceRGB = faceRGB.clone();
+    this->faceGray = faceGray.clone();
+    if (this->faceRGB.empty()) {
+        this->faceRGB = Mat::zeros(1, 1, CV_8UC3);
+    }
+    if (this->faceGray.empty()) {
+        this->faceGray = Mat::zeros(1, 1, CV_8UC1);
+    }
+
 }
 
 PersonFace::PersonFace(const cv::Mat &faceRGB, long id) {
     setId(id);
     this->faceRGB = faceRGB.clone();
+    if (this->faceRGB.empty()) {
+        this->faceRGB = Mat::zeros(1, 1, CV_8UC3);
+    }
     this->faceGray = toGrayscale(this->faceRGB);
 }
 
@@ -61,5 +71,8 @@ PersonFace::~PersonFace() {
 
 void PersonFace::setFaceRGB(const Mat &faceRGB) {
     this->faceRGB = faceRGB;
+    if (this->faceRGB.empty()) {
+        this->faceRGB = Mat::zeros(1, 1, CV_8UC3);
+    }
     this->faceGray = toGrayscale(this->faceRGB);
 }
