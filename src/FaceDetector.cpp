@@ -129,18 +129,29 @@ void FaceDetector::getFaces(const cv::Mat &image, std::vector<PersonFace *> &per
             detectObject(*cascades[EYE], grayImage(rects[i]), eyes, def_scaleFactor,
                          Size(rects[i].width * def_eye_min, rects[i].height * def_eye_min),
                          Size(rects[i].width * def_eye_max, rects[i].height * def_eye_max));
+            //if only 1 eye find, remove face from list
             if (eyes.size() < 1) {
                 rects.erase(rects.begin() + i);
                 i--;
             } else {
                 PersonFace *personFace;
                 //if find only 1 eye
-                if (normalized && eyes.size() < 2) {
-                    eyes.push_back(copyEye(eyes[0],rects[i]));
+                //copy eye
+                if (eyes.size() < 2) {
+                    eyes.push_back(copyEye(eyes[0], rects[i]));
                 }
-                Mat norm_face = normalizeFace(image(rects[i]), eyes[0], eyes[1]);
-                personFace = new PersonFace(norm_face, 0);
+                //cut face
+                Mat cut = cutFace(image(rects[i]), eyes[0], eyes[1]);
+                //normalize face
+                if (normalized) {
+                    Mat norm_face = normalizeFace(cut, eyes[0], eyes[1]);
+                    personFace = new PersonFace(norm_face, 0);
+                } else {
+                    personFace = new PersonFace(cut, 0);
+                }
+                //add eye to face
                 personFace->setEyes(eyes[0], eyes[1]);
+                //add person to list
                 persons.push_back(personFace);
             }
         }
@@ -157,6 +168,23 @@ Mat FaceDetector::normalizeFace(const cv::Mat &image) {
     }
 }
 
+
+Mat FaceDetector::cutFace(const cv::Mat &image, cv::Rect &eye_1, cv::Rect &eye_2) {
+    float x1 = min(eye_1.x, eye_2.x);
+    float y1 = min(eye_1.y, eye_2.y);
+    float x2 = max(eye_1.x + eye_1.width, eye_2.x + eye_2.width);
+    float width = x2 - x1;
+    float height = image.rows - y1;
+
+
+    Rect2f mask = Rect2f(x1, y1, width, height);
+    eye_1.x -= mask.x;
+    eye_1.y -= mask.y;
+    eye_2.x -= mask.x;
+    eye_2.y -= mask.y;
+    return image(mask);
+}
+
 Mat FaceDetector::normalizeFace(const cv::Mat &image, cv::Rect &eye_1, cv::Rect &eye_2) {
     float radians = getRotation(eye_1, eye_2);
     float degrees = toDegrees(radians);
@@ -168,25 +196,10 @@ Mat FaceDetector::normalizeFace(const cv::Mat &image, cv::Rect &eye_1, cv::Rect 
         radians = toRadians(degrees);
     }
 
-    float x1 = min(eye_1.x, eye_2.x);
-    float y1 = min(eye_1.y, eye_2.y);
-    float x2 = max(eye_1.x + eye_1.width, eye_2.x + eye_2.width);
-    float width = x2 - x1;
-    float height = image.rows - y1;
-
-
-    Rect2f mask = Rect2f(x1, y1, width, height);
-
-    Mat cutted = image(mask);
-    eye_1.x -= mask.x;
-    eye_1.y -= mask.y;
-    eye_2.x -= mask.x;
-    eye_2.y -= mask.y;
-
-    Point2f center(cutted.cols / 2.0, cutted.rows / 2.0);
+    Point2f center(image.cols / 2.0, image.rows / 2.0);
     Mat rot_mat = getRotationMatrix2D(center, degrees, 1.0);
     Mat rotaded;
-    warpAffine(cutted, rotaded, rot_mat, cutted.size());
+    warpAffine(image, rotaded, rot_mat, image.size());
 
     rotateRect(eye_1, center, -radians);
     rotateRect(eye_2, center, -radians);

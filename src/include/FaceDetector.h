@@ -68,6 +68,15 @@ private:
      */
     void removeArtifactsFaces(cv::Mat &grayImage, std::vector<cv::Rect> &rects);
 
+    /**
+     * @brief cut image, leave only face, without hair
+     * @param image ref. to image to process
+     * @param eye_1 ref. to first eye
+     * @param eye_2 ref. to second eye
+     * @return cutted image
+     */
+    cv::Mat cutFace(const cv::Mat &image, cv::Rect &eye_1, cv::Rect &eye_2);
+
 public:
     /**
     * @brief constructor of FaceDetector, load cascade from xml-file
