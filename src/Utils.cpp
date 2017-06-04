@@ -74,10 +74,54 @@ void rotateRect(cv::Rect &R, const cv::Point2f center, float angle) {
     //move to new CS
 //    float old_x = dx;
 //    float old_y = dy;
-    R.x = ca * dx - sa * dy+center.x;
-    R.y = sa * dx + ca * dy+center.y;
+    R.x = ca * dx - sa * dy + center.x;
+    R.y = sa * dx + ca * dy + center.y;
 }
 
+Rect copyLeftEye(const Rect &eye, const Rect &frame) {
+    Rect rigthEye;
+    rigthEye.x = (eye.x + eye.width);
+
+    if (rigthEye.x > frame.width) {
+        rigthEye.x = frame.width;
+    }
+
+    rigthEye.y = eye.y;
+
+    if (rigthEye.x + eye.width > frame.width) {
+        rigthEye.width = frame.width - rigthEye.x;
+    } else {
+        rigthEye.width = eye.width;
+    }
+
+    rigthEye.height = eye.height;
+    return rigthEye;
+
+}
+
+Rect copyRigthEye(const Rect &eye, const Rect &frame) {
+    Rect leftEye;
+    leftEye.x = (eye.x - eye.width);
+
+    if (leftEye.x < 0) {
+        leftEye.x = 0;
+    }
+
+    leftEye.y = eye.y;
+    leftEye.height = eye.height;
+    leftEye.width = eye.width;
+    return leftEye;
+
+}
+
+
+Rect copyEye(const Rect &eye, const Rect &frame) {
+    if (eye.x < frame.width / 2) {
+        return copyLeftEye(eye, frame);
+    } else {
+        return copyRigthEye(eye, frame);
+    }
+}
 //Vec2D Vec2D_multByNumber(Vec2D a, double number) {
 //    return (Vec2D){
 //            .x = a.x * number,

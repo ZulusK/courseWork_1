@@ -23,6 +23,9 @@ cv::Size getSize(const cv::Rect &R, float scale);
 void rotateRect(cv::Rect &R, const cv::Point2f center, float angle);
 
 float toRadians(float degree);
+
 float toDegrees(float radians);
+
+cv::Rect copyEye(const cv::Rect &eye, const cv::Rect &frame);
 
 #endif //FISHERFACE_UTILS_H

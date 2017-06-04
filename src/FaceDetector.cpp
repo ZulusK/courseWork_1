@@ -107,7 +107,7 @@ void FaceDetector::detectSmile(const cv::Mat &originalImage, std::vector<cv::Rec
     }
 }
 
-Mat FaceDetector::cutFace(const cv::Mat &image, const cv::Rect &rect, bool normalize) {
+Mat FaceDetector::getFace(const cv::Mat &image, const cv::Rect &rect, bool normalize) {
     Mat roi = image(rect);
     if (normalize) {
         roi = normalizeFace(roi);
@@ -134,14 +134,13 @@ void FaceDetector::getFaces(const cv::Mat &image, std::vector<PersonFace *> &per
                 i--;
             } else {
                 PersonFace *personFace;
-                if (normalized && eyes.size() > 1) {
-                    Mat norm_face = normalizeFace(image(rects[i]), eyes[0], eyes[1]);
-                    personFace = new PersonFace(norm_face, 0);
-                    personFace->setEyes(eyes[0], eyes[1]);
-                } else {
-                    personFace = new PersonFace(image(rects[i]), 0);
-                    personFace->setEyes(eyes[0], eyes[0]);
+                //if find only 1 eye
+                if (normalized && eyes.size() < 2) {
+                    eyes.push_back(copyEye(eyes[0],rects[i]));
                 }
+                Mat norm_face = normalizeFace(image(rects[i]), eyes[0], eyes[1]);
+                personFace = new PersonFace(norm_face, 0);
+                personFace->setEyes(eyes[0], eyes[1]);
                 persons.push_back(personFace);
             }
         }
@@ -169,15 +168,30 @@ Mat FaceDetector::normalizeFace(const cv::Mat &image, cv::Rect &eye_1, cv::Rect 
         radians = toRadians(degrees);
     }
 
-    Point2f center(image.cols / 2.0, image.rows / 2.0);
+    float x1 = min(eye_1.x, eye_2.x);
+    float y1 = min(eye_1.y, eye_2.y);
+    float x2 = max(eye_1.x + eye_1.width, eye_2.x + eye_2.width);
+    float width = x2 - x1;
+    float height = image.rows - y1;
+
+
+    Rect2f mask = Rect2f(x1, y1, width, height);
+
+    Mat cutted = image(mask);
+    eye_1.x -= mask.x;
+    eye_1.y -= mask.y;
+    eye_2.x -= mask.x;
+    eye_2.y -= mask.y;
+
+    Point2f center(cutted.cols / 2.0, cutted.rows / 2.0);
     Mat rot_mat = getRotationMatrix2D(center, degrees, 1.0);
-    Mat dst;
-    warpAffine(image, dst, rot_mat, image.size());
+    Mat rotaded;
+    warpAffine(cutted, rotaded, rot_mat, cutted.size());
 
     rotateRect(eye_1, center, -radians);
     rotateRect(eye_2, center, -radians);
 
-    return dst;
+    return rotaded;
 }
 
 const Size &FaceDetector::getDef_face_min() const {

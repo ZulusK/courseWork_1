@@ -131,7 +131,7 @@ public:
      * @param normalized should face be normalized (eq. rotated)
      * @return face framed by rectangle from image
      */
-    cv::Mat cutFace(const cv::Mat &image, const cv::Rect &rect, bool normalized = false);
+    cv::Mat getFace(const cv::Mat &image, const cv::Rect &rect, bool normalized = false);
 
     /**
      * @brief get found faces framed by rectangles from image
