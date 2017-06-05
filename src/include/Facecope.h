@@ -2,32 +2,29 @@
 // Created by Danil Kazimirov on 04.06.17.
 //
 
-#ifndef FISHERFACE_FACECOPE_H
-#define FISHERFACE_FACECOPE_H
+#ifndef FACECOPE_H
+#define FACECOPE_H
 
-#include <Picture.h>
-#include <FaceDetector.h>
-#include <PersonFace.h>
-#include <PersonRecognizer.h>
+#include <opencv2/imgproc.hpp>
 
-namespace facecope {
-    class Picture;
+class FaceDetector;
 
-    class PersonFace;
+class Picture;
 
-    class PersonRecognizer;
+class PersonFace;
 
-    class FaceDetector;
+class PersonRecognizer;
 
-    struct Face;
-}
+
+typedef struct {
+    PersonFace *personFace;
+    cv::Rect frame;
+    long hash;
+} Face;
 
 enum {
     NOT_RECOGNIZED = -0xFFFF
 };
-struct facecope::Face {
-    facecope::PersonFace *personFace;
-    cv::Rect frame;
-    long hash;
-};
-#endif //FISHERFACE_FACECOPE_H
+
+
+#endif

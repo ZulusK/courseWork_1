@@ -122,5 +122,5 @@ Rect copyEye(const Rect &eye, const Rect &frame) {
 void disableArea(Mat &image, const Rect &rect) {
     Point eye_center(rect.x + rect.width / 2, rect.y + rect.height / 2);
     int radius = max(rect.width, rect.height);
-    circle(image, eye_center, radius, Scalar(255, 0, 0), 4, 8, 0);
+    circle(image, eye_center, radius, Scalar(0,0,0), -1, 8, 0);
 }

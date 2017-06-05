@@ -2,27 +2,28 @@
 // Created by Danil Kazimirov on 04.06.17.
 //
 
-#ifndef FISHERFACE_PICTURE_H
-#define FISHERFACE_PICTURE_H
+#ifndef FACECOPE_PICTURE_H
+#define FACECOPE_PICTURE_H
 
 #include <Facecope.h>
 #include <map>
 #include <vector>
+#include <opencv2/core/mat.hpp>
 
-class facecope::Picture {
+class Picture {
     cv::Mat originalImage;
-    facecope::FaceDetector *detector;
-    facecope::PersonRecognizer *recognizer;
-    std::map<long, facecope::Face> persons;
+    FaceDetector *detector;
+    PersonRecognizer *recognizer;
+    std::map<long, Face> persons;
 private:
     void clearPersons();
 
     void detect_persons();
 
 public:
-    Picture(const std::string &path, facecope::FaceDetector *detector, facecope::PersonRecognizer *recognizer);
+    Picture(const std::string &path, FaceDetector *detector, PersonRecognizer *recognizer);
 
-    Picture(const cv::Mat &image, facecope::FaceDetector *detector, facecope::PersonRecognizer *recognizer);
+    Picture(const cv::Mat &image, FaceDetector *detector, PersonRecognizer *recognizer);
 
     ~Picture();
 
@@ -44,4 +45,4 @@ public:
 };
 
 
-#endif //FISHERFACE_PICTURE_H
+#endif

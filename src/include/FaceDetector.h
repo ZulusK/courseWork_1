@@ -1,20 +1,18 @@
 //
-// Created by Danil Kazimirov on 03.06.17.
+// Created by Danil Kazimirov on 05.06.17.
 //
+#ifndef FACECOPE_DETECTOR_H
+#define FACECOPE_DETECTOR_H
 
-#ifndef FISHERFACE_PERSONDETECTOR_H
-#define FISHERFACE_PERSONDETECTOR_H
-
-#include <opencv2/objdetect.hpp>
-#include <string>
-#include <vector>
-#include <map>
 #include <Facecope.h>
+#include <opencv2/objdetect.hpp>
+#include <map>
+#include <vector>
 
 #define FACE_CASCADE_NAME "haarcascade_frontalface_default.xml"
 #define EYE_CASCADE_NAME "haarcascade_eye.xml"
 
-class facecope::FaceDetector {
+class FaceDetector {
     // map with all loaded cascades
     std::map<int, cv::CascadeClassifier *> cascades;
     //minimum possible object size. Objects smaller than that are ignored.
@@ -30,6 +28,7 @@ class facecope::FaceDetector {
 
     //scale factor
     double def_scaleFactor;
+
 private:
 
     /**
@@ -52,9 +51,34 @@ private:
      * @brief remove rectangles, that don't contains face
      * @param grayImage ref. to gray-scaled image
      * @param rects ref. to vector, that contains all bounding rectangles
-     * @param eyes ref. to vector, that contains all bounding rectangles, that contains eyes
+     * @param allEyes ref. to vector, that contains all bounding rectangles, that contains eyes
      */
-    void remove_artifactedFaces(cv::Mat &grayImage, std::vector<cv::Rect> &rects, std::vector<cv::Rect[2]> eyes);
+    void remove_artifactedFaces(cv::Mat &grayImage, std::vector<cv::Rect> &rects,
+                                std::vector<std::vector<cv::Rect>> &allEyes);
+
+    /**
+     * @brief find persons at image, and remove them from image (fill rect. black color)
+     * @param imageGray ref. to grayscaled image
+     * @param imageRGB ref. to rgb image
+     * @param persons ref. to list of find people
+     */
+    void find_PersonsFaces(cv::Mat &imageGray, const cv::Mat &imageRGB, std::map<long, Face> &persons);
+
+    /**
+     * @brief find persons at image
+     * @param imageRGB ref. to rgb image
+     * @param persons ref. to list of find people
+     */
+    void find_PersonsFaces(const cv::Mat &imageRGB, std::map<long, Face> &persons);
+
+    /**
+     *
+     * @param imageRGB
+     * @param frameRect
+     * @param eyes
+     * @return
+     */
+    PersonFace *createPersonFace(const cv::Mat imageRGB, cv::Rect &frameRect, std::vector<cv::Rect> &eyes);
 
 public:
     /**
@@ -73,14 +97,23 @@ public:
      * @param image reference to image to process
      * @param rects reference to vector for storing the found framing rectangles
      */
-    void detectFace(const cv::Mat &originalImage, std::vector<cv::Rect> rects);
+    void detectFace(const cv::Mat &originalImage, std::vector<cv::Rect> rects,
+                                  std::vector<std::vector<cv::Rect>> &eyes);
 
     /**
     * @brief finds eyes in the image and returns the rectangles that surround them.
     * @param image reference to image to process
     * @param eyes reference to vector for storing the found framing rectangles
     */
-    void detectEye(const cv::Mat &originalImage, std::vector<cv::Rect> eyes);
+    void detectEye(const cv::Mat &originalImage, std::vector<cv::Rect> &eyes);
+
+    /**
+     * @brief get found faces framed by rectangles from image
+     * @param originalImage reference to image to process
+     * @param persons reference to map of all detected persons
+     * @param allAngles Find faces in the image for all possible angles of rotation. The step of increasing the angle of rotation is given by def_rotate_step
+     */
+    void detect_PersonFace(const cv::Mat &originalImage, std::map<long, Face> &persons, bool allAngles);
 
 
     /**
@@ -94,23 +127,6 @@ public:
      * @return true, if loaded, else - false
      */
     bool isLoaded_eye();
-
-    /**
-     *
-     * @param image
-     * @param rects reference to vector for storing the found framing rectangles
-     * @param detectAllDegreese find faces at all possible angles of rotation
-     * @param persons reference to vector for storing the found persons
-     * @param normalized should face be normalized (eq. rotated)
-     */
-    /**
-     * @brief get found faces framed by rectangles from image
-     * @param originalImage reference to image to process
-     * @param persons reference to map of all detected persons
-     * @param allAngles Find faces in the image for all possible angles of rotation. The step of increasing the angle of rotation is given by def_rotate_step
-     */
-    void detect_PersonFace(const cv::Mat &originalImage, std::map<long, facecope::Face> persons, bool allAngles);
-
 
     const cv::Size &getDef_face_min() const;
 
@@ -143,7 +159,9 @@ public:
     float getDef_rotate_step() const;
 
     void setDef_rotate_step(float def_rotate_step);
+
+
 };
 
 
-#endif //FISHERFACE_PERSONDETECTOR_H
+#endif //FACECOPE_DETECTOR_H

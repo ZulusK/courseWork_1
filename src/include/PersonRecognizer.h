@@ -2,8 +2,8 @@
 // Created by Danil Kazimirov on 03.06.17.
 //
 
-#ifndef FISHERFACE_PERSONRECOGNIZER_H
-#define FISHERFACE_PERSONRECOGNIZER_H
+#ifndef FACECOPE_PERSONRECOGNIZER_H
+#define FACECOPE_PERSONRECOGNIZER_H
 
 #include <opencv2/face.hpp>
 #include <opencv2/imgproc.hpp>
@@ -18,13 +18,13 @@ enum {
 /**
  * @brief defines face recognizer class
  */
-class facecope::PersonRecognizer {
+class PersonRecognizer {
 public:
 
     PersonRecognizer(const std::string &storagePath);
 
-    void recognize(std::map<long, facecope::Face> persons);
+    void recognize(std::map<long, Face> persons);
 };
 
 
-#endif //FISHERFACE_PERSONRECOGNIZER_H
+#endif

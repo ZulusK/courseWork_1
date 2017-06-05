@@ -2,15 +2,9 @@ cmake_minimum_required(VERSION 2.8.9)
 include_directories(src/include)
 set(CMAKE_CXX_STANDARD 14)
 
-#set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "bin")
-#set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "bin")
-#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "bin")
-file(GLOB FACECOPE_SOURCES "src/*.cpp" "src/include/*.h")
-
-project(Facecope)
-find_package( OpenCV REQUIRED )
-add_executable(${CMAKE_PROJECT_NAME} ${FACECOPE_SOURCES})
-target_link_libraries(${CMAKE_PROJECT_NAME} ${OpenCV_LIBS})
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "bin")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "bin")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "bin")
 
 
 project(captureVideo)
@@ -200,4 +194,11 @@ target_link_libraries(${CMAKE_PROJECT_NAME} ${OpenCV_LIBS})
 project(fisherface)
 find_package( OpenCV REQUIRED )
 add_executable(${CMAKE_PROJECT_NAME} "samples/playground/Fisherface.cpp")
+target_link_libraries(${CMAKE_PROJECT_NAME} ${OpenCV_LIBS})
+
+
+project(Facecope)
+file(GLOB FACECOPE_SOURCES "src/*.cpp" "src/include/*.h")
+find_package( OpenCV REQUIRED )
+add_executable(${CMAKE_PROJECT_NAME} ${FACECOPE_SOURCES})
 target_link_libraries(${CMAKE_PROJECT_NAME} ${OpenCV_LIBS})

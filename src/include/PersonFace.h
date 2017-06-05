@@ -2,8 +2,8 @@
 // Created by Danil Kazimirov on 03.06.17.
 //
 
-#ifndef FISHERFACE_PERSONFACE_H
-#define FISHERFACE_PERSONFACE_H
+#ifndef FACECOPE_PERSONFACE_H
+#define FACECOPE_PERSONFACE_H
 
 #include <opencv2/imgproc.hpp>
 #include <Facecope.h>
@@ -13,7 +13,7 @@
 /**
  * @brief defines class, that contains person's face
  */
-class facecope::PersonFace {
+class PersonFace {
     // face's image
     cv::Mat face_rgb;
     // rects, that are bound of eyes
@@ -85,4 +85,4 @@ public:
 };
 
 
-#endif //FISHERFACE_PERSONFACE_H
+#endif

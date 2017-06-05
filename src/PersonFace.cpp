@@ -2,13 +2,13 @@
 // Created by Danil Kazimirov on 03.06.17.
 //
 
-#include <Facecope.h>
+#include <PersonFace.h>
 #include <Utils.h>
 
 using namespace std;
 using namespace cv;
 
-facecope::PersonFace::PersonFace(const cv::Mat &original, const cv::Rect &eye_1, const cv::Rect &eye_2, long id = 0) {
+PersonFace::PersonFace(const cv::Mat &original, const cv::Rect &eye_1, const cv::Rect &eye_2, long id) {
     this->id = id;
     if (original.empty()) {
         this->face_rgb = Mat::zeros(1, 1, CV_8UC1);
@@ -25,7 +25,7 @@ facecope::PersonFace::PersonFace(const cv::Mat &original, const cv::Rect &eye_1,
     }
 }
 
-void facecope::PersonFace::normalize_rotatation() {
+void PersonFace::normalize_rotatation() {
 
     //get angle of rotation
     float radians = -getRotation_radians(eyes[0], eyes[1]);
@@ -54,7 +54,7 @@ void facecope::PersonFace::normalize_rotatation() {
     rotateRect(eyes[1], center, radians);
 }
 
-void facecope::PersonFace::normalize_size() {
+void PersonFace::normalize_size() {
     float x1 = min(eyes[0].x, eyes[1].x);
     float y1 = min(eyes[0].y, eyes[1].y);
     float x2 = max(eyes[0].x + eyes[0].width, eyes[1].x + eyes[1].width);
@@ -69,7 +69,7 @@ void facecope::PersonFace::normalize_size() {
     this->face_rgb = face_rgb(mask);
 }
 
-void facecope::PersonFace::normalize() {
+void PersonFace::normalize() {
     if (!this->normalized) {
         this->normalize_size();
         this->normalize_rotatation();
@@ -78,21 +78,23 @@ void facecope::PersonFace::normalize() {
     }
 }
 
-~PersonFace();
+PersonFace::~PersonFace(){
+    
+}
 
-long facecope::PersonFace::get_id() const {
+long PersonFace::get_id() const {
     return id;
 }
 
-void facecope::PersonFace::set_id(long id) {
+void PersonFace::set_id(long id) {
     this->id = id;
 }
 
-const cv::Mat &facecope::PersonFace::get_face_rgb() const {
+const cv::Mat &PersonFace::get_face_rgb() const {
     return face_rgb;
 }
 
-const cv::Rect *facecope::PersonFace::get_eyes() const {
+const cv::Rect *PersonFace::get_eyes() const {
     return eyes;
 }
 

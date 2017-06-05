@@ -3,14 +3,17 @@
 //
 
 #include <Picture.h>
+#include <PersonFace.h>
+#include <PersonRecognizer.h>
+#include <FaceDetector.h>
 #include <opencv2/imgcodecs.hpp>
 #include <unordered_set>
 
 using namespace cv;
 using namespace std;
 
-facecope::Picture::Picture(const cv::Mat &image, facecope::FaceDetector *detector,
-                           facecope::PersonRecognizer *recognizer) {
+Picture::Picture(const cv::Mat &image, FaceDetector *detector,
+                           PersonRecognizer *recognizer) {
     set_detector(detector);
     set_recognizer(recognizer);
     if (image.empty()) {
@@ -20,8 +23,8 @@ facecope::Picture::Picture(const cv::Mat &image, facecope::FaceDetector *detecto
     }
 }
 
-facecope::Picture::Picture(const std::string &path, facecope::FaceDetector *detector,
-                           facecope::PersonRecognizer *recognizer) {
+Picture::Picture(const std::string &path, FaceDetector *detector,
+                           PersonRecognizer *recognizer) {
     set_detector(detector);
     set_recognizer(recognizer);
     this->originalImage = imread(path);
@@ -30,22 +33,22 @@ facecope::Picture::Picture(const std::string &path, facecope::FaceDetector *dete
     }
 }
 
-facecope::Picture::~Picture() {
+Picture::~Picture() {
     clearPersons();
 }
 
-void facecope::Picture::clearPersons() {
+void Picture::clearPersons() {
     for (auto it = persons.begin(); it != persons.end(); it++) {
         delete it->second.personFace;
     }
     persons.clear();
 }
 
-facecope::FaceDetector *facecope::Picture::get_detector() const {
+FaceDetector *Picture::get_detector() const {
     return detector;
 }
 
-void facecope::Picture::set_detector(facecope::FaceDetector *detector) {
+void Picture::set_detector(FaceDetector *detector) {
     if (detector) {
         this->detector = detector;
     } else {
@@ -53,11 +56,11 @@ void facecope::Picture::set_detector(facecope::FaceDetector *detector) {
     }
 }
 
-facecope::PersonRecognizer *facecope::Picture::get_recognizer() const {
+PersonRecognizer *Picture::get_recognizer() const {
     return recognizer;
 }
 
-void facecope::Picture::set_recognizer(facecope::PersonRecognizer *recognizer) {
+void Picture::set_recognizer(PersonRecognizer *recognizer) {
     if (recognizer) {
         this->recognizer = recognizer;
     } else {
@@ -65,29 +68,29 @@ void facecope::Picture::set_recognizer(facecope::PersonRecognizer *recognizer) {
     };
 }
 
-void facecope::Picture::detect_persons() {
+void Picture::detect_persons() {
     if (detector && !empty()) {
         clearPersons();
         detector->detect_PersonFace(originalImage, persons, true);
     }
 }
 
-void facecope::Picture::recognize_persons() {
+void Picture::recognize_persons() {
     if (recognizer && !empty()) {
         recognizer->recognize(persons);
     }
 }
 
-bool facecope::Picture::empty() {
+bool Picture::empty() {
     return originalImage.empty();
 }
 
-bool facecope::Picture::recognized() {
+bool Picture::recognized() {
     return !persons.empty();
 }
 
 
-bool facecope::Picture::recognize() {
+bool Picture::recognize() {
     detect_persons();
     recognize_persons();
 }
