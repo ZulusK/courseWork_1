@@ -45,7 +45,6 @@ void PersonFace::normalize_rotatation() {
     //copy face image
     Mat original;
     //get new bounding rect
-//    cv::Rect bbox = cv::RotatedRect(center, face_rgb.size(), degrees).boundingRect();
     //rotate face
     warpAffine(face_rgb, original, rot_mat, face_rgb.size());
     face_rgb = original;
@@ -57,15 +56,15 @@ void PersonFace::normalize_rotatation() {
 
 void PersonFace::normalize_size() {
     float x1 = min(eyes[0].x, eyes[1].x);
-    float y1 = 0;
+    float y1 = 1;
     float x2 = min(max(eyes[0].x + eyes[0].width, eyes[1].x + eyes[1].width), face_rgb.cols);
     float width = x2 - x1;
-    float height = face_rgb.rows - 0;
+    float height = face_rgb.rows - 1;
 
     Rect2f mask = Rect2f(x1, 0, width, height);
     //normilize mask
-    mask.x = max(0.0f, mask.x);
-    mask.y = max(0.0f, mask.y);
+    mask.x = max(1.0f, mask.x);
+    mask.y = max(1.0f, mask.y);
     mask.height = min(face_rgb.rows - mask.y, mask.y + mask.height);
     mask.width = min(face_rgb.cols - mask.x, mask.x + mask.width);
 

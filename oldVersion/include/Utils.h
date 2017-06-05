@@ -20,7 +20,11 @@ cv::Size getSize(const cv::Mat &M, float scale);
 
 cv::Size getSize(const cv::Rect &R, float scale);
 
-void rotateRect(cv::Rect &R, const cv::Point2f center, float angle);
+void rotateRect(cv::Rect &R, const cv::Point2f &center, float angle);
+
+void rotatePoint(float &x, float &y, const cv::Point2f &center, float angle);
+
+void rotatePoint(int &x, int &y, const cv::Point2f &center, float angle);
 
 float toRadians(float degree);
 

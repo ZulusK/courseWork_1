@@ -75,12 +75,11 @@ void Picture::set_recognizer(PersonRecognizer *recognizer) {
     };
 }
 
-void Picture::detect_persons(bool allDegree) {
+void Picture::detect_persons(int angleRange, int angleStep) {
     if (!detected && detector && !empty()) {
         clearPersons();
         detected = true;
-        detector->detect_PersonFace(originalImage, persons, allDegree);
-
+        detector->detect_PersonFace(originalImage, persons, angleRange, angleStep);
     }
 }
 
@@ -99,12 +98,12 @@ bool Picture::recognized() {
 }
 
 bool Picture::recognize(bool allDegree) {
-    detect_persons(allDegree);
+    detect_persons(15,15);
     recognize_persons();
 }
 
 std::vector<cv::Rect> Picture::get_persons_rects() {
-    vector<Rect> rects(this->persons.size());
+    vector<Rect> rects;
     for (auto it = persons.begin(); it != persons.end(); it++) {
         rects.push_back(it->second.frame);
     }
@@ -117,15 +116,14 @@ std::vector<PersonFace *> Picture::get_persons_faces() {
     for (auto it = persons.begin(); it != persons.end(); it++, i++) {
         PersonFace *pf = it->second.personFace;
         faces.push_back(it->second.personFace);
-        imshow(to_string(i), it->second.personFace->get_face_rgb());
     }
     return faces;
 }
 
 std::vector<Face> Picture::get_persons() {
-    vector<Face> faces(this->persons.size());
+    vector<Face> faces;
     for (auto it = persons.begin(); it != persons.end(); it++) {
-        faces.push_back(it->second);
+        faces.push_back(Face{.personFace=it->second.personFace, .frame=it->second.frame});
     }
     return faces;
 }

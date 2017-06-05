@@ -9,8 +9,10 @@
 #include <map>
 #include <vector>
 
-#define FACE_CASCADE_NAME "haarcascade_frontalface_default.xml"
-#define EYE_CASCADE_NAME "haarcascade_eye.xml"
+#define FACE_CASCADE_NAME_HAAR "haarcascade_frontalface_default.xml"
+#define EYE_CASCADE_NAME_HAAR "haarcascade_eye_tree_eyeglasses.xml"
+#define FACE_CASCADE_NAME_LBP "lbpcascade_frontalface.xml"
+//#define EYE_CASCADE_NAME_LBP "eye_haar.xml"
 
 class FaceDetector {
     // map with all loaded cascades
@@ -64,7 +66,8 @@ private:
      * @param angle angle of current rotation
      * @param centerOfRotation center of image rotatin
      */
-    void find_PersonsFaces(cv::Mat &imageGray, const cv::Mat &imageRGB, std::map<long, Face> &persons, float angle,cv::Point2f & centerOfRotation);
+    void find_PersonsFaces(cv::Mat &imageGray, const cv::Mat &imageRGB, std::map<long, Face> &persons, float angle,
+                           cv::Point2f &centerOfRotation);
 
     /**
      * @brief find persons at image
@@ -84,10 +87,17 @@ private:
 
 public:
     /**
-    * @brief constructor of FaceDetector, load cascade from xml-file
+    * @brief constructor of FaceDetector (using only Haar's cascade), load cascade from xml-file
     * @param cascadeFolderPath path to directory with Haar's cascades
     */
     FaceDetector(const std::string &cascadeFolderPath);
+
+    /**
+     * @brief constructor of FaceDetector (using Haar's cascade for eye, LBP for face), load cascade from xml-file
+     * @param cascadeFolderPathLBP path to directory with LBP cascades
+     * @param cascadeFolderPathHaar path to directory with Haar's cascades
+     */
+    FaceDetector(const std::string &cascadeFolderPathLBP, const std::string &cascadeFolderPathHaar);
 
     /**
      * @brief  destructor
@@ -100,7 +110,7 @@ public:
      * @param rects reference to vector for storing the found framing rectangles
      */
     void detectFace(const cv::Mat &originalImage, std::vector<cv::Rect> rects,
-                                  std::vector<std::vector<cv::Rect>> &eyes);
+                    std::vector<std::vector<cv::Rect>> &eyes);
 
     /**
     * @brief finds eyes in the image and returns the rectangles that surround them.
@@ -113,9 +123,10 @@ public:
      * @brief get found faces framed by rectangles from image
      * @param originalImage reference to image to process
      * @param persons reference to map of all detected persons
-     * @param allAngles Find faces in the image for all possible angles of rotation. The step of increasing the angle of rotation is given by def_rotate_step
+     * @param angleRange Find faces in the image for all possible angles of rotation. The step of increasing the angle of rotation is given by def_rotate_step
+     *
      */
-    void detect_PersonFace(const cv::Mat &originalImage, std::map<long, Face> &persons, bool allAngles);
+    void detect_PersonFace(const cv::Mat &originalImage, std::map<long, Face> &persons, int angleRange=0, int angleStep=0);
 
 
     /**

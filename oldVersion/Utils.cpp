@@ -63,15 +63,49 @@ Size getSize(const Rect &R, float scale) {
 }
 
 
-void rotateRect(cv::Rect &R, const cv::Point2f center, float angle) {
+void rotateRect(cv::Rect &R, const cv::Point2f &center, float angle) {
+    float x1 = R.x;
+    float x2 = x1 + R.width;
+    float y1 = R.y;
+    float y2 = y1 + R.height;
+    rotatePoint(x1, y1, center, angle);
+    rotatePoint(x2, y2, center, angle);
+    R.x = min(x1, x2);
+    R.y = min(y1, y2);
+//    rotatePoint(R.width, R.height, center, angle);
+    R.width = max(x1, x2) - R.x;
+    R.height = max(y1, y2) - R.y;
+//    float ca = cos(angle);
+//    float sa = sin(angle);
+//    //copy val
+//    float dx = R.x - center.x;
+//    float dy = R.y - center.y;
+//    //move to new CS
+//    R.x = ca * dx - sa * dy + center.x;
+//    R.y = sa * dx + ca * dy + center.y;
+}
+
+void rotatePoint(int &x, int &y, const cv::Point2f &center, float angle) {
     float ca = cos(angle);
     float sa = sin(angle);
     //copy val
-    float dx = R.x - center.x;
-    float dy = R.y - center.y;
+    float dx = x - center.x;
+    float dy = y - center.y;
     //move to new CS
-    R.x = ca * dx - sa * dy + center.x;
-    R.y = sa * dx + ca * dy + center.y;
+    x = ca * dx - sa * dy + center.x;
+    y = sa * dx + ca * dy + center.y;
+}
+
+
+void rotatePoint(float &x, float &y, const cv::Point2f &center, float angle) {
+    float ca = cos(angle);
+    float sa = sin(angle);
+    //copy val
+    float dx = x - center.x;
+    float dy = y - center.y;
+    //move to new CS
+    x = ca * dx - sa * dy + center.x;
+    y = sa * dx + ca * dy + center.y;
 }
 
 Rect copyLeftEye(const Rect &eye, const Rect &frame) {
@@ -122,5 +156,5 @@ Rect copyEye(const Rect &eye, const Rect &frame) {
 void disableArea(Mat &image, const Rect &rect) {
     Point eye_center(rect.x + rect.width / 2, rect.y + rect.height / 2);
     int radius = min(rect.width, rect.height);
-    circle(image, eye_center, radius, Scalar(0,0,0), -1, 8, 0);
+    circle(image, eye_center, radius, Scalar(0, 0, 0), -1, 8, 0);
 }

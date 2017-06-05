@@ -19,8 +19,8 @@ int main(int argc, const char **argv) {
     cout
             << "\nThis program demonstrates using the cv::CascadeClassifier class to detect objects (Face + eyes) in a video stream.\n"
                     "You can use Haar or LBP features.\n\n";
-    face_cascade_name = "../res/haarcascades/haarcascade_frontalface_default.xml";
-    eyes_cascade_name = "../res/haarcascades/haarcascade_eye.xml";
+    face_cascade_name = "/home/zulus/Projects/progbase3/src/cascades/face_haar.xml";
+    eyes_cascade_name = "/home/zulus/Projects/progbase3/src/cascades/eye_haar.xml";
 
     VideoCapture capture;
     Mat frame;
@@ -68,7 +68,7 @@ void detectAndDisplay(Mat frame) {
         eyes_cascade.detectMultiScale(faceROI, eyes, 1.1, 2, 0 | CASCADE_SCALE_IMAGE, Size(30, 30));
         for (size_t j = 0; j < eyes.size(); j++) {
             Point eye_center(faces[i].x + eyes[j].x + eyes[j].width / 2, faces[i].y + eyes[j].y + eyes[j].height / 2);
-            int radius = max(faces[i].width, faces[i].height);
+            int radius = max(eyes[i].width, eyes[i].height);
             circle(frame, eye_center, radius, Scalar(255, 0, 0), 4, 8, 0);
         }
     }

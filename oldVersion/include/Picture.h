@@ -37,7 +37,7 @@ public:
 
     void recognize_persons();
 
-    void detect_persons(bool allDegree);
+    void detect_persons(int angleRange, int angleStep);
 
     bool empty();
 
