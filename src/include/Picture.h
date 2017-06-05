@@ -15,12 +15,12 @@ class Picture {
     FaceDetector *detector;
     PersonRecognizer *recognizer;
     std::map<long, Face> persons;
+    bool detected;
 private:
     void clearPersons();
 
-    void detect_persons();
-
 public:
+
     Picture(const std::string &path, FaceDetector *detector, PersonRecognizer *recognizer);
 
     Picture(const cv::Mat &image, FaceDetector *detector, PersonRecognizer *recognizer);
@@ -37,11 +37,19 @@ public:
 
     void recognize_persons();
 
+    void detect_persons(bool allDegree);
+
     bool empty();
 
     bool recognized();
 
-    bool recognize();
+    bool recognize(bool allDegree);
+
+    std::vector<cv::Rect> get_persons_rects();
+
+    std::vector<PersonFace *> get_persons_faces();
+
+    std::vector<Face> get_persons();
 };
 
 

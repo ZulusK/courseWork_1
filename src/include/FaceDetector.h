@@ -57,12 +57,14 @@ private:
                                 std::vector<std::vector<cv::Rect>> &allEyes);
 
     /**
-     * @brief find persons at image, and remove them from image (fill rect. black color)
+     * @brief find persons at image, and remove them from image (fill rect. black color), use for detec person on all angles
      * @param imageGray ref. to grayscaled image
      * @param imageRGB ref. to rgb image
      * @param persons ref. to list of find people
+     * @param angle angle of current rotation
+     * @param centerOfRotation center of image rotatin
      */
-    void find_PersonsFaces(cv::Mat &imageGray, const cv::Mat &imageRGB, std::map<long, Face> &persons);
+    void find_PersonsFaces(cv::Mat &imageGray, const cv::Mat &imageRGB, std::map<long, Face> &persons, float angle,cv::Point2f & centerOfRotation);
 
     /**
      * @brief find persons at image

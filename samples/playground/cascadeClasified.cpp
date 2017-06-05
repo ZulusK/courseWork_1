@@ -12,8 +12,8 @@ using namespace cv;
 void detectAndDisplay( Mat frame );
 
 /** Global variables */
-String face_cascade_name = "haarcascade_frontalface_alt.xml";
-String eyes_cascade_name = "haarcascade_eye_tree_eyeglasses.xml";
+String face_cascade_name = "/home/zulus/Projects/progbase3/src/haarcascades/haarcascade_frontalface_alt.xml";
+String eyes_cascade_name = "/home/zulus/Projects/progbase3/src/haarcascades/haarcascade_eye_tree_eyeglasses.xml";
 CascadeClassifier face_cascade;
 CascadeClassifier eyes_cascade;
 string window_name = "Capture - Face detection";
@@ -35,7 +35,7 @@ int main( int argc, const char** argv )
     {
         while( true )
         {
-            frame = cvQueryFrame( capture );
+            frame = cvarrToMat(cvQueryFrame( capture ));
 
             //-- 3. Apply the classifier to the frame
             if( !frame.empty() )
@@ -66,7 +66,7 @@ void detectAndDisplay( Mat frame )
     {
         Point center( faces[i].x + faces[i].width*0.5, faces[i].y + faces[i].height*0.5 );
         ellipse( frame, center, Size( faces[i].width*0.5, faces[i].height*0.5), 0, 0, 360, Scalar( 255, 0, 255 ), 4, 8, 0 );
-
+rectangle(frame,faces[i], Scalar( 255, 0, 255 ), 4, 8, 0 );
         Mat faceROI = frame_gray( faces[i] );
         std::vector<Rect> eyes;
 

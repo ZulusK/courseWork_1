@@ -20,7 +20,7 @@ PersonFace::PersonFace(const cv::Mat &original, const cv::Rect &eye_1, const cv:
             this->eyes[0] = eye_2;
             this->eyes[1] = eye_1;
         }
-        this->face_rgb = original;
+        original.copyTo(face_rgb);
         this->normalized = false;
     }
 }
@@ -28,7 +28,7 @@ PersonFace::PersonFace(const cv::Mat &original, const cv::Rect &eye_1, const cv:
 void PersonFace::normalize_rotatation() {
 
     //get angle of rotation
-    float radians = -getRotation_radians(eyes[0], eyes[1]);
+    float radians = getRotation_radians(eyes[0], eyes[1]);
     float degrees = toDegrees(radians);
     if (degrees > ROTATE_FACE_MAX_ANGLE) {
         degrees = ROTATE_FACE_MAX_ANGLE;
@@ -43,25 +43,32 @@ void PersonFace::normalize_rotatation() {
     //get rotation matrix
     Mat rot_mat = getRotationMatrix2D(center, degrees, 1.0);
     //copy face image
-    Mat original = face_rgb.clone();
+    Mat original;
     //get new bounding rect
-    cv::Rect bbox = cv::RotatedRect(center, original.size(), degrees).boundingRect();
+//    cv::Rect bbox = cv::RotatedRect(center, face_rgb.size(), degrees).boundingRect();
     //rotate face
-    warpAffine(original, face_rgb, rot_mat, bbox.size());
+    warpAffine(face_rgb, original, rot_mat, face_rgb.size());
+    face_rgb = original;
 
     //rotate eye
-    rotateRect(eyes[0], center, radians);
-    rotateRect(eyes[1], center, radians);
+    rotateRect(eyes[0], center, -radians);
+    rotateRect(eyes[1], center, -radians);
 }
 
 void PersonFace::normalize_size() {
     float x1 = min(eyes[0].x, eyes[1].x);
-    float y1 = min(eyes[0].y, eyes[1].y);
-    float x2 = max(eyes[0].x + eyes[0].width, eyes[1].x + eyes[1].width);
+    float y1 = 0;
+    float x2 = min(max(eyes[0].x + eyes[0].width, eyes[1].x + eyes[1].width), face_rgb.cols);
     float width = x2 - x1;
-    float height = face_rgb.rows - y1;
+    float height = face_rgb.rows - 0;
 
-    Rect2f mask = Rect2f(x1, y1, width, height);
+    Rect2f mask = Rect2f(x1, 0, width, height);
+    //normilize mask
+    mask.x = max(0.0f, mask.x);
+    mask.y = max(0.0f, mask.y);
+    mask.height = min(face_rgb.rows - mask.y, mask.y + mask.height);
+    mask.width = min(face_rgb.cols - mask.x, mask.x + mask.width);
+
     eyes[0].x -= mask.x;
     eyes[0].y -= mask.y;
     eyes[1].x -= mask.x;
@@ -71,15 +78,17 @@ void PersonFace::normalize_size() {
 
 void PersonFace::normalize() {
     if (!this->normalized) {
-        this->normalize_size();
         this->normalize_rotatation();
+        this->normalize_size();
+        rectangle(face_rgb, eyes[0], Scalar(255, 0, 0));
+        rectangle(face_rgb, eyes[1], Scalar(255, 0, 0));
         //set flag
         this->normalized = true;
     }
 }
 
-PersonFace::~PersonFace(){
-    
+PersonFace::~PersonFace() {
+    this->face_rgb.release();
 }
 
 long PersonFace::get_id() const {

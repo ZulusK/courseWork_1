@@ -26,11 +26,11 @@ FaceDetector::FaceDetector(const std::string &cascadeFolderPath) {
         cascades[EYE] = new CascadeClassifier();
         cascades[EYE]->load(cascadeFolderPath + EYE_CASCADE_NAME);
     }
-    this->def_scaleFactor = 1.5;
-    this->def_face_min = Size(100, 100);
-    this->def_eye_min = 0.15;
+    this->def_scaleFactor = 1.1;
+    this->def_face_min = Size(0, 0);
+    this->def_eye_min = 0.2;
     this->def_eye_max = 0.5;
-    this->def_rotate_step = 45;
+    this->def_rotate_step = 15;
 }
 
 FaceDetector::~ FaceDetector() {
@@ -54,7 +54,7 @@ void FaceDetector::detectObject(CascadeClassifier &classifier, const cv::Mat &gr
                                 double scaleFactor,
                                 cv::Size minSize, cv::Size maxSize) {
     if (!classifier.empty() || grayImage.channels() > 1) {
-        classifier.detectMultiScale(grayImage, rects, scaleFactor, 2, 0 | CASCADE_SCALE_IMAGE, minSize, maxSize);
+        classifier.detectMultiScale(grayImage, rects, scaleFactor, 2, 0 | CV_HAAR_SCALE_IMAGE, minSize, maxSize);
     }
 }
 
@@ -65,13 +65,14 @@ void FaceDetector::remove_artifactedFaces(cv::Mat &grayImage, std::vector<cv::Re
         return;
     }
     for (int i = 0; i < rects.size(); i++) {
-        vector<Rect> eyes;
-        detectObject(*cascades[EYE], grayImage, eyes, def_scaleFactor,
-                     Size(grayImage.cols * def_eye_min, grayImage.rows * def_eye_min),
-                     Size(grayImage.cols * def_eye_max, grayImage.rows * def_eye_max));
+        vector<Rect> eyes(2);
+        detectObject(*cascades[EYE], grayImage(rects[i]), eyes, def_scaleFactor,
+                     Size(rects[i].width * def_eye_min, rects[i].height * def_eye_min),
+                     Size(rects[i].width * def_eye_max, rects[i].height * def_eye_max));
         //if didn't find any eye, remove face
         if (eyes.size() == 0) {
             rects.erase(rects.begin() + i);
+            eyes.clear();
             i--;
         } else {
             //add find eyes to list
@@ -82,19 +83,25 @@ void FaceDetector::remove_artifactedFaces(cv::Mat &grayImage, std::vector<cv::Re
 
 
 PersonFace *FaceDetector::createPersonFace(const cv::Mat imageRGB, cv::Rect &frameRect, std::vector<cv::Rect> &eyes) {
-    Rect eye_1 = eyes[0];
+    Rect eye_1;
     Rect eye_2;
-    //if find only 1 eye, copy it
-    if (eyes.size() == 1) {
-        eye_2 = copyEye(eyes[0], frameRect);
-    } else {
-        eye_2 = eyes[1];
+    if (eyes.size() > 0) {
+        eye_1 = eyes[0];
+        //if find only 1 eye, copy it
+        if (eyes.size() == 1) {
+            eye_2 = copyEye(eyes[0], frameRect);
+        } else {
+            eye_2 = eyes[1];
+        }
     }
     PersonFace *personFace = new PersonFace(imageRGB(frameRect), eye_1, eye_2);
+    cout<<"create"<<endl;
     return personFace;
 }
 
-void FaceDetector::find_PersonsFaces(cv::Mat &imageGray, const cv::Mat &imageRGB, std::map<long, Face> &persons) {
+void
+FaceDetector::find_PersonsFaces(cv::Mat &imageGray, const cv::Mat &imageRGB, std::map<long, Face> &persons, float angle,
+                                Point2f &center) {
 
     vector<Rect> allRects;
     detectObject(*cascades[FACE], imageGray, allRects, def_scaleFactor, def_face_min, def_face_max);
@@ -105,13 +112,16 @@ void FaceDetector::find_PersonsFaces(cv::Mat &imageGray, const cv::Mat &imageRGB
     long shift = persons.size();
     //create persons
     for (long i = 0; i < allRects.size(); i++) {
+        //fill area black
+        disableArea(imageGray, allRects[i]);
         //create new person
         PersonFace *personFace = createPersonFace(imageRGB, allRects[i], allEyes[i]);
+//        rotateRect(allRects[i], center, toRadians(angle));
         Face face{.personFace=personFace, .frame=allRects[i], .hash=shift + i};
-        //add person to list
-        persons[shift + i] = face;
-        disableArea(imageGray, allRects[i]);
+        persons[face.hash] = face;
     }
+    //add person to list
+    //rotatet bounding rect
 }
 
 void FaceDetector::find_PersonsFaces(const cv::Mat &imageRGB, std::map<long, Face> &persons) {
@@ -129,8 +139,9 @@ void FaceDetector::find_PersonsFaces(const cv::Mat &imageRGB, std::map<long, Fac
         PersonFace *personFace = createPersonFace(imageRGB, allRects[i], allEyes[i]);
         Face face{.personFace=personFace, .frame=allRects[i], .hash=shift + i};
         //add person to list
-        persons[shift + i] = face;
+        persons[face.hash] = face;
     }
+    imageGray.release();
 }
 
 void FaceDetector::detect_PersonFace(const cv::Mat &originalImage, std::map<long, Face> &persons, bool allAngles) {
@@ -140,21 +151,27 @@ void FaceDetector::detect_PersonFace(const cv::Mat &originalImage, std::map<long
             Mat copyGrayScale = toGrayscale(originalImage.clone());
             Mat copyRGB = originalImage.clone();
             //create rotation matrix
-            Point2f center(originalImage.cols / 2.0, originalImage.rows / 2.0);
+            Point2f center(copyRGB.cols / 2.0, copyRGB.rows / 2.0);
             Mat rot_mat = getRotationMatrix2D(center, def_rotate_step, 1.0);
-
             //rotate image and detect persons in each angle
             for (int i = 0; i < 360; i += def_rotate_step) {
                 //get faces for this degrees
-                find_PersonsFaces(copyGrayScale, copyRGB, persons);
+                find_PersonsFaces(copyGrayScale, copyRGB, persons, i, center);
                 //rotate image
-                cv::Rect bbox = cv::RotatedRect(center, originalImage.size(), i).boundingRect();
-                Mat rotated;
-                warpAffine(copyRGB, rotated, rot_mat, bbox.size());
-                copyRGB = rotated;
-                warpAffine(copyGrayScale, rotated, rot_mat, bbox.size());
-                copyGrayScale;
+                {
+                    Mat rotated;
+                    warpAffine(copyRGB, rotated, rot_mat, copyRGB.size());
+                    copyRGB = rotated;
+                    rotated.release();
+                    warpAffine(copyGrayScale, rotated, rot_mat, copyRGB.size());
+                    copyGrayScale = rotated;
+                    rotated.release();
+                }
             }
+//            imshow("gray", copyGrayScale);
+            copyRGB.release();
+            copyGrayScale.release();
+//            imwrite("/home/zulus/Projects/progbase3/res/Gray.png",copyGrayScale);
         } else {
             find_PersonsFaces(originalImage, persons);
         }
@@ -166,6 +183,7 @@ void FaceDetector::detectFace(const cv::Mat &originalImage, std::vector<cv::Rect
         Mat grayImage = toGrayscale(originalImage);
         detectObject(*cascades[FACE], grayImage, rects, def_scaleFactor, def_face_min, def_face_max);
         remove_artifactedFaces(grayImage, rects, eyes);
+        grayImage.release();
     }
 }
 
@@ -176,6 +194,7 @@ void FaceDetector::detectEye(const cv::Mat &originalImage, std::vector<cv::Rect>
         detectObject(*cascades[EYE], grayImage, eyes, def_scaleFactor,
                      Size(grayImage.cols * def_eye_min, grayImage.rows * def_eye_min),
                      Size(grayImage.cols * def_eye_max, grayImage.rows * def_eye_max));
+        grayImage.release();
     }
 }
 
@@ -212,7 +231,6 @@ void FaceDetector::setDef_eye_max(float def_eye_max) {
     if (def_eye_max >= 0)
         def_eye_max = def_eye_max;
 }
-
 
 double FaceDetector::getDef_scaleFactor() const {
     return def_scaleFactor;

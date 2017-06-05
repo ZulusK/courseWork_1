@@ -8,12 +8,15 @@
 #include <FaceDetector.h>
 #include <opencv2/imgcodecs.hpp>
 #include <unordered_set>
+#include <Facecope.h>
+#include <iostream>
+#include <opencv/cv.hpp>
 
 using namespace cv;
 using namespace std;
 
 Picture::Picture(const cv::Mat &image, FaceDetector *detector,
-                           PersonRecognizer *recognizer) {
+                 PersonRecognizer *recognizer) {
     set_detector(detector);
     set_recognizer(recognizer);
     if (image.empty()) {
@@ -21,20 +24,24 @@ Picture::Picture(const cv::Mat &image, FaceDetector *detector,
     } else {
         this->originalImage = image.clone();
     }
+    detected = false;
 }
 
 Picture::Picture(const std::string &path, FaceDetector *detector,
-                           PersonRecognizer *recognizer) {
+                 PersonRecognizer *recognizer) {
     set_detector(detector);
     set_recognizer(recognizer);
     this->originalImage = imread(path);
     if (this->originalImage.empty()) {
+        this->originalImage.release();
         this->originalImage = Mat::zeros(1, 1, CV_8UC1);
     }
+    detected = false;
 }
 
 Picture::~Picture() {
     clearPersons();
+    this->originalImage.release();
 }
 
 void Picture::clearPersons() {
@@ -68,10 +75,12 @@ void Picture::set_recognizer(PersonRecognizer *recognizer) {
     };
 }
 
-void Picture::detect_persons() {
-    if (detector && !empty()) {
+void Picture::detect_persons(bool allDegree) {
+    if (!detected && detector && !empty()) {
         clearPersons();
-        detector->detect_PersonFace(originalImage, persons, true);
+        detected = true;
+        detector->detect_PersonFace(originalImage, persons, allDegree);
+
     }
 }
 
@@ -89,8 +98,34 @@ bool Picture::recognized() {
     return !persons.empty();
 }
 
-
-bool Picture::recognize() {
-    detect_persons();
+bool Picture::recognize(bool allDegree) {
+    detect_persons(allDegree);
     recognize_persons();
+}
+
+std::vector<cv::Rect> Picture::get_persons_rects() {
+    vector<Rect> rects(this->persons.size());
+    for (auto it = persons.begin(); it != persons.end(); it++) {
+        rects.push_back(it->second.frame);
+    }
+    return rects;
+}
+
+std::vector<PersonFace *> Picture::get_persons_faces() {
+    vector<PersonFace *> faces;
+    int i = 0;
+    for (auto it = persons.begin(); it != persons.end(); it++, i++) {
+        PersonFace *pf = it->second.personFace;
+        faces.push_back(it->second.personFace);
+        imshow(to_string(i), it->second.personFace->get_face_rgb());
+    }
+    return faces;
+}
+
+std::vector<Face> Picture::get_persons() {
+    vector<Face> faces(this->persons.size());
+    for (auto it = persons.begin(); it != persons.end(); it++) {
+        faces.push_back(it->second);
+    }
+    return faces;
 }
