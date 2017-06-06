@@ -18,7 +18,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ImageProcessing/FFaceDetector.cpp" afterPath="$PROJECT_DIR$/src/ImageProcessing/FFaceDetector.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ImageProcessing/FPerson.cpp" afterPath="$PROJECT_DIR$/src/ImageProcessing/FPerson.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ImageProcessing/Utils.cpp" afterPath="$PROJECT_DIR$/src/ImageProcessing/Utils.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ImageProcessing/include/FFaceDetector.h" afterPath="$PROJECT_DIR$/src/ImageProcessing/include/FFaceDetector.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ImageProcessing/include/FPerson.h" afterPath="$PROJECT_DIR$/src/ImageProcessing/include/FPerson.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main.cpp" afterPath="$PROJECT_DIR$/src/main.cpp" />
     </list>
@@ -39,11 +39,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="96">
-              <caret line="25" column="24" lean-forward="true" selection-start-line="25" selection-start-column="24" selection-end-line="25" selection-end-column="24" />
+            <state relative-caret-position="188">
+              <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
               <folding>
                 <element signature="e#50#71#0" expanded="true" />
               </folding>
@@ -51,12 +51,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FPerson.cpp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="FPerson.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ImageProcessing/FPerson.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="71" column="22" lean-forward="true" selection-start-line="71" selection-start-column="22" selection-end-line="71" selection-end-column="22" />
+            <state relative-caret-position="-98">
+              <caret line="32" column="34" lean-forward="false" selection-start-line="32" selection-start-column="34" selection-end-line="32" selection-end-column="34" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Utils.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ImageProcessing/Utils.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="239">
+              <caret line="80" column="14" lean-forward="true" selection-start-line="80" selection-start-column="14" selection-end-line="80" selection-end-column="14" />
+              <folding>
+                <element signature="e#0#2#0" expanded="false" />
+                <element signature="e#49#67#0" expanded="true" />
+                <marker date="1496710632751" expanded="true" signature="1747:1966" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -64,8 +78,8 @@
       <file leaf-file-name="FFaceDetector.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ImageProcessing/include/FFaceDetector.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="488">
-              <caret line="51" column="52" lean-forward="false" selection-start-line="51" selection-start-column="52" selection-end-line="51" selection-end-column="52" />
+            <state relative-caret-position="502">
+              <caret line="65" column="70" lean-forward="false" selection-start-line="65" selection-start-column="70" selection-end-line="65" selection-end-column="70" />
               <folding />
             </state>
           </provider>
@@ -86,61 +100,20 @@
       <file leaf-file-name="FFaceDetector.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ImageProcessing/FFaceDetector.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="92">
-              <caret line="154" column="43" lean-forward="false" selection-start-line="154" selection-start-column="43" selection-end-line="154" selection-end-column="43" />
+            <state relative-caret-position="-362">
+              <caret line="51" column="49" lean-forward="false" selection-start-line="51" selection-start-column="49" selection-end-line="51" selection-end-column="49" />
               <folding>
                 <element signature="e#0#2#0" expanded="false" />
-                <element signature="e#50#76#0" expanded="true" />
+                <element signature="e#227#1181#0" expanded="false" />
                 <element signature="e#1183#1349#0" expanded="false" />
                 <element signature="e#1351#1480#0" expanded="false" />
-                <element signature="e#2628#2903#0" expanded="false" />
-                <element signature="e#2905#3192#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="types.hpp" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/include/opencv2/core/types.hpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="92">
-              <caret line="1691" column="0" lean-forward="false" selection-start-line="1691" selection-start-column="0" selection-end-line="1691" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FFaceArea.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ImageProcessing/FFaceArea.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
-              <caret line="39" column="3" lean-forward="true" selection-start-line="39" selection-start-column="3" selection-end-line="39" selection-end-column="3" />
-              <folding>
-                <element signature="e#50#72#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="faceDetector.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/samples/playground/faceDetector.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="71" column="12" lean-forward="false" selection-start-line="71" selection-start-column="12" selection-end-line="71" selection-end-column="74" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Utils.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ImageProcessing/Utils.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
-              <caret line="99" column="13" lean-forward="false" selection-start-line="99" selection-start-column="13" selection-end-line="99" selection-end-column="13" />
-              <folding>
-                <element signature="e#0#2#0" expanded="false" />
-                <element signature="e#49#67#0" expanded="true" />
-                <element signature="e#2573#2912#0" expanded="false" />
+                <element signature="e#1483#2796#0" expanded="false" />
+                <element signature="e#2798#3111#0" expanded="false" />
+                <element signature="e#3113#3438#0" expanded="false" />
+                <element signature="e#3440#4060#0" expanded="false" />
+                <element signature="e#4062#4922#0" expanded="false" />
+                <element signature="e#4924#5254#0" expanded="false" />
+                <element signature="e#5256#6913#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -149,8 +122,8 @@
       <file leaf-file-name="FPerson.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ImageProcessing/include/FPerson.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="502">
-              <caret line="42" column="13" lean-forward="true" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
+            <state relative-caret-position="166">
+              <caret line="36" column="8" lean-forward="false" selection-start-line="36" selection-start-column="8" selection-end-line="36" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -160,8 +133,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>PersonDetector</find>
-      <find>setSize</find>
       <find>circle</find>
       <find>detectAll</find>
       <find>faceRe</find>
@@ -190,6 +161,8 @@
       <find>inline</find>
       <find>toGra</find>
       <find>ims</find>
+      <find>normilized</find>
+      <find>rota</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -246,14 +219,14 @@
         <option value="$PROJECT_DIR$/src/ImageProcessing/FImage.cpp" />
         <option value="$PROJECT_DIR$/src/ImageProcessing/include/Utils.h" />
         <option value="$PROJECT_DIR$/samples/playground/faceDetector.cpp" />
-        <option value="$PROJECT_DIR$/src/ImageProcessing/include/FFaceDetector.h" />
         <option value="$PROJECT_DIR$/src/ImageProcessing/FFaceArea.cpp" />
         <option value="$PROJECT_DIR$/src/ImageProcessing/include/FFaceArea.h" />
         <option value="$PROJECT_DIR$/src/ImageProcessing/FFaceDetector.cpp" />
-        <option value="$PROJECT_DIR$/src/ImageProcessing/include/FPerson.h" />
-        <option value="$PROJECT_DIR$/src/ImageProcessing/FPerson.cpp" />
-        <option value="$PROJECT_DIR$/src/ImageProcessing/Utils.cpp" />
+        <option value="$PROJECT_DIR$/src/ImageProcessing/include/FFaceDetector.h" />
         <option value="$PROJECT_DIR$/src/main.cpp" />
+        <option value="$PROJECT_DIR$/src/ImageProcessing/include/FPerson.h" />
+        <option value="$PROJECT_DIR$/src/ImageProcessing/Utils.cpp" />
+        <option value="$PROJECT_DIR$/src/ImageProcessing/FPerson.cpp" />
       </list>
     </option>
   </component>
@@ -718,12 +691,12 @@
       <workItem from="1496651493849" duration="8221000" />
       <workItem from="1496660130262" duration="15242000" />
       <workItem from="1496683953349" duration="2845000" />
-      <workItem from="1496689776161" duration="18518000" />
+      <workItem from="1496689776161" duration="20354000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="154814000" />
+    <option name="totallyTimeSpent" value="156650000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -743,7 +716,7 @@
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3078203" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294509" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41430947" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.41430947" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.9351081" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44242424" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294509" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1007,6 +980,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/ImageProcessing/include/FFaceArea.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="344">
+          <caret line="39" column="10" lean-forward="false" selection-start-line="39" selection-start-column="10" selection-end-line="39" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/ImageProcessing/FImage.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
@@ -1017,42 +998,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ImageProcessing/include/FFaceArea.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="344">
-          <caret line="39" column="10" lean-forward="false" selection-start-line="39" selection-start-column="10" selection-end-line="39" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/samples/playground/faceDetector.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="310">
           <caret line="71" column="12" lean-forward="false" selection-start-line="71" selection-start-column="12" selection-end-line="71" selection-end-column="74" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/include/opencv2/core/types.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="1691" column="0" lean-forward="false" selection-start-line="1691" selection-start-column="0" selection-end-line="1691" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ImageProcessing/FFaceDetector.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="154" column="43" lean-forward="false" selection-start-line="154" selection-start-column="43" selection-end-line="154" selection-end-column="43" />
-          <folding>
-            <element signature="e#0#2#0" expanded="false" />
-            <element signature="e#50#76#0" expanded="true" />
-            <element signature="e#1183#1349#0" expanded="false" />
-            <element signature="e#1351#1480#0" expanded="false" />
-            <element signature="e#2628#2903#0" expanded="false" />
-            <element signature="e#2905#3192#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1066,49 +1016,77 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ImageProcessing/include/FPerson.h">
+    <entry file="file:///usr/local/include/opencv2/core/types.hpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="502">
-          <caret line="42" column="13" lean-forward="true" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
+        <state relative-caret-position="92">
+          <caret line="1691" column="0" lean-forward="false" selection-start-line="1691" selection-start-column="0" selection-end-line="1691" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ImageProcessing/FFaceDetector.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-362">
+          <caret line="51" column="49" lean-forward="false" selection-start-line="51" selection-start-column="49" selection-end-line="51" selection-end-column="49" />
+          <folding>
+            <element signature="e#0#2#0" expanded="false" />
+            <element signature="e#227#1181#0" expanded="false" />
+            <element signature="e#1183#1349#0" expanded="false" />
+            <element signature="e#1351#1480#0" expanded="false" />
+            <element signature="e#1483#2796#0" expanded="false" />
+            <element signature="e#2798#3111#0" expanded="false" />
+            <element signature="e#3113#3438#0" expanded="false" />
+            <element signature="e#3440#4060#0" expanded="false" />
+            <element signature="e#4062#4922#0" expanded="false" />
+            <element signature="e#4924#5254#0" expanded="false" />
+            <element signature="e#5256#6913#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ImageProcessing/include/FFaceDetector.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="488">
-          <caret line="51" column="52" lean-forward="false" selection-start-line="51" selection-start-column="52" selection-end-line="51" selection-end-column="52" />
+        <state relative-caret-position="502">
+          <caret line="65" column="70" lean-forward="false" selection-start-line="65" selection-start-column="70" selection-end-line="65" selection-end-column="70" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ImageProcessing/FPerson.cpp">
+    <entry file="file://$PROJECT_DIR$/src/ImageProcessing/include/FPerson.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="71" column="22" lean-forward="true" selection-start-line="71" selection-start-column="22" selection-end-line="71" selection-end-column="22" />
+        <state relative-caret-position="166">
+          <caret line="36" column="8" lean-forward="false" selection-start-line="36" selection-start-column="8" selection-end-line="36" selection-end-column="8" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ImageProcessing/Utils.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="99" column="13" lean-forward="false" selection-start-line="99" selection-start-column="13" selection-end-line="99" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#2#0" expanded="false" />
-            <element signature="e#49#67#0" expanded="true" />
-            <element signature="e#2573#2912#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="25" column="24" lean-forward="true" selection-start-line="25" selection-start-column="24" selection-end-line="25" selection-end-column="24" />
+        <state relative-caret-position="188">
+          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
           <folding>
             <element signature="e#50#71#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ImageProcessing/Utils.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="80" column="14" lean-forward="true" selection-start-line="80" selection-start-column="14" selection-end-line="80" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#2#0" expanded="false" />
+            <element signature="e#49#67#0" expanded="true" />
+            <marker date="1496710632751" expanded="true" signature="1747:1966" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ImageProcessing/FPerson.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-98">
+          <caret line="32" column="34" lean-forward="false" selection-start-line="32" selection-start-column="34" selection-end-line="32" selection-end-column="34" />
+          <folding />
         </state>
       </provider>
     </entry>

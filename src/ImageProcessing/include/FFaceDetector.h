@@ -31,22 +31,26 @@ private:
                        cv::Size min_size_ratio,
                        cv::Size max_size_ratio);
 
-    void find_faces(cv::Mat &image, std::vector<FFaceArea *>& faces, int cascade_type,
+    void find_faces(cv::Mat &image, std::vector<FFaceArea *> &faces, bool removeFaceWithoutEye, int cascade_type,
                     float scaleFactor,
                     cv::Size min_size_ratio, cv::Size
                     max_size_ratio);
 
-    void find_faces(cv::Mat &image, std::vector<FFaceArea *> &faces, int cascade_type, int steps,
-                    float scaleFactor,
-                    cv::Size min_size_ratio, cv::Size
-                    max_size_ratio);
+    void
+    find_faces(cv::Mat &image, std::vector<FFaceArea *> &faces, bool removeFaceWithoutEye, int cascade_type, int steps,
+               float scaleFactor,
+               cv::Size min_size_ratio, cv::Size
+               max_size_ratio);
 
-    void find_faces(cv::Mat &image, std::vector<FFaceArea *> &faces, int cascade_type, int steps, int range,
-                    float scaleFactor,
-                    cv::Size min_size_ratio, cv::Size
-                    max_size_ratio);
+    void
+    find_faces(cv::Mat &image, std::vector<FFaceArea *> &faces, bool removeFaceWithoutEye, int cascade_type, int steps,
+               int range,
+               float scaleFactor,
+               cv::Size min_size_ratio, cv::Size
+               max_size_ratio);
 
-    void get_faces_attr(cv::Mat &image_gray, std::vector<cv::Rect> &bounds, std::vector<cv::Rect> &eyes_1,
+    void get_faces_attr(cv::Mat &image_gray, std::vector<cv::Rect> &bounds, bool removeFaceWithoutEye,
+                        std::vector<cv::Rect> &eyes_1,
                         std::vector<cv::Rect> &eyes_2);
 
     void create_faceAreas(std::vector<FFaceArea *> &faces, std::vector<cv::Rect> &bounds,
@@ -59,7 +63,8 @@ public:
     ~FFaceDetector();
 
 
-    void detect_faces(FImage &image, int steps = 0, int angle_range = 360, int cascade_type = HAAR,
+    void detect_faces(FImage &image, bool removeFaceWithoutEye = false,
+                      int cascade_type = HAAR, int steps = 0, int angle_range = 360,
                       double scaleFactor = 1.2,
                       cv::Size min_size_ratio = cv::Size(), cv::Size
                       max_size_ratio = cv::Size());

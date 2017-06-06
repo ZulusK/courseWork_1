@@ -46,7 +46,7 @@ bool FFaceDetector::isLoaded(int what) {
 }
 
 
-void FFaceDetector::detect_faces(FImage &image, int steps, int angle_range, int cascade_type,
+void FFaceDetector::detect_faces(FImage &image, bool removeFaceWithoutEye, int cascade_type, int steps, int angle_range,
                                  double scaleFactor,
                                  Size min_size_ratio, Size
                                  max_size_ratio) {
@@ -57,14 +57,17 @@ void FFaceDetector::detect_faces(FImage &image, int steps, int angle_range, int 
         vector<FFaceArea *> faces;
         //if search only in original rotation
         if (steps <= 0) {
-            find_faces(gray_image, faces, cascade_type, scaleFactor, min_size_ratio, max_size_ratio);
+            find_faces(gray_image, faces, removeFaceWithoutEye, cascade_type, scaleFactor, min_size_ratio,
+                       max_size_ratio);
         } else {
             if (angle_range == 360) {
                 //if search on 360 degree
-                find_faces(gray_image, faces, cascade_type, steps, scaleFactor, min_size_ratio, max_size_ratio);
+                find_faces(gray_image, faces, removeFaceWithoutEye, cascade_type, steps, scaleFactor, min_size_ratio,
+                           max_size_ratio);
             } else {
                 //if search in range
-                find_faces(gray_image, faces, cascade_type, steps, angle_range, scaleFactor, min_size_ratio,
+                find_faces(gray_image, faces, removeFaceWithoutEye, cascade_type, steps, angle_range, scaleFactor,
+                           min_size_ratio,
                            max_size_ratio);
             }
         }
@@ -73,17 +76,21 @@ void FFaceDetector::detect_faces(FImage &image, int steps, int angle_range, int 
     }
 }
 
-void FFaceDetector::find_faces(cv::Mat &image, std::vector<FFaceArea *> &faces, int cascade_type, int steps,
-                               float scaleFactor,
-                               cv::Size min_size_ratio, cv::Size
-                               max_size_ratio) {
+void
+FFaceDetector::find_faces(cv::Mat &image, std::vector<FFaceArea *> &faces, bool removeFaceWithoutEye, int cascade_type,
+                          int steps,
+                          float scaleFactor,
+                          cv::Size min_size_ratio, cv::Size
+                          max_size_ratio) {
 
 }
 
-void FFaceDetector::find_faces(cv::Mat &image, std::vector<FFaceArea *> &faces, int cascade_type, int steps, int range,
-                               float scaleFactor,
-                               cv::Size min_size_ratio, cv::Size
-                               max_size_ratio) {
+void
+FFaceDetector::find_faces(cv::Mat &image, std::vector<FFaceArea *> &faces, bool removeFaceWithoutEye, int cascade_type,
+                          int steps, int range,
+                          float scaleFactor,
+                          cv::Size min_size_ratio, cv::Size
+                          max_size_ratio) {
 
 
 }
@@ -102,7 +109,8 @@ void FFaceDetector::detect_object(Mat &image_gray,
     }
 }
 
-void FFaceDetector::find_faces(Mat &image, vector<FFaceArea *> &faces, int cascade_type, float scaleFactor,
+void FFaceDetector::find_faces(Mat &image, vector<FFaceArea *> &faces, bool removeFaceWithoutEye, int cascade_type,
+                               float scaleFactor,
                                Size min_size_ratio, Size max_size_ratio) {
 
     vector<Rect> bounds;
@@ -118,7 +126,7 @@ void FFaceDetector::find_faces(Mat &image, vector<FFaceArea *> &faces, int casca
     }
     //detect eyes
     //remove artifacts
-    get_faces_attr(image, bounds, eyes_1, eyes_2);
+    get_faces_attr(image, bounds, removeFaceWithoutEye, eyes_1, eyes_2);
     create_faceAreas(faces, bounds, eyes_1, eyes_2);
 }
 
@@ -130,8 +138,9 @@ void FFaceDetector::create_faceAreas(vector<FFaceArea *> &faces, vector<Rect> &b
     }
 }
 
-void FFaceDetector::get_faces_attr(Mat &image_gray, vector<Rect> &bounds, vector<Rect> &eyes_1,
-                                   vector<Rect> &eyes_2) {
+void
+FFaceDetector::get_faces_attr(Mat &image_gray, vector<Rect> &bounds, bool removeFaceWithoutEye, vector<Rect> &eyes_1,
+                              vector<Rect> &eyes_2) {
     vector<Rect> eye_bounds;
     //if can find eyes
     if (isLoaded(EYES_HAAR)) {
@@ -146,10 +155,13 @@ void FFaceDetector::get_faces_attr(Mat &image_gray, vector<Rect> &bounds, vector
             //process collected data
             if (eye_bounds.size() == 0) {
                 //if didn't find, erase face
-                bounds.erase(bounds.begin() + i);
-//                eyes_1.push_back(Rect(-1, -1, 0, 0));
-//                eyes_2.push_back(Rect(-1, -1, 0, 0));
-                i--;
+                if (removeFaceWithoutEye) {
+                    bounds.erase(bounds.begin() + i);
+                    i--;
+                } else {
+                    eyes_1.push_back(Rect(-1, -1, 0, 0));
+                    eyes_2.push_back(Rect(-1, -1, 0, 0));
+                }
             } else if (eye_bounds.size() == 1) {
                 //if find only 1 eye, make second eye invalid
                 eyes_1.push_back(eye_bounds[0]);

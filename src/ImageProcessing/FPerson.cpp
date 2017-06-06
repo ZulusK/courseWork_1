@@ -26,12 +26,20 @@ FFaceArea *FPerson::getParent() {
     return parent;
 }
 
-const Eye &FPerson::get_eye_left() {
-    return eye_left;
+Eye FPerson::get_eye_left() {
+    normalize();
+    Point rotatedP(eye_left.pos);
+    Point center(parent->size().width/2,parent->size().height/2);
+    rotatePoint(rotatedP, center,-toRadians(rotation_degree));
+    return Eye{.pos=rotatedP,eye_left.radius};
 }
 
-const Eye &FPerson::get_eye_rigth() {
-    return eye_rigth;
+Eye FPerson::get_eye_rigth() {
+    normalize();
+    Point rotatedP(eye_rigth.pos);
+    Point center(parent->size().width/2,parent->size().height/2);
+    rotatePoint(rotatedP, center,-toRadians(rotation_degree));
+    return Eye{.pos=rotatedP,eye_rigth.radius};
 }
 
 long FPerson::get_ID() {
@@ -44,21 +52,24 @@ void FPerson::set_ID(long id) {
 
 Mat FPerson::get_image() {
     normalize();
+    cout << rotation_degree << endl;
     Mat p = parent->get_image();
     Mat r = rotate(p, rotation_degree);
     p.release();
-    return r(frame);
+    return r;
 }
 
 void FPerson::normalize() {
     if (!normilized) {
         //todo
-        this->rotation_degree = -toDegrees(getAngle_radians(eye_left.pos, eye_rigth.pos));
+        this->rotation_degree = toDegrees(getAngle_radians(eye_left.pos, eye_rigth.pos));
+        cout << rotation_degree << " Rotation" << endl;
         if (rotation_degree > 15) {
             rotation_degree = 15;
         } else if (rotation_degree < -15) {
             rotation_degree = -15;
         }
+        rotation_degree=-15+rand()%30;
         normilized = true;
     }
 }
@@ -107,8 +118,8 @@ void FPerson::set_eyes(cv::Rect &eye_frame_1, cv::Rect &eye_frame_2) {
         Size s = parent->size();
         //if two eye is invalid
         //predict them
-        eye_left = Eye{.pos=Point(s.width / 4, s.height / 3), .radius=s.height / 10};
-        eye_rigth = Eye{.pos=Point(s.width / 4 * 3, s.height / 3), .radius=s.height / 10};
+        eye_left = Eye{.pos=Point(s.width / 4, s.height / 3), .radius=s.height / 6};
+        eye_rigth = Eye{.pos=Point(s.width / 4 * 3, s.height / 3), .radius=s.height / 6};
     }
     if (eye_rigth.radius < 3) {
         eye_rigth.radius = 3;
@@ -116,4 +127,5 @@ void FPerson::set_eyes(cv::Rect &eye_frame_1, cv::Rect &eye_frame_2) {
     if (eye_left.radius < 3) {
         eye_left.radius = 3;
     }
+    normilized = false;
 }

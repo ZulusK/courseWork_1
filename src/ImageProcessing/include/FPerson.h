@@ -34,9 +34,9 @@ public:
 
     void set_ID(long id);
 
-    const Eye &get_eye_left();
+    Eye get_eye_left();
 
-    const Eye &get_eye_rigth();
+    Eye get_eye_rigth();
 
     void normalize();
 
