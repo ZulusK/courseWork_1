@@ -15,7 +15,6 @@ Mat toGray(const Mat &src) {
     if (src.channels() == 3) {
         Mat dst;
         cvtColor(src, dst, COLOR_BGR2GRAY);
-        cout << "return gray " << dst.channels() << endl;
         return dst;
     } else {
         return src.clone();
@@ -97,7 +96,8 @@ void disableArea(Mat &image, const Rect &rect) {
 }
 
 Eye createEye(cv::Rect &frame) {
-    return Eye{.pos=Point(frame.width / frame.height / 2), .radius=max(frame.width, frame.height)};
+    return Eye{.pos=Point(frame.x + frame.width / 2, frame.y + frame.height / 2), .radius=
+    cvRound((frame.width + frame.height) * 0.25 )};
 }
 
 Eye getPair(Eye &eye, const Rect &frame) {

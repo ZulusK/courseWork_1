@@ -71,14 +71,14 @@ void FPerson::create_eyes(Rect &eye_frame) {
     Size s = parent->size();
     Eye eye = createEye(eye_frame);
 
-    if (eye.pos.x > s.width / 2) {
+    if (eye.pos.x > s.width >> 1) {
         //if it rigth eye
-        this->eye_rigth = createEye(eye_frame);
-        this->eye_left = getPair(eye_rigth, Rect(0, 0, s.width, s.height));
+        this->eye_rigth = eye;
+        this->eye_left = getPair(eye, Rect(0, 0, s.width, s.height));
     } else {
         //if it left eye
-        this->eye_left = createEye(eye_frame);
-        this->eye_rigth = getPair(eye_rigth, Rect(0, 0, s.width, s.height));
+        this->eye_left = eye;
+        this->eye_rigth = getPair(eye, Rect(0, 0, s.width, s.height));
     }
 }
 
@@ -96,15 +96,24 @@ void FPerson::set_eyes(cv::Rect &eye_frame_1, cv::Rect &eye_frame_2) {
             eye_rigth = eye;
             eye_left = createEye(eye_frame_2);
         }
+        cout << "2 valid eye" << endl;
     } else if (valid_1) {
         create_eyes(eye_frame_1);
+        cout << "left valid eye" << endl;
     } else if (valid_2) {
         create_eyes(eye_frame_2);
+        cout << "rigth valid eye" << endl;
     } else {
         Size s = parent->size();
         //if two eye is invalid
         //predict them
-        eye_left = Eye{.pos=Point(s.width / 4, s.height / 4), .radius=s.height / 10};
-        eye_rigth = Eye{.pos=Point(s.width / 4 * 3, s.height / 4), .radius=s.height / 10};
+        eye_left = Eye{.pos=Point(s.width / 4, s.height / 3), .radius=s.height / 10};
+        eye_rigth = Eye{.pos=Point(s.width / 4 * 3, s.height / 3), .radius=s.height / 10};
+    }
+    if (eye_rigth.radius < 3) {
+        eye_rigth.radius = 3;
+    }
+    if (eye_left.radius < 3) {
+        eye_left.radius = 3;
     }
 }

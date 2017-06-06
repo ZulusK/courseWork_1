@@ -19,7 +19,9 @@ class FPerson {
     long ID;
 private:
 
+    void create_eyes(cv::Rect &eye_frame);
 public:
+
     FPerson(FFaceArea &parent, cv::Rect &eye_frame_1, cv::Rect &eye_frame_2, long id = -1);
 
     ~FPerson();
@@ -39,8 +41,6 @@ public:
     void normalize();
 
     void set_eyes(cv::Rect &eye_frame_1, cv::Rect &eye_frame_2);
-
-    void create_eyes(cv::Rect &eye_frame);
 };
 
 

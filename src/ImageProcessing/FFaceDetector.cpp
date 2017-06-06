@@ -95,13 +95,8 @@ void FFaceDetector::detect_object(Mat &image_gray,
                                   Size min_size_ratio,
                                   Size max_size_ratio) {
     if (!classifier.empty() && image_gray.channels() == 1) {
-//        CascadeClassifier classifier1;
-//        image_gray = toGray(imread("/home/zulus/Projects/progbase3/res/people.jpg"));
-//        classifier1.load("/home/zulus/Projects/progbase3/src/cascades/haarcascade_frontalface_default.xml");
-//        classifier1.detectMultiScale(image_gray, rects, 1.1, 2, 0 | CASCADE_SCALE_IMAGE);
         classifier.detectMultiScale(image_gray, rects, scaleFactor, 3, 0 | CV_HAAR_SCALE_IMAGE, min_size_ratio,
                                     max_size_ratio);
-        imshow("gray", image_gray);
     } else {
         cout << "NOT A GRAY" << endl;
     }
@@ -143,20 +138,21 @@ void FFaceDetector::get_faces_attr(Mat &image_gray, vector<Rect> &bounds, vector
         for (int i = 0; i < bounds.size(); i++) {
             eye_bounds.clear();
             //create eye search area (top half of face)
-            Mat eyeArea = image_gray(Rect(0, 0, bounds[i].width / 2, bounds[i].height / 2));
+            Mat eyeArea = image_gray(bounds[i]);
+//            Rect(0, 0, bounds[i].width, bounds[i].height / 2)
             //find eyes
             detect_object(eyeArea, *classifiers[EYES_HAAR], eye_bounds, 1.1, Size(), Size());
             eyeArea.release();
             //process collected data
             if (eye_bounds.size() == 0) {
                 //if didn't find, erase face
-//                bounds.erase(bounds.begin() + i);
-                eyes_1.push_back(Rect(-1, -1, 0, 0));
-                eyes_2.push_back(Rect(-1, -1, 0, 0));
-//                i--;
+                bounds.erase(bounds.begin() + i);
+//                eyes_1.push_back(Rect(-1, -1, 0, 0));
+//                eyes_2.push_back(Rect(-1, -1, 0, 0));
+                i--;
             } else if (eye_bounds.size() == 1) {
                 //if find only 1 eye, make second eye invalid
-                eyes_1.push_back(eyes_1[0]);
+                eyes_1.push_back(eye_bounds[0]);
                 eyes_2.push_back(Rect(-1, -1, 0, 0));
             } else {
                 //add two eyes
