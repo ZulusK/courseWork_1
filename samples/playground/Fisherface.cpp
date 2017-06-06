@@ -21,7 +21,6 @@
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/objdetect/objdetect.hpp"
-
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -29,7 +28,8 @@
 using namespace cv;
 using namespace std;
 using namespace face;
-static void read_csv(const string& filename, vector<Mat>& images, vector<int>& labels, char separator = ';') {
+
+static void read_csv(const string &filename, vector<Mat> &images, vector<int> &labels, char separator = ';') {
     std::ifstream file(filename.c_str(), ifstream::in);
     if (!file) {
         string error_message = "No valid input file was given, please check the given filename.";
@@ -40,12 +40,15 @@ static void read_csv(const string& filename, vector<Mat>& images, vector<int>& l
         stringstream liness(line);
         getline(liness, path, separator);
         getline(liness, classlabel);
-        if(!path.empty() && !classlabel.empty()) {
-            Mat m=imread(path,0);
-            Mat r;
-            resize(m, r, Size(300,300));
-            images.push_back(r);
-            labels.push_back(atoi(classlabel.c_str()));
+        if (!path.empty() && !classlabel.empty()) {
+            Mat m = imread(path, 0);
+            if (!m.empty()) {
+                Mat r;
+                cout << m.rows << " " << m.cols << endl;
+                resize(m, r, Size(300, 300));
+                images.push_back(r);
+                labels.push_back(atoi(classlabel.c_str()));
+            }
         }
     }
 }
@@ -60,8 +63,8 @@ int main(int argc, const char *argv[]) {
 //        exit(1);
 //    }
     // Get the path to your CSV:
-    string fn_haar = "../src/haarcascades/haarcascade_frontalface_default.xml";
-    string fn_csv = "../samples/photo.csv";
+    string fn_haar = "/home/zulus/Projects/progbase3/src/cascades/face_haar.xml";
+    string fn_csv = "/home/zulus/Projects/progbase3/samples/photo.csv";
     int deviceId = 0;
     // These vectors hold the images and corresponding labels:
     vector<Mat> images;
@@ -69,7 +72,7 @@ int main(int argc, const char *argv[]) {
     // Read in the data (fails if no valid input filename is given, but you'll get an error message):
     try {
         read_csv(fn_csv, images, labels);
-    } catch (cv::Exception& e) {
+    } catch (cv::Exception &e) {
         cerr << "Error opening file \"" << fn_csv << "\". Reason: " << e.msg << endl;
         // nothing more we can do
         exit(1);
@@ -80,7 +83,7 @@ int main(int argc, const char *argv[]) {
     int im_width = images[0].cols;
     int im_height = images[0].rows;
     // Create a FaceRecognizer and train it on the given images:
-    Ptr<FaceRecognizer> model = createFisherFaceRecognizer(0,400);
+    Ptr<FaceRecognizer> model = createFisherFaceRecognizer(0, 400);
     model->train(images, labels);
 
     // That's it for learning the Face Recognition model. You now
@@ -93,13 +96,13 @@ int main(int argc, const char *argv[]) {
     // Get a handle to the Video device:
     VideoCapture cap(deviceId);
     // Check if we can use this device at all:
-    if(!cap.isOpened()) {
+    if (!cap.isOpened()) {
         cerr << "Capture Device ID " << deviceId << "cannot be opened." << endl;
         return -1;
     }
     // Holds the current frame from the Video device:
     Mat frame;
-    for(;;) {
+    for (;;) {
         cap >> frame;
         // Clone the current frame:
         Mat original = frame.clone();
@@ -107,12 +110,12 @@ int main(int argc, const char *argv[]) {
         Mat gray;
         cvtColor(original, gray, CV_BGR2GRAY);
         // Find the faces in the frame:
-        vector< Rect_<int> > faces;
+        vector<Rect_<int> > faces;
         haar_cascade.detectMultiScale(gray, faces);
         // At this point you have the position of the faces in
         // faces. Now we'll get the faces, make a prediction and
         // annotate it in the video. Cool or what?
-        for(int i = 0; i < faces.size(); i++) {
+        for (int i = 0; i < faces.size(); i++) {
             // Process face by face:
             Rect face_i = faces[i];
             // Crop the face from the image. So simple with OpenCV C++:
@@ -136,7 +139,7 @@ int main(int argc, const char *argv[]) {
 //            }
             // And finally write all we've found out to the original image!
             // First of all draw a green rectangle around the detected face:
-            rectangle(original, face_i, CV_RGB(0, 255,0), 1);
+            rectangle(original, face_i, CV_RGB(0, 255, 0), 1);
             // Create the text we will annotate the box with:
             string box_text = format("Prediction = %d", prediction);
             // Calculate the position for annotated text (make sure we don't
@@ -144,15 +147,16 @@ int main(int argc, const char *argv[]) {
             int pos_x = std::max(face_i.tl().x - 10, 0);
             int pos_y = std::max(face_i.tl().y - 10, 0);
             // And now put it into the image:
-            putText(original, box_text, Point(pos_x, pos_y), FONT_HERSHEY_PLAIN, 1.0, CV_RGB(0,255,0), 2.0);
+            putText(original, box_text, Point(pos_x, pos_y), FONT_HERSHEY_PLAIN, 1.0, CV_RGB(0, 255, 0), 2.0);
         }
         // Show the result:
         imshow("face_recognizer", original);
         // And display it:
         char key = (char) waitKey(20);
         // Exit this loop on escape:
-        if(key == 27)
+        if (key == 27)
             break;
     }
+    model->save("/home/zulus/Projects/progbase3/samples/data.xml");
     return 0;
 }

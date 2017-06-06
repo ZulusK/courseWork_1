@@ -50,6 +50,10 @@ private:
     void create_faceAreas(std::vector<FFaceArea *> &faces, std::vector<cv::Rect> &bounds,
                           std::vector<cv::Rect> &eyes_1, std::vector<cv::Rect> &eyes_2);
 
+    void create_faceAreas_rotated(std::vector<FFaceArea *> &faces, std::vector<cv::Rect> &bounds,
+                                  std::vector<cv::Rect> &eyes_1,
+                                  std::vector<cv::Rect> &eyes_2, int angle, const cv::Point &center);
+
 public:
     FFaceDetector(const std::string &cascadesDir_face_haar, const std::string &cascadesDir_face_lbp,
                   const std::string &cascadesDir_eye_haar);
@@ -63,11 +67,14 @@ public:
                       cv::Size min_size_ratio = cv::Size(), cv::Size
                       max_size_ratio = cv::Size());
 
+    void detect_faces(const cv::Mat &image, std::vector<FFaceArea *> &faces, bool removeFaceWithoutEye = false,
+                      int cascade_type = HAAR, int steps = 0, int angle_range = 360,
+                      double scaleFactor = 1.2,
+                      cv::Size min_size_ratio = cv::Size(), cv::Size
+                      max_size_ratio = cv::Size());
+
     bool isLoaded(int what);
 
-    void create_faceAreas_rotated(std::vector<FFaceArea *> &faces, std::vector<cv::Rect> &bounds,
-                                  std::vector<cv::Rect> &eyes_1,
-                                  std::vector<cv::Rect> &eyes_2, int angle, const cv::Point &center);
 };
 
 

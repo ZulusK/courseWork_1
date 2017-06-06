@@ -17,6 +17,10 @@ find_package(OpenCV REQUIRED)
 add_executable(${CMAKE_PROJECT_NAME} "samples/playground/Fisherface.cpp")
 target_link_libraries(${CMAKE_PROJECT_NAME} ${OpenCV_LIBS})
 
+project(lbph)
+find_package(OpenCV REQUIRED)
+add_executable(${CMAKE_PROJECT_NAME} "samples/playground/LBPHrecognition.cpp")
+target_link_libraries(${CMAKE_PROJECT_NAME} ${OpenCV_LIBS})
 
 project(Facecope)
 file(GLOB FACECOPE_SOURCES "src/ImageProcessing/*.cpp" "src/ImageProcessing/include/*.h")

@@ -11,17 +11,25 @@
 #include <iostream>
 #include <vector>
 #include <FFaceArea.h>
+#include <FFaceRecognizer.h>
 
 using namespace std;
 using namespace cv;
 
-void videoDetection(FFaceDetector *detector) {
+string recognize(Mat &mat, FFaceRecognizer *recognizer) {
+    int label = recognizer->recognize(mat);
+    string box_text = format("Prediction = %d", label);
+    recognizer->learn(mat, 13);
+    return box_text;
+}
+
+void videoDetection(FFaceDetector *detector, FFaceRecognizer *recognizer) {
     Mat cap_frame;
     VideoCapture capture;
     capture.open(0);
     while (capture.read(cap_frame)) {
         FImage *image = new FImage(cap_frame);
-        detector->detect_faces(*image, true, -1, 3, 15);
+        detector->detect_faces(*image, true, -1, 0, 0);
         Mat frame = image->get_image().clone();
         auto faces = image->get_faces();
         for (int i = 0; i < faces.size(); i++) {
@@ -32,6 +40,10 @@ void videoDetection(FFaceDetector *detector) {
             circle(m_face, faces[i]->get_person()->get_eye_rigth().pos,
                    faces[i]->get_person()->get_eye_rigth().radius,
                    Scalar(45, 45, 200));
+            // And now put it into the image:
+            putText(frame, recognize(m_face, recognizer), Point(faces[i]->get_frame().x, faces[i]->get_frame().y),
+                    FONT_HERSHEY_PLAIN, 1.0, CV_RGB(0, 255, 0), 2.0);
+
             imshow(to_string(i), m_face);
             rectangle(frame, faces[i]->get_frame(), Scalar(255, 0, 0));
             m_face.release();
@@ -48,7 +60,7 @@ void videoDetection(FFaceDetector *detector) {
 
 void imageDetection(FFaceDetector *detector) {
     FImage *image = new FImage("/home/zulus/Projects/progbase3/res/people3.jpg");
-    detector->detect_faces(*image, false, -1, 20, 360);
+    detector->detect_faces(*image, false, -1, 30, 90);
     Mat frame = image->get_image().clone();
     auto faces = image->get_faces();
     for (int i = 0; i < faces.size(); i++) {
@@ -74,10 +86,24 @@ int main(int argc, char **argv) {
             "/home/zulus/Projects/progbase3/src/cascades/face_haar.xml",
             "/home/zulus/Projects/progbase3/src/cascades/face_lbp.xml",
             "/home/zulus/Projects/progbase3/src/cascades/eye_haar.xml");
+    FFaceRecognizer *recognizer = new FFaceRecognizer();
+    {
+        vector<Mat> images;
+        vector<int>labels;
+        for (int i = 0; i < 10; i++) {
+            images.push_back(imread("/home/zulus/Projects/progbase3/res/danil/Image" + to_string(i) + ".jpg"));
+            labels.push_back(13);
+            images.push_back(imread("/home/zulus/Projects/progbase3/res/lena/Image" + to_string(i) + ".jpg"));
+            labels.push_back(1);
+        }
+        recognizer->learn(images,labels);
+    }
+
     if (detector->isLoaded(EYES_HAAR) && detector->isLoaded(FACE_HAAR) && detector->isLoaded(FACE_LBP)) {
-        videoDetection(detector);
-//        imageDetection(detector);
+//        videoDetection(detector, recognizer);
+        imageDetection(detector);
     }
     delete detector;
+    delete recognizer;
     return EXIT_SUCCESS;
 }

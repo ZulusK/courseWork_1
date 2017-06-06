@@ -45,28 +45,35 @@ bool FFaceDetector::isLoaded(int what) {
     return classifiers.find(what) != classifiers.end() && !classifiers[what]->empty();
 }
 
+void
+FFaceDetector::detect_faces(const cv::Mat &image, std::vector<FFaceArea *> &faces, bool removeFaceWithoutEye ,
+                            int cascade_type , int steps, int angle_range,
+                            double scaleFactor,
+                            cv::Size min_size_ratio, cv::Size
+                            max_size_ratio) {
+    //convert image to gray
+    Mat gray_image = toGray(image);
+    //if search only in original rotation
+    if (steps <= 2) {
+        find_faces(gray_image, faces, removeFaceWithoutEye, cascade_type, scaleFactor, min_size_ratio,
+                   max_size_ratio);
+    } else {
+        //if search on range degree
+        find_faces(gray_image, faces, removeFaceWithoutEye, cascade_type, steps, angle_range, scaleFactor,
+                   min_size_ratio,
+                   max_size_ratio);
+    }
+    gray_image.release();
+}
 
 void FFaceDetector::detect_faces(FImage &image, bool removeFaceWithoutEye, int cascade_type, int steps, int angle_range,
                                  double scaleFactor,
                                  Size min_size_ratio, Size
                                  max_size_ratio) {
     if (!image.empty()) {
-        //convert image to gray
-        Mat gray_image = toGray(image.get_image());
-//        Mat gray_image = image.get_image().clone();
         vector<FFaceArea *> faces;
-        //if search only in original rotation
-        if (steps <= 2) {
-            find_faces(gray_image, faces, removeFaceWithoutEye, cascade_type, scaleFactor, min_size_ratio,
-                       max_size_ratio);
-        } else {
-            //if search on range degree
-            find_faces(gray_image, faces, removeFaceWithoutEye, cascade_type, steps, angle_range, scaleFactor,
-                       min_size_ratio,
-                       max_size_ratio);
-        }
+        detect_faces(image.get_image(), faces, removeFaceWithoutEye, cascade_type, steps, angle_range);
         image.add_face(faces);
-        gray_image.release();
     }
 }
 
