@@ -38,12 +38,6 @@ private:
 
     void
     find_faces(cv::Mat &image, std::vector<FFaceArea *> &faces, bool removeFaceWithoutEye, int cascade_type, int steps,
-               float scaleFactor,
-               cv::Size min_size_ratio, cv::Size
-               max_size_ratio);
-
-    void
-    find_faces(cv::Mat &image, std::vector<FFaceArea *> &faces, bool removeFaceWithoutEye, int cascade_type, int steps,
                int range,
                float scaleFactor,
                cv::Size min_size_ratio, cv::Size

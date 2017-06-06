@@ -60,76 +60,46 @@ void FFaceDetector::detect_faces(FImage &image, bool removeFaceWithoutEye, int c
             find_faces(gray_image, faces, removeFaceWithoutEye, cascade_type, scaleFactor, min_size_ratio,
                        max_size_ratio);
         } else {
-            if (angle_range < 180) {
-                //if search in range
-                find_faces(gray_image, faces, removeFaceWithoutEye, cascade_type, steps, scaleFactor, min_size_ratio,
-                           max_size_ratio);
-            } else {
-                //if search on 360 degree
-                find_faces(gray_image, faces, removeFaceWithoutEye, cascade_type, steps, angle_range, scaleFactor,
-                           min_size_ratio,
-                           max_size_ratio);
-            }
+            //if search on range degree
+            find_faces(gray_image, faces, removeFaceWithoutEye, cascade_type, steps, angle_range, scaleFactor,
+                       min_size_ratio,
+                       max_size_ratio);
         }
         image.add_face(faces);
         gray_image.release();
     }
 }
 
-void
-FFaceDetector::find_faces(cv::Mat &image, std::vector<FFaceArea *> &faces, bool removeFaceWithoutEye, int cascade_type,
-                          int steps,
-                          float scaleFactor,
-                          cv::Size min_size_ratio, cv::Size
-                          max_size_ratio) {
+void FFaceDetector::find_faces(cv::Mat &image,
+                               std::vector<FFaceArea *> &faces,
+                               bool removeFaceWithoutEye,
+                               int cascade_type,
+                               int steps, int range,
+                               float scaleFactor,
+                               cv::Size min_size_ratio, cv::Size
+                               max_size_ratio) {
     //in each iteration angle will be increse by this
-    int angleIncrement = 360 / steps;
-
-    vector<Rect> bounds;
-    vector<Rect> eyes_1;
-    vector<Rect> eyes_2;
-    for (int currAngle = 0; currAngle < 360; currAngle += angleIncrement) {
-        bounds.clear();
-        eyes_1.clear();
-        eyes_2.clear();
-        //rotate image
-        Mat rotatedImage = rotate(image, currAngle, true);
-        //detect bounds
-        if (cascade_type == LBP && isLoaded(FACE_LBP)) {
-            //if use LBP
-            detect_object(rotatedImage, *classifiers[FACE_LBP], bounds, scaleFactor, min_size_ratio, max_size_ratio);
-        } else if (isLoaded(FACE_HAAR)) {
-            //if use HAAR
-            detect_object(rotatedImage, *classifiers[FACE_HAAR], bounds, scaleFactor, min_size_ratio, max_size_ratio);
-        }
-        //detect eyes
-        //remove artifacts
-        get_faces_attr(rotatedImage, bounds, removeFaceWithoutEye, eyes_1, eyes_2);
-        Point center = getCenter(image);
-        //remove area
-        rectangle(rotatedImage, bounds[bounds.size() - 1], Scalar(255));
-        for (auto i = 0; i < bounds.size(); i++) {
-            rotateRect(bounds[i], center, toRadians(currAngle));
-            disableArea(image, bounds[i]);
-        }
-        create_faceAreas_rotated(faces, bounds, eyes_1, eyes_2, currAngle, center);
-//        imshow(to_string(currAngle), rotatedImage);
+    int angleIncrement;
+    //starts from
+    int leftBound;
+    //nd with
+    int rigthBound;
+    if (range < 180) {
+        //if search in range
+        leftBound = -range;
+        rigthBound = range;
+        angleIncrement = range * 2 / (steps - 1);
+    } else {
+        //if search in all 360 degrees
+        leftBound = 0;
+        rigthBound = 359;
+        angleIncrement = 360 / steps;
     }
-}
-
-void
-FFaceDetector::find_faces(cv::Mat &image, std::vector<FFaceArea *> &faces, bool removeFaceWithoutEye, int cascade_type,
-                          int steps, int range,
-                          float scaleFactor,
-                          cv::Size min_size_ratio, cv::Size
-                          max_size_ratio) {
-    //in each iteration angle will be increse by this
-    int angleIncrement = range * 2 / (steps - 1);
 
     vector<Rect> bounds;
     vector<Rect> eyes_1;
     vector<Rect> eyes_2;
-    for (int currAngle = -range; currAngle <= range; currAngle += angleIncrement) {
+    for (int currAngle = leftBound; currAngle <= rigthBound; currAngle += angleIncrement) {
         bounds.clear();
         eyes_1.clear();
         eyes_2.clear();
@@ -148,7 +118,6 @@ FFaceDetector::find_faces(cv::Mat &image, std::vector<FFaceArea *> &faces, bool 
         get_faces_attr(rotatedImage, bounds, removeFaceWithoutEye, eyes_1, eyes_2);
         Point center = getCenter(image);
         //remove area
-        rectangle(rotatedImage, bounds[bounds.size() - 1], Scalar(255));
         for (auto i = 0; i < bounds.size(); i++) {
             rotateRect(bounds[i], center, toRadians(currAngle));
             disableArea(image, bounds[i]);
