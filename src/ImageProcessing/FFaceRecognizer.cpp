@@ -99,8 +99,10 @@ bool FFaceRecognizer::learn(FPerson &personFace, int label) {
 bool FFaceRecognizer::learn(const cv::Mat &face, int label) {
     vector<Mat> images;
     images.push_back(face);
+    images.push_back(face);
     vector<int> labels;
     labels.push_back(label);
+    labels.push_back(-1);
     return learn(images, labels);
 }
 

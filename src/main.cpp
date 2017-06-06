@@ -20,7 +20,7 @@ using namespace cv;
 string recognize(Mat &mat, FFaceRecognizer *recognizer) {
     int label = recognizer->recognize(mat);
     string box_text = format("Prediction = %d", label);
-//    recognizer->learn(mat, 13);
+    recognizer->learn(mat, 13);
     return box_text;
 }
 
@@ -96,9 +96,9 @@ int main(int argc, char **argv) {
             resize(imread("/home/zulus/Projects/progbase3/res/danil/Image" + to_string(i) + ".jpg"),m,recognizer->get_size_of_image());
             images.push_back(toGray(m));
             labels.push_back(13);
-            resize(imread("/home/zulus/Projects/progbase3/res/danil/Image" + to_string(i) + ".jpg"),m,recognizer->get_size_of_image());
+            resize(imread("/home/zulus/Projects/progbase3/res/lena/Image" + to_string(i) + ".jpg"),m,recognizer->get_size_of_image());
             images.push_back(toGray(m));
-            labels.push_back(12);
+            labels.push_back(1);
         }
         recognizer->learn(images,labels);
     }
@@ -107,6 +107,7 @@ int main(int argc, char **argv) {
         videoDetection(detector, recognizer);
 //        imageDetection(detector);
     }
+    recognizer->save("/home/zulus/Projects/progbase3/res/recognizer.xml");
     delete detector;
     delete recognizer;
     return EXIT_SUCCESS;
