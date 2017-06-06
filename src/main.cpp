@@ -12,6 +12,7 @@
 #include <vector>
 #include <FFaceArea.h>
 #include <FFaceRecognizer.h>
+#include <Utils.h>
 
 using namespace std;
 using namespace cv;
@@ -19,7 +20,7 @@ using namespace cv;
 string recognize(Mat &mat, FFaceRecognizer *recognizer) {
     int label = recognizer->recognize(mat);
     string box_text = format("Prediction = %d", label);
-    recognizer->learn(mat, 13);
+//    recognizer->learn(mat, 13);
     return box_text;
 }
 
@@ -60,7 +61,7 @@ void videoDetection(FFaceDetector *detector, FFaceRecognizer *recognizer) {
 
 void imageDetection(FFaceDetector *detector) {
     FImage *image = new FImage("/home/zulus/Projects/progbase3/res/people3.jpg");
-    detector->detect_faces(*image, false, -1, 30, 90);
+    detector->detect_faces(*image, false, -1, 20, 360);
     Mat frame = image->get_image().clone();
     auto faces = image->get_faces();
     for (int i = 0; i < faces.size(); i++) {
@@ -91,17 +92,20 @@ int main(int argc, char **argv) {
         vector<Mat> images;
         vector<int>labels;
         for (int i = 0; i < 10; i++) {
-            images.push_back(imread("/home/zulus/Projects/progbase3/res/danil/Image" + to_string(i) + ".jpg"));
+            Mat m;
+            resize(imread("/home/zulus/Projects/progbase3/res/danil/Image" + to_string(i) + ".jpg"),m,recognizer->get_size_of_image());
+            images.push_back(toGray(m));
             labels.push_back(13);
-            images.push_back(imread("/home/zulus/Projects/progbase3/res/lena/Image" + to_string(i) + ".jpg"));
-            labels.push_back(1);
+            resize(imread("/home/zulus/Projects/progbase3/res/danil/Image" + to_string(i) + ".jpg"),m,recognizer->get_size_of_image());
+            images.push_back(toGray(m));
+            labels.push_back(12);
         }
         recognizer->learn(images,labels);
     }
 
     if (detector->isLoaded(EYES_HAAR) && detector->isLoaded(FACE_HAAR) && detector->isLoaded(FACE_LBP)) {
-//        videoDetection(detector, recognizer);
-        imageDetection(detector);
+        videoDetection(detector, recognizer);
+//        imageDetection(detector);
     }
     delete detector;
     delete recognizer;

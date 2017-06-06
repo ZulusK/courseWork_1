@@ -47,6 +47,7 @@ public:
     void set_num_of_components(int number);
 
     bool learn(const std::vector<cv::Mat> &images, const std::vector<int> labels);
+    cv::Size get_size_of_image();
 };
 
 

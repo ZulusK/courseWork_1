@@ -65,7 +65,16 @@ int FFaceRecognizer::recognize(const cv::Mat &face) {
         return -1;
     Mat scaled_image;
     resize(face, scaled_image, imageScaleSize);
-    return recognizer->predict(scaled_image);
+    int label = 1;
+    if (scaled_image.channels() > 1) {
+        Mat gray;
+        label = recognizer->predict(toGray(scaled_image));
+        gray.release();
+    } else {
+        label = recognizer->predict(scaled_image);
+    }
+    scaled_image.release();
+    return label;
 }
 
 int FFaceRecognizer::recognize(FPerson &personFace) {
@@ -102,9 +111,11 @@ bool FFaceRecognizer::learn(const vector<Mat> &images, const vector<int> labels)
         if (!images[i].empty()) {
             Mat scaledImage;
             resize(images[i], scaledImage, imageScaleSize);
-            scaled_images.push_back(scaledImage);
+            Mat gray = toGray(scaledImage);
+            scaled_images.push_back(gray);
             newLabels.push_back(labels[i]);
             scaledImage.release();
+            gray.release();
         }
     }
     if (scaled_images.size() == 0) {
@@ -119,3 +130,6 @@ bool FFaceRecognizer::learn(const vector<Mat> &images, const vector<int> labels)
 }
 
 
+cv::Size FFaceRecognizer::get_size_of_image() {
+    return this->imageScaleSize;
+}

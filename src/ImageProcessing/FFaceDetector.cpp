@@ -46,8 +46,8 @@ bool FFaceDetector::isLoaded(int what) {
 }
 
 void
-FFaceDetector::detect_faces(const cv::Mat &image, std::vector<FFaceArea *> &faces, bool removeFaceWithoutEye ,
-                            int cascade_type , int steps, int angle_range,
+FFaceDetector::detect_faces(const cv::Mat &image, std::vector<FFaceArea *> &faces, bool removeFaceWithoutEye,
+                            int cascade_type, int steps, int angle_range,
                             double scaleFactor,
                             cv::Size min_size_ratio, cv::Size
                             max_size_ratio) {
@@ -86,22 +86,11 @@ void FFaceDetector::find_faces(cv::Mat &image,
                                cv::Size min_size_ratio, cv::Size
                                max_size_ratio) {
     //in each iteration angle will be increse by this
-    int angleIncrement;
+    int angleIncrement = range * 2 / (steps - 1);
     //starts from
-    int leftBound;
+    int leftBound = -range;
     //nd with
-    int rigthBound;
-    if (range < 180) {
-        //if search in range
-        leftBound = -range;
-        rigthBound = range;
-        angleIncrement = range * 2 / (steps - 1);
-    } else {
-        //if search in all 360 degrees
-        leftBound = 0;
-        rigthBound = 359;
-        angleIncrement = 360 / steps;
-    }
+    int rigthBound = range;
 
     vector<Rect> bounds;
     vector<Rect> eyes_1;
