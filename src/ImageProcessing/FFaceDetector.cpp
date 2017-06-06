@@ -60,12 +60,12 @@ void FFaceDetector::detect_faces(FImage &image, bool removeFaceWithoutEye, int c
             find_faces(gray_image, faces, removeFaceWithoutEye, cascade_type, scaleFactor, min_size_ratio,
                        max_size_ratio);
         } else {
-            if (angle_range == 360) {
-                //if search on 360 degree
+            if (angle_range < 180) {
+                //if search in range
                 find_faces(gray_image, faces, removeFaceWithoutEye, cascade_type, steps, scaleFactor, min_size_ratio,
                            max_size_ratio);
             } else {
-                //if search in range
+                //if search on 360 degree
                 find_faces(gray_image, faces, removeFaceWithoutEye, cascade_type, steps, angle_range, scaleFactor,
                            min_size_ratio,
                            max_size_ratio);
@@ -82,7 +82,39 @@ FFaceDetector::find_faces(cv::Mat &image, std::vector<FFaceArea *> &faces, bool 
                           float scaleFactor,
                           cv::Size min_size_ratio, cv::Size
                           max_size_ratio) {
+    //in each iteration angle will be increse by this
+    int angleIncrement = 360 / steps;
 
+    vector<Rect> bounds;
+    vector<Rect> eyes_1;
+    vector<Rect> eyes_2;
+    for (int currAngle = 0; currAngle < 360; currAngle += angleIncrement) {
+        bounds.clear();
+        eyes_1.clear();
+        eyes_2.clear();
+        //rotate image
+        Mat rotatedImage = rotate(image, currAngle, true);
+        //detect bounds
+        if (cascade_type == LBP && isLoaded(FACE_LBP)) {
+            //if use LBP
+            detect_object(rotatedImage, *classifiers[FACE_LBP], bounds, scaleFactor, min_size_ratio, max_size_ratio);
+        } else if (isLoaded(FACE_HAAR)) {
+            //if use HAAR
+            detect_object(rotatedImage, *classifiers[FACE_HAAR], bounds, scaleFactor, min_size_ratio, max_size_ratio);
+        }
+        //detect eyes
+        //remove artifacts
+        get_faces_attr(rotatedImage, bounds, removeFaceWithoutEye, eyes_1, eyes_2);
+        Point center = getCenter(image);
+        //remove area
+        rectangle(rotatedImage, bounds[bounds.size() - 1], Scalar(255));
+        for (auto i = 0; i < bounds.size(); i++) {
+            rotateRect(bounds[i], center, toRadians(currAngle));
+            disableArea(image, bounds[i]);
+        }
+        create_faceAreas_rotated(faces, bounds, eyes_1, eyes_2, currAngle, center);
+//        imshow(to_string(currAngle), rotatedImage);
+    }
 }
 
 void
@@ -116,12 +148,12 @@ FFaceDetector::find_faces(cv::Mat &image, std::vector<FFaceArea *> &faces, bool 
         get_faces_attr(rotatedImage, bounds, removeFaceWithoutEye, eyes_1, eyes_2);
         Point center = getCenter(image);
         //remove area
-        rectangle(rotatedImage,bounds[bounds.size()-1],Scalar(255));
+        rectangle(rotatedImage, bounds[bounds.size() - 1], Scalar(255));
         for (auto i = 0; i < bounds.size(); i++) {
             rotateRect(bounds[i], center, toRadians(currAngle));
             disableArea(image, bounds[i]);
         }
-        create_faceAreas_rotated(faces, bounds, eyes_1, eyes_2, currAngle,center);
+        create_faceAreas_rotated(faces, bounds, eyes_1, eyes_2, currAngle, center);
 //        imshow(to_string(currAngle), rotatedImage);
     }
 }
@@ -212,9 +244,10 @@ FFaceDetector::get_faces_attr(Mat &image_gray, vector<Rect> &bounds, bool remove
 }
 
 void FFaceDetector::create_faceAreas_rotated(vector<FFaceArea *> &faces, vector<Rect> &bounds,
-                                             vector<Rect> &eyes_1, vector<Rect> &eyes_2, int angle, const Point & center) {
+                                             vector<Rect> &eyes_1, vector<Rect> &eyes_2, int angle,
+                                             const Point &center) {
     for (int i = 0; i < bounds.size(); i++) {
-        auto faceArea = new FFaceArea(bounds[i], eyes_1[i], eyes_2[i], NULL,angle,center);
+        auto faceArea = new FFaceArea(bounds[i], eyes_1[i], eyes_2[i], NULL, angle, center);
         faces.push_back(faceArea);
     }
 }

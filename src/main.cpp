@@ -48,7 +48,7 @@ void videoDetection(FFaceDetector *detector) {
 
 void imageDetection(FFaceDetector *detector) {
     FImage *image = new FImage("/home/zulus/Projects/progbase3/res/people3.jpg");
-    detector->detect_faces(*image, false,-1,10,90);
+    detector->detect_faces(*image, false,-1,20,360);
     Mat frame = image->get_image().clone();
     auto faces = image->get_faces();
     for (int i = 0; i < faces.size(); i++) {
