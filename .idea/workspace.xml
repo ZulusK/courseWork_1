@@ -15,12 +15,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c95522f6-31d7-497d-8766-0290bdc8d51d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ImageProcessing/FFaceDetector.cpp" afterPath="$PROJECT_DIR$/src/ImageProcessing/FFaceDetector.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ImageProcessing/FPerson.cpp" afterPath="$PROJECT_DIR$/src/ImageProcessing/FPerson.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ImageProcessing/include/FFaceDetector.h" afterPath="$PROJECT_DIR$/src/ImageProcessing/include/FFaceDetector.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ImageProcessing/include/FPerson.h" afterPath="$PROJECT_DIR$/src/ImageProcessing/include/FPerson.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main.cpp" afterPath="$PROJECT_DIR$/src/main.cpp" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -54,8 +50,8 @@
       <file leaf-file-name="FPerson.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ImageProcessing/FPerson.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-98">
-              <caret line="32" column="34" lean-forward="false" selection-start-line="32" selection-start-column="34" selection-end-line="32" selection-end-column="34" />
+            <state relative-caret-position="120">
+              <caret line="73" column="26" lean-forward="true" selection-start-line="73" selection-start-column="26" selection-end-line="73" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -100,8 +96,8 @@
       <file leaf-file-name="FFaceDetector.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ImageProcessing/FFaceDetector.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-362">
-              <caret line="51" column="49" lean-forward="false" selection-start-line="51" selection-start-column="49" selection-end-line="51" selection-end-column="49" />
+            <state relative-caret-position="214">
+              <caret line="149" column="66" lean-forward="false" selection-start-line="149" selection-start-column="66" selection-end-line="149" selection-end-column="66" />
               <folding>
                 <element signature="e#0#2#0" expanded="false" />
                 <element signature="e#227#1181#0" expanded="false" />
@@ -113,7 +109,6 @@
                 <element signature="e#3440#4060#0" expanded="false" />
                 <element signature="e#4062#4922#0" expanded="false" />
                 <element signature="e#4924#5254#0" expanded="false" />
-                <element signature="e#5256#6913#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -221,11 +216,11 @@
         <option value="$PROJECT_DIR$/samples/playground/faceDetector.cpp" />
         <option value="$PROJECT_DIR$/src/ImageProcessing/FFaceArea.cpp" />
         <option value="$PROJECT_DIR$/src/ImageProcessing/include/FFaceArea.h" />
-        <option value="$PROJECT_DIR$/src/ImageProcessing/FFaceDetector.cpp" />
         <option value="$PROJECT_DIR$/src/ImageProcessing/include/FFaceDetector.h" />
         <option value="$PROJECT_DIR$/src/main.cpp" />
         <option value="$PROJECT_DIR$/src/ImageProcessing/include/FPerson.h" />
         <option value="$PROJECT_DIR$/src/ImageProcessing/Utils.cpp" />
+        <option value="$PROJECT_DIR$/src/ImageProcessing/FFaceDetector.cpp" />
         <option value="$PROJECT_DIR$/src/ImageProcessing/FPerson.cpp" />
       </list>
     </option>
@@ -691,12 +686,12 @@
       <workItem from="1496651493849" duration="8221000" />
       <workItem from="1496660130262" duration="15242000" />
       <workItem from="1496683953349" duration="2845000" />
-      <workItem from="1496689776161" duration="20354000" />
+      <workItem from="1496689776161" duration="21227000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="156650000" />
+    <option name="totallyTimeSpent" value="157523000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -716,7 +711,7 @@
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3078203" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294509" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.41430947" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41430947" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.9351081" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44242424" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294509" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1024,26 +1019,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ImageProcessing/FFaceDetector.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-362">
-          <caret line="51" column="49" lean-forward="false" selection-start-line="51" selection-start-column="49" selection-end-line="51" selection-end-column="49" />
-          <folding>
-            <element signature="e#0#2#0" expanded="false" />
-            <element signature="e#227#1181#0" expanded="false" />
-            <element signature="e#1183#1349#0" expanded="false" />
-            <element signature="e#1351#1480#0" expanded="false" />
-            <element signature="e#1483#2796#0" expanded="false" />
-            <element signature="e#2798#3111#0" expanded="false" />
-            <element signature="e#3113#3438#0" expanded="false" />
-            <element signature="e#3440#4060#0" expanded="false" />
-            <element signature="e#4062#4922#0" expanded="false" />
-            <element signature="e#4924#5254#0" expanded="false" />
-            <element signature="e#5256#6913#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ImageProcessing/include/FFaceDetector.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="502">
@@ -1082,10 +1057,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/ImageProcessing/FFaceDetector.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="149" column="66" lean-forward="false" selection-start-line="149" selection-start-column="66" selection-end-line="149" selection-end-column="66" />
+          <folding>
+            <element signature="e#0#2#0" expanded="false" />
+            <element signature="e#227#1181#0" expanded="false" />
+            <element signature="e#1183#1349#0" expanded="false" />
+            <element signature="e#1351#1480#0" expanded="false" />
+            <element signature="e#1483#2796#0" expanded="false" />
+            <element signature="e#2798#3111#0" expanded="false" />
+            <element signature="e#3113#3438#0" expanded="false" />
+            <element signature="e#3440#4060#0" expanded="false" />
+            <element signature="e#4062#4922#0" expanded="false" />
+            <element signature="e#4924#5254#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/ImageProcessing/FPerson.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-98">
-          <caret line="32" column="34" lean-forward="false" selection-start-line="32" selection-start-column="34" selection-end-line="32" selection-end-column="34" />
+        <state relative-caret-position="120">
+          <caret line="73" column="26" lean-forward="true" selection-start-line="73" selection-start-column="26" selection-end-line="73" selection-end-column="26" />
           <folding />
         </state>
       </provider>

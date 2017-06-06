@@ -147,8 +147,7 @@ FFaceDetector::get_faces_attr(Mat &image_gray, vector<Rect> &bounds, bool remove
         for (int i = 0; i < bounds.size(); i++) {
             eye_bounds.clear();
             //create eye search area (top half of face)
-            Mat eyeArea = image_gray(bounds[i]);
-//            Rect(0, 0, bounds[i].width, bounds[i].height / 2)
+            Mat eyeArea = image_gray(Rect(bounds[i].x, bounds[i].y, bounds[i].width, bounds[i].height / 2));
             //find eyes
             detect_object(eyeArea, *classifiers[EYES_HAAR], eye_bounds, 1.1, Size(), Size());
             eyeArea.release();

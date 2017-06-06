@@ -28,18 +28,18 @@ FFaceArea *FPerson::getParent() {
 
 Eye FPerson::get_eye_left() {
     normalize();
-    Point rotatedP(eye_left.pos);
-    Point center(parent->size().width/2,parent->size().height/2);
-    rotatePoint(rotatedP, center,-toRadians(rotation_degree));
-    return Eye{.pos=rotatedP,eye_left.radius};
+    Point rotatedP(eye_left.pos.x-frame.x,eye_left.pos.y-frame.y);
+    Point center(parent->size().width / 2, parent->size().height / 2);
+    rotatePoint(rotatedP, center, -toRadians(rotation_degree));
+    return Eye{.pos=rotatedP, eye_left.radius};
 }
 
 Eye FPerson::get_eye_rigth() {
     normalize();
-    Point rotatedP(eye_rigth.pos);
-    Point center(parent->size().width/2,parent->size().height/2);
-    rotatePoint(rotatedP, center,-toRadians(rotation_degree));
-    return Eye{.pos=rotatedP,eye_rigth.radius};
+    Point rotatedP(eye_rigth.pos.x-frame.x,eye_rigth.pos.y-frame.y);
+    Point center(parent->size().width / 2, parent->size().height / 2);
+    rotatePoint(rotatedP, center, -toRadians(rotation_degree));
+    return Eye{.pos=rotatedP, eye_rigth.radius};
 }
 
 long FPerson::get_ID() {
@@ -56,7 +56,7 @@ Mat FPerson::get_image() {
     Mat p = parent->get_image();
     Mat r = rotate(p, rotation_degree);
     p.release();
-    return r;
+    return r(frame);
 }
 
 void FPerson::normalize() {
@@ -69,8 +69,15 @@ void FPerson::normalize() {
         } else if (rotation_degree < -15) {
             rotation_degree = -15;
         }
-        rotation_degree=-15+rand()%30;
+        //randomize rotation to debug
+//        rotation_degree = -15 + rand() % 30;
         normilized = true;
+        auto _e1 = get_eye_left();
+        auto _e2 = get_eye_rigth();
+        this->frame.x = max(_e1.pos.x - _e1.radius * 2, 0);
+        this->frame.y = max(min(_e1.pos.y - _e1.radius * 2, _e2.pos.y - _e2.radius * 2), 0);
+        this->frame.width = min(_e2.pos.x + _e2.radius * 2 - frame.x, parent->size().width - frame.x);
+        this->frame.height = parent->size().height - frame.y;
     }
 }
 
