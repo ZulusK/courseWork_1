@@ -71,6 +71,9 @@ public:
 
     bool isLoaded(int what);
 
+    void create_faceAreas_rotated(std::vector<FFaceArea *> &faces, std::vector<cv::Rect> &bounds,
+                                  std::vector<cv::Rect> &eyes_1,
+                                  std::vector<cv::Rect> &eyes_2, int angle, const cv::Point &center);
 };
 
 

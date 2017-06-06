@@ -36,6 +36,10 @@ Point getCenter(const Rect &rect) {
     return Point(rect.x + rect.width / 2, rect.y + rect.height / 2);
 }
 
+Point getCenter(const Mat &M) {
+    return Point(M.cols / 2, M.rows/ 2);
+}
+
 float getAngle_radians(const Point &p1, const Point &p2) {
     float angle = 0;
     if (p1.x >= p2.x)
@@ -62,22 +66,17 @@ Size getSize(const Rect &R, float scale) {
 }
 
 void rotateRect(cv::Rect &R, const cv::Point2f &center, float angle) {
-    int x1 = R.x;
-    int x2 = x1 + R.width;
-    int y1 = R.y;
-    int y2 = y1 + R.height;
-    rotatePoint(x1, y1, center, angle);
-    rotatePoint(x2, y2, center, angle);
-    R.x = min(x1, x2);
-    R.y = min(y1, y2);
-//    rotatePoint(R.width, R.height, center, angle);
-    R.width = max(x1, x2) - R.x;
-    R.height = max(y1, y2) - R.y;
+    int xC = R.x + R.width/2;
+    int yC = R.y + R.height/2;
+    //rotate center of rect
+    rotatePoint(xC, yC, center, angle);
+    R.x = xC - R.width / 2;
+    R.y = yC - R.height / 2;
 }
 
 void rotatePoint(int &x, int &y, const cv::Point &center, float angle) {
-    float ca = cos(angle);
-    float sa = sin(angle);
+    float ca = cosf(angle);
+    float sa = sinf(angle);
     //copy val
     float dx = x - center.x;
     float dy = y - center.y;
@@ -91,26 +90,31 @@ void rotatePoint(Point &point, const cv::Point &center, float angle) {
 }
 
 void disableArea(Mat &image, const Rect &rect) {
-    int radius = min(rect.width, rect.height);
+    int radius = cvRound((rect.width+rect.height)*0.4);
     circle(image, getCenter(rect), radius, Scalar(0, 0, 0), -1, 8, 0);
 }
 
 Eye createEye(cv::Rect &frame) {
     return Eye{.pos=Point(frame.x + frame.width / 2, frame.y + frame.height / 2), .radius=
-    cvRound((frame.width + frame.height) * 0.25 )};
+    cvRound((frame.width + frame.height) * 0.25)};
 }
 
 Eye getPair(Eye &eye, const Rect &frame) {
     return Eye{.pos=Point(frame.width - eye.pos.x, eye.pos.y), .radius=eye.radius};
 }
 
-Mat rotate(cv::Mat &image, float degree) {
+Mat rotate(const cv::Mat &image, float degree, bool increaseBounds) {
     //get center of image
     Point2f center(image.cols / 2.0, image.rows / 2.0);
     //get rotation matrix
     Mat rot_mat = getRotationMatrix2D(center, degree, 1.0);
     //copy image
     Mat rotated_image;
-    warpAffine(image, rotated_image, rot_mat, image.size());
+    if (!increaseBounds) {
+        warpAffine(image, rotated_image, rot_mat, image.size());
+    } else {
+        cv::Rect bbox = cv::RotatedRect(center, image.size(), degree).boundingRect();
+        warpAffine(image, rotated_image, rot_mat, bbox.size());
+    }
     return rotated_image;
 }

@@ -4,15 +4,21 @@
 
 #include <FFaceArea.h>
 #include <FImage.h>
+#include <Utils.h>
 
 using namespace std;
 using namespace cv;
 
-FFaceArea::FFaceArea(const cv::Rect &frame, cv::Rect &eye_1, cv::Rect &eye_2, FImage *parent) {
+FFaceArea::FFaceArea(const cv::Rect &frame, cv::Rect &eye_1, cv::Rect &eye_2, FImage *parent, int angle,
+                     const Point &centerOfRotation) {
     this->parent = parent;
+    this->angle = angle;
     set_frame(frame);
+    rotated_frame = Rect(frame);
+    this->centerOfRotation = centerOfRotation;
     this->ID = -1;
     this->person = new FPerson(*this, eye_1, eye_2);
+    this->normalized = false;
 }
 
 void FFaceArea::set_frame(const Rect &frame) {
@@ -49,10 +55,24 @@ void FFaceArea::set_areaID(long id) {
     this->ID = id;
 }
 
+
+void FFaceArea::normalize() {
+    if (!normalized && parent) {
+        rotateRect(rotated_frame, centerOfRotation, -toRadians(angle));
+        normalized = true;
+    }
+}
+
 cv::Mat FFaceArea::get_image() {
     if (parent) {
-        const Mat original = parent->get_image();
-        return original(frame);
+        if (angle == 0) {
+            const Mat original = parent->get_image();
+            return original(frame);
+        } else {
+            normalize();
+            Mat r = rotate(parent->get_image(), angle, true);
+            return r(rotated_frame);
+        }
     } else {
         return Mat::zeros(1, 1, CV_8UC1);
     }
@@ -64,4 +84,8 @@ FImage *FFaceArea::get_parent() {
 
 const cv::Rect FFaceArea::get_frame() {
     return this->frame;
+}
+
+int FFaceArea::get_angle() const {
+    return angle;
 }

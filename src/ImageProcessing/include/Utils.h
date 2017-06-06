@@ -9,34 +9,36 @@
 #include <Facecope.h>
 #include <opencv2/imgproc.hpp>
 
- bool isFileExist(const std::string &path);
+bool isFileExist(const std::string &path);
 
- cv::Mat toGray(const cv::Mat &src);
+cv::Mat toGray(const cv::Mat &src);
 
- Eye createEye(cv::Rect &frame);
+Eye createEye(cv::Rect &frame);
 
- Eye getPair(Eye &eye, const cv::Rect &frame);
+Eye getPair(Eye &eye, const cv::Rect &frame);
 
- cv::Point getCenter(const cv::Rect &rect);
+cv::Point getCenter(const cv::Rect &rect);
 
- float getAngle_radians(const cv::Point &p1, const cv::Point &p2);
+cv::Point getCenter(const cv::Mat &M);
 
- float toDegrees(float radians);
+float getAngle_radians(const cv::Point &p1, const cv::Point &p2);
 
- float toRadians(float degree);
+float toDegrees(float radians);
 
- cv::Size getSize(const cv::Mat &M, float scale);
+float toRadians(float degree);
 
- cv::Size getSize(const cv::Rect &R, float scale);
+cv::Size getSize(const cv::Mat &M, float scale);
 
- void rotateRect(cv::Rect &R, const cv::Point2f &center, float angle);
+cv::Size getSize(const cv::Rect &R, float scale);
 
- void rotatePoint(int &x, int &y, const cv::Point &center, float angle);
+void rotateRect(cv::Rect &R, const cv::Point2f &center, float angle);
 
- void rotatePoint(cv::Point &point, const cv::Point &center, float angle);
+void rotatePoint(int &x, int &y, const cv::Point &center, float angle);
 
- void disableArea(cv::Mat &image, const cv::Rect &rect);
+void rotatePoint(cv::Point &point, const cv::Point &center, float angle);
 
- cv::Mat rotate(cv::Mat &image, float degree);
+void disableArea(cv::Mat &image, const cv::Rect &rect);
+
+cv::Mat rotate(const cv::Mat &image, float degree, bool increaseBounds = false);
 
 #endif //FACECOPE_UTILS_H

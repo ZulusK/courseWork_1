@@ -19,7 +19,7 @@ FPerson::FPerson(FFaceArea &parent, Rect &eye_frame_1, Rect &eye_frame_2, long i
 }
 
 FPerson::~FPerson() {
-    cout << "person deleted" << endl;
+
 }
 
 FFaceArea *FPerson::getParent() {
@@ -52,7 +52,6 @@ void FPerson::set_ID(long id) {
 
 Mat FPerson::get_image() {
     normalize();
-    cout << rotation_degree << endl;
     Mat p = parent->get_image();
     Mat r = rotate(p, rotation_degree);
     p.release();
@@ -63,7 +62,6 @@ void FPerson::normalize() {
     if (!normilized) {
         //todo
         this->rotation_degree = toDegrees(getAngle_radians(eye_left.pos, eye_rigth.pos));
-        cout << rotation_degree << " Rotation" << endl;
         if (rotation_degree > 15) {
             rotation_degree = 15;
         } else if (rotation_degree < -15) {

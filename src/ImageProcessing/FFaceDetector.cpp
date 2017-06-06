@@ -56,7 +56,7 @@ void FFaceDetector::detect_faces(FImage &image, bool removeFaceWithoutEye, int c
 //        Mat gray_image = image.get_image().clone();
         vector<FFaceArea *> faces;
         //if search only in original rotation
-        if (steps <= 0) {
+        if (steps <= 2) {
             find_faces(gray_image, faces, removeFaceWithoutEye, cascade_type, scaleFactor, min_size_ratio,
                        max_size_ratio);
         } else {
@@ -91,8 +91,39 @@ FFaceDetector::find_faces(cv::Mat &image, std::vector<FFaceArea *> &faces, bool 
                           float scaleFactor,
                           cv::Size min_size_ratio, cv::Size
                           max_size_ratio) {
+    //in each iteration angle will be increse by this
+    int angleIncrement = range * 2 / (steps - 1);
 
-
+    vector<Rect> bounds;
+    vector<Rect> eyes_1;
+    vector<Rect> eyes_2;
+    for (int currAngle = -range; currAngle <= range; currAngle += angleIncrement) {
+        bounds.clear();
+        eyes_1.clear();
+        eyes_2.clear();
+        //rotate image
+        Mat rotatedImage = rotate(image, currAngle, true);
+        //detect bounds
+        if (cascade_type == LBP && isLoaded(FACE_LBP)) {
+            //if use LBP
+            detect_object(rotatedImage, *classifiers[FACE_LBP], bounds, scaleFactor, min_size_ratio, max_size_ratio);
+        } else if (isLoaded(FACE_HAAR)) {
+            //if use HAAR
+            detect_object(rotatedImage, *classifiers[FACE_HAAR], bounds, scaleFactor, min_size_ratio, max_size_ratio);
+        }
+        //detect eyes
+        //remove artifacts
+        get_faces_attr(rotatedImage, bounds, removeFaceWithoutEye, eyes_1, eyes_2);
+        Point center = getCenter(image);
+        //remove area
+        rectangle(rotatedImage,bounds[bounds.size()-1],Scalar(255));
+        for (auto i = 0; i < bounds.size(); i++) {
+            rotateRect(bounds[i], center, toRadians(currAngle));
+            disableArea(image, bounds[i]);
+        }
+        create_faceAreas_rotated(faces, bounds, eyes_1, eyes_2, currAngle,center);
+//        imshow(to_string(currAngle), rotatedImage);
+    }
 }
 
 void FFaceDetector::detect_object(Mat &image_gray,
@@ -177,5 +208,13 @@ FFaceDetector::get_faces_attr(Mat &image_gray, vector<Rect> &bounds, bool remove
             eyes_1.push_back(Rect(-1, -1, 0, 0));
             eyes_2.push_back(Rect(-1, -1, 0, 0));
         }
+    }
+}
+
+void FFaceDetector::create_faceAreas_rotated(vector<FFaceArea *> &faces, vector<Rect> &bounds,
+                                             vector<Rect> &eyes_1, vector<Rect> &eyes_2, int angle, const Point & center) {
+    for (int i = 0; i < bounds.size(); i++) {
+        auto faceArea = new FFaceArea(bounds[i], eyes_1[i], eyes_2[i], NULL,angle,center);
+        faces.push_back(faceArea);
     }
 }

@@ -11,13 +11,18 @@
 
 class FFaceArea {
     cv::Rect frame;
+    cv::Rect rotated_frame;
+    cv::Point centerOfRotation;
     FPerson *person;
     long ID;
     FImage *parent;
+    int angle;
+    bool normalized;
 private:
+    void normalize();
 
 public:
-    FFaceArea(const cv::Rect &frame, cv::Rect &eye_1, cv::Rect &eye_2, FImage *parent = NULL);
+    FFaceArea(const cv::Rect &frame, cv::Rect &eye_1, cv::Rect &eye_2, FImage *parent=NULL,int angle=0, const cv::Point & centerOfRotation=cv::Point());
 
     ~FFaceArea();
 
@@ -38,6 +43,8 @@ public:
     void set_frame(const cv::Rect &frame);
 
     const cv::Rect get_frame();
+
+    int get_angle() const;
 };
 
 

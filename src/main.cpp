@@ -47,8 +47,8 @@ void videoDetection(FFaceDetector *detector) {
 }
 
 void imageDetection(FFaceDetector *detector) {
-    FImage *image = new FImage("/home/zulus/Projects/progbase3/res/people.jpg");
-    detector->detect_faces(*image, false);
+    FImage *image = new FImage("/home/zulus/Projects/progbase3/res/people3.jpg");
+    detector->detect_faces(*image, false,-1,10,90);
     Mat frame = image->get_image().clone();
     auto faces = image->get_faces();
     for (int i = 0; i < faces.size(); i++) {
@@ -59,7 +59,7 @@ void imageDetection(FFaceDetector *detector) {
         circle(m_face, faces[i]->get_person()->get_eye_rigth().pos,
                faces[i]->get_person()->get_eye_rigth().radius,
                Scalar(45, 45, 200));
-        imshow(to_string(i), m_face);
+        imshow(to_string(i)+"hum", m_face);
         rectangle(frame, faces[i]->get_frame(), Scalar(255, 0, 0));
         m_face.release();
     }
@@ -75,7 +75,8 @@ int main(int argc, char **argv) {
             "/home/zulus/Projects/progbase3/src/cascades/face_lbp.xml",
             "/home/zulus/Projects/progbase3/src/cascades/eye_haar.xml");
     if (detector->isLoaded(EYES_HAAR) && detector->isLoaded(FACE_HAAR) && detector->isLoaded(FACE_LBP)) {
-        videoDetection(detector);
+//        videoDetection(detector);
+        imageDetection(detector);
     }
     delete detector;
     return EXIT_SUCCESS;
