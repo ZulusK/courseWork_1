@@ -4,17 +4,12 @@
 #include <FImageThumbModel.h>
 #include <QDragEnterEvent>
 #include <QDropEvent>
-#include <QStandardItemModel>
-#include <QWidget>
-
 #include <QFileInfoList>
-#include <QFuture>
-#include <QIcon>
 #include <QImage>
 #include <QList>
 #include <QSize>
 #include <QUrl>
-
+#include <QWidget>
 namespace Ui {
 class FWorkingWidget;
 }
@@ -23,25 +18,22 @@ class FWorkingWidget : public QWidget {
   Q_OBJECT
 
 public:
-  explicit FWorkingWidget(QMap<QString, QImage> *images, QWidget *parent = 0);
+  explicit FWorkingWidget(FImageThumbModel *model, QWidget *parent = 0);
   ~FWorkingWidget();
 
 signals:
   void UpdateItem(const QString &path);
-
+  void images_changed();
+  void images_added(const QList<QUrl> &urls);
 private slots:
   void addImages(const QList<QUrl> &urls);
   void dropEvent(QDropEvent *e);
   void dragEnterEvent(QDragEnterEvent *e);
-
   void on_horizontalSlider_sliderMoved(int position);
 
 private:
-  void addImagesToModel(const QString &path);
-
-private:
   Ui::FWorkingWidget *ui;
-  FImageThumbModel *list_model;
+  FImageThumbModel *model;
 };
 
 #endif // FWORKINGWIDGET_H

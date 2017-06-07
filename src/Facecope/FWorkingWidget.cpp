@@ -2,23 +2,20 @@
 #include "ui_FWorkingWidget.h"
 #include <QDebug>
 #include <QDragEnterEvent>
-#include <QIcon>
 #include <QMimeData>
-
-FWorkingWidget::FWorkingWidget(QMap<QString, QImage> *images, QWidget *parent)
+#include <QProgressDialog>
+FWorkingWidget::FWorkingWidget(FImageThumbModel *model, QWidget *parent)
     : QWidget(parent), ui(new Ui::FWorkingWidget) {
+  this->model = model;
+
   ui->setupUi(this);
   setAcceptDrops(true);
-  this->list_model = new FImageThumbModel(images, this);
-  ui->list_view->setModel(list_model);
+  connect(this,SIGNAL(images_added(QList<QUrl>)),this,SLOT(addImages(QList<QUrl>)));
   on_horizontalSlider_sliderMoved(ui->horizontalSlider->value());
-  //  connect(this, SIGNAL(UpdateItem(const QString &)), this, SLOT(add));
+  ui->list_view->setModel(model);
 }
 
-FWorkingWidget::~FWorkingWidget() {
-  delete ui;
-  delete list_model;
-}
+FWorkingWidget::~FWorkingWidget() { delete ui; }
 
 void FWorkingWidget::dragEnterEvent(QDragEnterEvent *e) {
   if (e->mimeData()->hasUrls()) {
@@ -31,25 +28,30 @@ void FWorkingWidget::dropEvent(QDropEvent *e) {
     QString fileName = url.toLocalFile();
     qDebug() << "Dropped file:" << fileName;
   }
-  addImages(e->mimeData()->urls());
+  emit images_added(e->mimeData()->urls());
 }
 
 void FWorkingWidget::addImages(const QList<QUrl> &urls) {
-  qDebug() << "start loop ";
-  foreach (const QUrl &url, urls) {
-    qDebug() << "try to emit: ";
-    list_model->load(url.toLocalFile());
+  QProgressDialog dialog(this);
+  dialog.setCancelButtonText(tr("&Cancel"));
+  dialog.setWindowTitle(tr("Wait for loading"));
+  dialog.setRange(0, urls.size());
+  for (int i = 0; i < urls.size(); i++) {
+    dialog.setLabelText(QString("load ") +
+                        urls.at(i).toLocalFile().split("/").last());
+    dialog.setValue(i);
+    if (dialog.wasCanceled()) {
+      break;
+    }
+    model->load(urls.at(i).toLocalFile());
+    QCoreApplication::processEvents();
   }
-}
-
-void FWorkingWidget::addImagesToModel(const QString &path) {
-  qDebug() << "try to add  file:" << path;
-  list_model->load(path);
+  dialog.hide();
 }
 
 void FWorkingWidget::on_horizontalSlider_sliderMoved(int position) {
   float width = ui->list_view->rect().width() * position / 100.0;
   float height = ui->list_view->rect().height() * position / 100.0;
-  this->list_model->set_image_size(QSize(width, height));
+  this->model->set_image_size(QSize(width, height));
   this->ui->list_view->setIconSize(QSize(width, height));
 }
