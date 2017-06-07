@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FMainWindow</class>
+ <widget class="QMainWindow" name="FMainWindow">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>569</width>
+    <height>328</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Facecope</string>
+  </property>
+  <property name="windowOpacity">
+   <double>1.000000000000000</double>
+  </property>
+  <property name="locale">
+   <locale language="Russian" country="Ukraine"/>
+  </property>
+  <property name="tabShape">
+   <enum>QTabWidget::Rounded</enum>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="label">
+      <property name="font">
+       <font>
+        <pointsize>30</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>FACECOPE</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>569</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFacecope">
+    <property name="title">
+     <string>Facecope</string>
+    </property>
+    <addaction name="actionimport_settings"/>
+    <addaction name="actionexport_settings"/>
+    <addaction name="actionadd_person"/>
+    <addaction name="actionsave_persons"/>
+    <addaction name="actionrecognize"/>
+   </widget>
+   <widget class="QMenu" name="menu_File">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="action_open"/>
+    <addaction name="action_save"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>&amp;Edit</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menushow">
+    <property name="title">
+     <string>&amp;Show</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menu_Help">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+   </widget>
+   <addaction name="menuFacecope"/>
+   <addaction name="menu_File"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menushow"/>
+   <addaction name="menu_Help"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionimport_settings">
+   <property name="text">
+    <string>import</string>
+   </property>
+  </action>
+  <action name="actionexport_settings">
+   <property name="text">
+    <string>export</string>
+   </property>
+  </action>
+  <action name="actionadd_person">
+   <property name="text">
+    <string>add</string>
+   </property>
+  </action>
+  <action name="actionsave_persons">
+   <property name="text">
+    <string>save</string>
+   </property>
+  </action>
+  <action name="actionrecognize">
+   <property name="text">
+    <string>recognize</string>
+   </property>
+  </action>
+  <action name="action_open">
+   <property name="text">
+    <string>&amp;open</string>
+   </property>
+  </action>
+  <action name="action_save">
+   <property name="text">
+    <string>&amp;save</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
