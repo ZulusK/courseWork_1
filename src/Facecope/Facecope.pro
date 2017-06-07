@@ -28,14 +28,8 @@ SOURCES += main.cpp\
     FWorkingWidget.cpp \
     FIcon.cpp \
     FImageThumbModel.cpp
-HEADERS+= \
-    ImageProcessing/Utils.h \
-    ImageProcessing/FPerson.h \
-    ImageProcessing/FImage.h \
-    ImageProcessing/FFaceRecognizer.h \
-    ImageProcessing/FFaceDetector.h \
-    ImageProcessing/Facecope.h \
-    ImageProcessing/FFaceArea.h \
+
+HEADERS+=\
     FPicture.h \
     FMainWindow.h \
     FWorkingWidget.h \
@@ -43,7 +37,6 @@ HEADERS+= \
     FImageThumbModel.h
 
 FORMS    +=  \
-    FPicture.ui \
     FMainWindow.ui \
     FWorkingWidget.ui
 
