@@ -20,6 +20,8 @@ class FMainWindow : public QMainWindow {
 public:
   explicit FMainWindow(QWidget *parent = 0);
   ~FMainWindow();
+protected slots:
+  void open_files();
 
 private:
   void createWidgets();

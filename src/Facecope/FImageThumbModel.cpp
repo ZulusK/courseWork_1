@@ -28,7 +28,9 @@ QVariant FImageThumbModel::data(const QModelIndex &index, int role) const {
   if (index.row() < 0 || index.row() >= this->items.size()) {
     return QVariant();
   } else {
-    if (role == Qt::DecorationRole) {
+    if (role == GET_FULL_ITEM_PATH) {
+      return (QString)(items.begin() + index.row()).key();
+    } else if (role == Qt::DecorationRole) {
       qDebug() << "return image" << endl;
       if ((items.begin() + index.row()).value()->isNull()) {
         return QFileIconProvider::File;

@@ -19,4 +19,6 @@ void FMainWindow::createWidgets() {
 }
 
 void FMainWindow::start() { setCentralWidget(working_widget); }
+void FMainWindow::open_files(){
 
+}

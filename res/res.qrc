@@ -1,0 +1,22 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/woman_disabled.png</file>
+        <file>icons/woman.png</file>
+        <file>icons/trash.png</file>
+        <file>icons/statistics.png</file>
+        <file>icons/settings.png</file>
+        <file>icons/run.png</file>
+        <file>icons/reload.png</file>
+        <file>icons/man_disabled.png</file>
+        <file>icons/man.png</file>
+        <file>icons/left.png</file>
+        <file>icons/help.png</file>
+        <file>icons/folder.png</file>
+        <file>icons/download.png</file>
+        <file>icons/cross.png</file>
+        <file>icons/camera.png</file>
+        <file>icons/accept.png</file>
+        <file>icons/monitor.png</file>
+        <file>icons/monitor2.png</file>
+    </qresource>
+</RCC>

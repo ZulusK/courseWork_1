@@ -7,7 +7,9 @@
 #include <QMutex>
 #include <QSize>
 #include <QString>
-
+enum{
+    GET_FULL_ITEM_PATH=-1
+};
 class FImageThumbModel : public QAbstractListModel {
   Q_OBJECT
 

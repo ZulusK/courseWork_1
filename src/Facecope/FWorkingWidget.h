@@ -1,7 +1,9 @@
 #ifndef FWORKINGWIDGET_H
 #define FWORKINGWIDGET_H
 
+#include <FImageProxyModel.h>
 #include <FImageThumbModel.h>
+#include <QCompleter>
 #include <QDragEnterEvent>
 #include <QDropEvent>
 #include <QFileInfoList>
@@ -31,9 +33,18 @@ private slots:
   void dragEnterEvent(QDragEnterEvent *e);
   void on_horizontalSlider_sliderMoved(int position);
 
+  void on_list_view_doubleClicked(const QModelIndex &index);
+
+  void on_horizontalSlider_2_valueChanged(int value);
+
+  void on_spinBox_valueChanged(int arg1);
+
 private:
+  void setUp();
   Ui::FWorkingWidget *ui;
   FImageThumbModel *model;
+  FImageProxyModel *model_proxy;
+  QCompleter *completer;
 };
 
 #endif // FWORKINGWIDGET_H

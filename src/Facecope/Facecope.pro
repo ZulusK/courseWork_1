@@ -27,14 +27,16 @@ SOURCES += main.cpp\
     FMainWindow.cpp \
     FWorkingWidget.cpp \
     FIcon.cpp \
-    FImageThumbModel.cpp
+    FImageThumbModel.cpp \
+    FImageProxyModel.cpp
 
 HEADERS+=\
     FPicture.h \
     FMainWindow.h \
     FWorkingWidget.h \
     FIcon.h \
-    FImageThumbModel.h
+    FImageThumbModel.h \
+    FImageProxyModel.h
 
 FORMS    +=  \
     FMainWindow.ui \
@@ -42,3 +44,9 @@ FORMS    +=  \
 
 unix: CONFIG += link_pkgconfig
 unix: PKGCONFIG += opencv
+
+RESOURCES += \
+    ../../res/res.qrc
+
+DISTFILES += \
+    ../../res/icons/monitor2.png
