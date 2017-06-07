@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 
-enum { START_MENU, DIR_TREE, IMAGE_EDIT };
+enum { START_MENU, FILE_BROWSING, IMAGE_EDIT };
 namespace Ui {
 class FMainWindow;
 }

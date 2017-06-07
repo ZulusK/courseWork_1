@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
-
+QT       += concurrent
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = Facecope
@@ -25,7 +25,9 @@ SOURCES += main.cpp\
     ImageProcessing/FFaceDetector.cpp \
     ImageProcessing/FFaceArea.cpp \
     StartMenuForm.cpp \
-    FPicture.cpp
+    FPicture.cpp \
+    FileBrowserForm.cpp \
+    ImageProcessing/FPicruresModel.cpp
 
 HEADERS+=include/FMainWindow.h  \
     ImageProcessing/Utils.h \
@@ -36,12 +38,15 @@ HEADERS+=include/FMainWindow.h  \
     ImageProcessing/Facecope.h \
     ImageProcessing/FFaceArea.h \
     StartMenuForm.h \
-    FPicture.h
+    FPicture.h \
+    FileBrowserForm.h \
+    ImageProcessing/FPicruresModel.h
 
 
 FORMS    += uis/FMainWindow.ui  \
     StartMenuForm.ui \
-    FPicture.ui
+    FImage.ui \
+    FileBrowserForm.ui
 
 unix: CONFIG += link_pkgconfig
 unix: PKGCONFIG += opencv
