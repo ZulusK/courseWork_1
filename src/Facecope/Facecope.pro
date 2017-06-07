@@ -26,6 +26,7 @@ SOURCES += main.cpp\
     FPicture.cpp \
     FMainWindow.cpp \
     FWorkingWidget.cpp \
+    FIcon.cpp \
     FImageListModel.cpp
 
 HEADERS+= \
@@ -39,6 +40,7 @@ HEADERS+= \
     FPicture.h \
     FMainWindow.h \
     FWorkingWidget.h \
+    FIcon.h \
     FImageListModel.h
 
 

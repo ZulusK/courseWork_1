@@ -10,6 +10,16 @@ using namespace std;
 using namespace cv;
 
 
+Mat cut(const Mat &original, const Rect &frame) {
+  if (frame.width > 0 && frame.height > 0 && frame.x > 0 && frame.y > 0 &&
+      (frame.x + frame.width) <= original.cols &&
+      (frame.y + frame.height) <= original.rows) {
+    return original(frame);
+  } else {
+    return original.clone();
+  }
+}
+
 Mat toGray(const Mat &src) {
     // Create and return grayscaled image:
     if (src.channels() == 3) {

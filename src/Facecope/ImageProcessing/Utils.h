@@ -41,4 +41,5 @@ void disableArea(cv::Mat &image, const cv::Rect &rect);
 
 cv::Mat rotate(const cv::Mat &image, float degree, bool increaseBounds = false);
 
+cv::Mat cut(const cv::Mat &original, const cv::Rect &frame);
 #endif //FACECOPE_UTILS_H

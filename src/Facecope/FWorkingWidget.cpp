@@ -15,9 +15,9 @@ FWorkingWidget::FWorkingWidget(QMap<QString, QImage> *images, QWidget *parent)
   ui->item_view->setModel(list_model);
   connect(this, SIGNAL(UpdateItem(QString, QImage)),
           SLOT(setThumbs(QString, QImage)));
-  //  QSize listIconSize = ui->item_view->iconSize();
-  //  ui->item_view->setIconSize(
-  //      QSize(listIconSize.width() / 3, listIconSize.width() * 4 / 9));
+//  QSize listIconSize = ui->item_view->rect().size();
+//  ui->item_view->setIconSize(
+//      QSize(listIconSize.width() / 3, listIconSize.width() * 4 / 9));
 }
 
 FWorkingWidget::~FWorkingWidget() {
@@ -40,9 +40,6 @@ void FWorkingWidget::dropEvent(QDropEvent *e) {
   foreach (const QUrl &url, e->mimeData()->urls()) {
     QString fileName = url.toLocalFile();
     qDebug() << "Dropped file:" << fileName;
-    list_model->setItem(
-        list_model->rowCount() + i,
-        new QStandardItem(placeHolder, fileName.split("/").last()));
   }
   thread = QtConcurrent::run(this, &FWorkingWidget::addImages,
                              e->mimeData()->urls(), ui->item_view->iconSize());
@@ -52,8 +49,8 @@ void FWorkingWidget::addImages(QList<QUrl> urls, QSize size) {
   foreach (const QUrl &url, urls) {
     QImage originalImage(url.toLocalFile());
     if (!originalImage.isNull()) {
-      QImage scaledImage =
-          originalImage.scaled(QSize(300,200), Qt::AspectRatioMode::KeepAspectRatio);
+      QImage scaledImage = originalImage.scaled(
+          QSize(300, 200), Qt::AspectRatioMode::KeepAspectRatio);
       emit UpdateItem(url.toLocalFile(), scaledImage);
     }
   }
@@ -62,6 +59,6 @@ void FWorkingWidget::addImages(QList<QUrl> urls, QSize size) {
 void FWorkingWidget::setThumbs(QString index, QImage img) {
   QIcon icon = QIcon(QPixmap::fromImage(img));
   QStandardItem *item = list_model->findItems(index.split("/").last()).at(0);
-  qDebug()<<index.split("/").last();
+  qDebug() << index.split("/").last();
   list_model->setItem(item->row(), new QStandardItem(icon, item->text()));
 }

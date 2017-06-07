@@ -1,6 +1,7 @@
 #ifndef FMAINWINDOW_H
 #define FMAINWINDOW_H
 
+#include <FIcon.h>
 #include <FWorkingWidget.h>
 #include <QMainWindow>
 #include <QMap>
