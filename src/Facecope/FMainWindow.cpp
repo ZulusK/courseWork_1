@@ -10,6 +10,6 @@ FMainWindow::FMainWindow(QWidget *parent)
 
 FMainWindow::~FMainWindow() { delete ui; }
 void FMainWindow::createWidgets() {
-  this->working_widget = new FWorkingWidget(&loaded_images,this);
+  this->working_widget = new FWorkingWidget(&loaded_images, this);
 }
 void FMainWindow::start() { setCentralWidget(working_widget); }

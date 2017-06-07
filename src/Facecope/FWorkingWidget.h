@@ -1,7 +1,7 @@
 #ifndef FWORKINGWIDGET_H
 #define FWORKINGWIDGET_H
 
-#include <FImageListModel.h>
+#include <FImageThumbModel.h>
 #include <QDragEnterEvent>
 #include <QDropEvent>
 #include <QStandardItemModel>
@@ -14,7 +14,7 @@
 #include <QList>
 #include <QSize>
 #include <QUrl>
-#include <QtConcurrent>
+
 namespace Ui {
 class FWorkingWidget;
 }
@@ -27,19 +27,21 @@ public:
   ~FWorkingWidget();
 
 signals:
-  void UpdateItem(QString, QImage);
+  void UpdateItem(const QString &path);
 
 private slots:
-  void addImages(QList<QUrl> urls, QSize size);
-  void setThumbs(QString index, QImage img);
+  void addImages(const QList<QUrl> &urls);
   void dropEvent(QDropEvent *e);
   void dragEnterEvent(QDragEnterEvent *e);
 
+  void on_horizontalSlider_sliderMoved(int position);
+
+private:
+  void addImagesToModel(const QString &path);
 
 private:
   Ui::FWorkingWidget *ui;
-  QStandardItemModel *list_model;
-  QFuture<void> thread;
+  FImageThumbModel *list_model;
 };
 
 #endif // FWORKINGWIDGET_H

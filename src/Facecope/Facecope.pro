@@ -27,8 +27,7 @@ SOURCES += main.cpp\
     FMainWindow.cpp \
     FWorkingWidget.cpp \
     FIcon.cpp \
-    FImageListModel.cpp
-
+    FImageThumbModel.cpp
 HEADERS+= \
     ImageProcessing/Utils.h \
     ImageProcessing/FPerson.h \
@@ -41,8 +40,7 @@ HEADERS+= \
     FMainWindow.h \
     FWorkingWidget.h \
     FIcon.h \
-    FImageListModel.h
-
+    FImageThumbModel.h
 
 FORMS    +=  \
     FPicture.ui \
