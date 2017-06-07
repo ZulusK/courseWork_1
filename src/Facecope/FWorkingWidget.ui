@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FWorkingWidget</class>
+ <widget class="QWidget" name="FWorkingWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QListView" name="item_view">
+     <property name="styleSheet">
+      <string notr="true">QListView {
+  padding: 2px 30px 2px 20px;
+  background-color: rgb(204, 204, 204);
+  border: 1px solid rgb(0, 0, 0);
+  min-width: 90px;
+  selection-background-color: rgba(0, 173, 165, 127);
+}
+QListView::item {
+  height: 30px;
+  padding: 2px 30px 2px 20px;
+  border: 3px solid white;
+border-radius:10px;
+}
+
+QListView::item:selected {
+  border-color: rgb(0, 173, 165);
+  background-color: rgba(0, 173, 165, 127);
+  color: blue;
+}</string>
+     </property>
+     <property name="selectionMode">
+      <enum>QAbstractItemView::SingleSelection</enum>
+     </property>
+     <property name="movement">
+      <enum>QListView::Static</enum>
+     </property>
+     <property name="isWrapping" stdset="0">
+      <bool>true</bool>
+     </property>
+     <property name="resizeMode">
+      <enum>QListView::Adjust</enum>
+     </property>
+     <property name="viewMode">
+      <enum>QListView::IconMode</enum>
+     </property>
+     <property name="uniformItemSizes">
+      <bool>true</bool>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

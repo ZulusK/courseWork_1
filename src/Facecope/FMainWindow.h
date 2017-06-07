@@ -1,28 +1,26 @@
 #ifndef FMAINWINDOW_H
 #define FMAINWINDOW_H
 
+#include <FWorkingWidget.h>
 #include <QMainWindow>
-
-enum { START_MENU, DIR_TREE, IMAGE_EDIT };
+#include <QMap>
 namespace Ui {
 class FMainWindow;
 }
 
 class FMainWindow : public QMainWindow {
   Q_OBJECT
-private:
-  void create_toolBar();
 
 public:
   explicit FMainWindow(QWidget *parent = 0);
   ~FMainWindow();
-signals:
-  void signal_setCentralWidget(QWidget *sender, int type);
-public slots:
-  void on_setCentralWidget(QWidget *sender, int type);
 
 private:
+  void createWidgets();
+  void start();
   Ui::FMainWindow *ui;
+  FWorkingWidget *working_widget;
+  QMap<QString, QImage> loaded_images;
 };
 
 #endif // FMAINWINDOW_H
