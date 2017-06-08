@@ -9,7 +9,6 @@
 #include <QMap>
 #include <QStringList>
 #include <QUrl>
-#include <QtConcurrent>
 namespace Ui {
 class FMainWindow;
 }
@@ -20,19 +19,26 @@ class FMainWindow : public QMainWindow {
 public:
   explicit FMainWindow(QWidget *parent = 0);
   ~FMainWindow();
+signals:
+  void signal_openFileDialog();
+  void signal_showHelp();
+  void signal_getBack();
+  void load_files(const QStringList &paths);
+  void load_files(const QList<QUrl> &urls);
+
 protected slots:
   void open_files();
+  void show_widget();
 
 private:
   void createWidgets();
   void start();
-
+  void connect_signals();
   Ui::FMainWindow *ui;
-  FWorkingWidget *working_widget;
   QMap<QString, QImage> loaded_images;
   bool is_loading_running;
   FImageThumbModel *image_model;
-  QFuture<void> thread;
+  FWorkingWidget *working_widget;
 };
 
 #endif // FMAINWINDOW_H

@@ -18,5 +18,6 @@
         <file>icons/accept.png</file>
         <file>icons/monitor.png</file>
         <file>icons/monitor2.png</file>
+        <file>helpText.html</file>
     </qresource>
 </RCC>

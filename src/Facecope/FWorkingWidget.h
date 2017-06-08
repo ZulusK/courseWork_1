@@ -26,17 +26,18 @@ public:
 signals:
   void UpdateItem(const QString &path);
   void images_changed();
-  void images_added(const QList<QUrl> &urls);
-private slots:
+  void load_images(const QList<QUrl> &urls);
+  void load_images(const QStringList &urls);
+public slots:
+  void addImages(const QStringList &urls);
   void addImages(const QList<QUrl> &urls);
+
+private slots:
   void dropEvent(QDropEvent *e);
   void dragEnterEvent(QDragEnterEvent *e);
   void on_horizontalSlider_sliderMoved(int position);
-
   void on_list_view_doubleClicked(const QModelIndex &index);
-
   void on_horizontalSlider_2_valueChanged(int value);
-
   void on_spinBox_valueChanged(int arg1);
 
 private:
