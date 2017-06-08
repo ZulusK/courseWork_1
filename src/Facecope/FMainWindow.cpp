@@ -18,6 +18,7 @@ void FMainWindow::connect_signals() {
   connect(ui->action_help, SIGNAL(triggered()), this, SLOT(show_widget()));
   connect(ui->action_back, SIGNAL(triggered()), this, SLOT(show_widget()));
   connect(ui->action_settings, SIGNAL(triggered()), this, SLOT(show_widget()));
+  connect(ui->action_trash, SIGNAL(triggered()), image_model, SLOT(clear()));
   connect(ui->action_delete, SIGNAL(triggered()), working_widget,
           SLOT(remove_selected()));
 }

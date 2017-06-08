@@ -137,3 +137,12 @@ bool FImageThumbModel::removeRow(int row, const QModelIndex &parent) {
     return false;
   }
 }
+
+void FImageThumbModel::clear() {
+  this->loader_mutex.lock();
+  beginRemoveRows(QModelIndex(), 0, items.size());
+  foreach (auto image, items) { delete image; }
+  items.clear();
+  endRemoveRows();
+  this->loader_mutex.unlock();
+}

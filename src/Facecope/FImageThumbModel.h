@@ -19,7 +19,7 @@ public:
 
   QVariant data(const QModelIndex &index,
                 int role = Qt::DisplayRole) const override;
-  bool removeRow(int row, const QModelIndex &parent=QModelIndex());
+  bool removeRow(int row, const QModelIndex &parent = QModelIndex());
 
   // methods for work with data
   const QMap<QString, QImage *> &get_items();
@@ -32,6 +32,7 @@ public:
 
 public slots:
   void set_image_size(const QSize &newSize);
+  void clear();
 
 private:
   QMutex loader_mutex;
