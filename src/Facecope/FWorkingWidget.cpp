@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <QDragEnterEvent>
 #include <QMimeData>
+#include <QModelIndexList>
 #include <QProgressDialog>
 FWorkingWidget::FWorkingWidget(FImageThumbModel *model, QWidget *parent)
     : QWidget(parent), ui(new Ui::FWorkingWidget) {
@@ -94,4 +95,12 @@ void FWorkingWidget::on_horizontalSlider_2_valueChanged(int value) {
 
 void FWorkingWidget::on_spinBox_valueChanged(int arg1) {
   ui->horizontalSlider_2->setValue(arg1);
+}
+
+void FWorkingWidget::remove_selected() {
+  auto indexList = ui->list_view->selectionModel()->selectedRows();
+  foreach (auto proxy_index, indexList) {
+    qDebug() << "try to remove " + model_proxy->mapToSource(proxy_index).row();
+    model->removeRow(model_proxy->mapToSource(proxy_index).row());
+  }
 }

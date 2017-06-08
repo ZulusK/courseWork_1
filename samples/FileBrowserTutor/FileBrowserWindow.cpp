@@ -54,7 +54,7 @@ void FileBrowserWindow::List(QFileInfoList filesList, QSize size) {
     QImage originalImage(filesList[i].filePath());
     if (!originalImage.isNull()) {
       QImage scaledImage =
-          originalImage.scaled(size, Qt::AspectRatioMode::KeepAspectRatio);
+          originalImage.scaled(QSize(500,500), Qt::AspectRatioMode::KeepAspectRatio);
       if (!running)
         return;
       emit UpdateItem(i, scaledImage);
@@ -67,6 +67,7 @@ void FileBrowserWindow::resizeEvent(QResizeEvent *event) {
 }
 
 void FileBrowserWindow::setThumbs(int index, QImage img) {
+    ui->listView->setIconSize(QSize(300,300));
   QIcon icon = QIcon(QPixmap::fromImage(img));
   QStandardItem *item = filesmodel->item(index);
   filesmodel->setItem(index, new QStandardItem(icon, item->text()));

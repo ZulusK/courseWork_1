@@ -16,10 +16,13 @@ void FMainWindow::connect_signals() {
   connect(ui->action_open, SIGNAL(triggered()), this, SLOT(open_files()));
   connect(ui->action_help, SIGNAL(triggered()), this, SLOT(show_widget()));
   connect(ui->action_back, SIGNAL(triggered()), this, SLOT(show_widget()));
+  connect(ui->action_delete, SIGNAL(triggered()), working_widget,
+          SLOT(remove_selected()));
 }
 
 FMainWindow::~FMainWindow() {
   delete ui;
+  delete working_widget;
   delete image_model;
 }
 

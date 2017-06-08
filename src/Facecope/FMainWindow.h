@@ -30,6 +30,8 @@ protected slots:
   void open_files();
   void show_widget();
 
+
+
 private:
   void createWidgets();
   void start();

@@ -7,9 +7,7 @@
 #include <QMutex>
 #include <QSize>
 #include <QString>
-enum{
-    GET_FULL_ITEM_PATH=-1
-};
+enum { GET_FULL_ITEM_PATH = -1 };
 class FImageThumbModel : public QAbstractListModel {
   Q_OBJECT
 
@@ -21,6 +19,7 @@ public:
 
   QVariant data(const QModelIndex &index,
                 int role = Qt::DisplayRole) const override;
+  bool removeRow(int row, const QModelIndex &parent=QModelIndex());
 
   // methods for work with data
   const QMap<QString, QImage *> &get_items();

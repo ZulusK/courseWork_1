@@ -216,7 +216,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
         <widget class="QListView" name="list_view">
@@ -234,6 +234,9 @@ margin:5px;
          </property>
          <property name="dragEnabled">
           <bool>true</bool>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::ContiguousSelection</enum>
          </property>
          <property name="iconSize">
           <size>

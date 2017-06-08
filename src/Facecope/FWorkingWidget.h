@@ -28,9 +28,11 @@ signals:
   void images_changed();
   void load_images(const QList<QUrl> &urls);
   void load_images(const QStringList &urls);
+
 public slots:
   void addImages(const QStringList &urls);
   void addImages(const QList<QUrl> &urls);
+  void remove_selected();
 
 private slots:
   void dropEvent(QDropEvent *e);

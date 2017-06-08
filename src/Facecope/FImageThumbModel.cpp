@@ -127,3 +127,13 @@ QImage *FImageThumbModel::get_item(int index) {
     return (items.begin() + index).value();
   }
 }
+
+bool FImageThumbModel::removeRow(int row, const QModelIndex &parent) {
+  qDebug() << "call remove " << row;
+  if (row >= 0 && row < items.size()) {
+    qDebug() << "remove";
+    remove(row);
+  } else {
+    return false;
+  }
+}
