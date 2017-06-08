@@ -83,9 +83,10 @@ int main(int argc, const char *argv[]) {
     int im_width = images[0].cols;
     int im_height = images[0].rows;
     // Create a FaceRecognizer and train it on the given images:
-    Ptr<FaceRecognizer> model = createFisherFaceRecognizer(0, 400);
-    model->train(images, labels);
+    Ptr<FaceRecognizer> model = createFisherFaceRecognizer(100, 1000);
+//    model->train(images, labels);
 
+    model->load("/home/zulus/Projects/progbase3/samples/data.xml");
     // That's it for learning the Face Recognition model. You now
     // need to create the classifier for the task of Face Detection.
     // We are going to use the haar cascade you have specified in the
@@ -141,7 +142,15 @@ int main(int argc, const char *argv[]) {
             // First of all draw a green rectangle around the detected face:
             rectangle(original, face_i, CV_RGB(0, 255, 0), 1);
             // Create the text we will annotate the box with:
-            string box_text = format("Prediction = %d", prediction);
+
+            string box_text ="";
+            if(prediction==1){
+                box_text="man";
+            } else if(prediction==2){
+                box_text="woman";
+            }else{
+                box_text="not recognized";
+            }
             // Calculate the position for annotated text (make sure we don't
             // put illegal values in there):
             int pos_x = std::max(face_i.tl().x - 10, 0);
@@ -157,6 +166,6 @@ int main(int argc, const char *argv[]) {
         if (key == 27)
             break;
     }
-    model->save("/home/zulus/Projects/progbase3/samples/data.xml");
+    model->save("/home/zulus/Projects/progbase3/samples/genders_recognition.xml");
     return 0;
 }
