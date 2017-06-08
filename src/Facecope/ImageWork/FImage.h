@@ -6,9 +6,10 @@
 #include <QString>
 #include <QVector>
 #include <opencv2/imgproc.hpp>
+#include <vector>
 
 class FImage {
-  //  QVector<FFace *> faces;
+  QVector<FFace *> faces;
   QImage q_image;
   cv::Mat cv_image;
   bool is_detected;
@@ -34,13 +35,15 @@ public:
 
   void set_detected(bool detected);
 
-  //  bool add_face(FFace *);
+  int add_face(FFace *face);
 
-  //  FFace *remove_face(long ID);
+  void add_faces(std::vector<FFace *> &faces);
 
-  //  QVector<FFace *> &get_faces();
+  FFace *remove_face(long ID);
 
-  //  FFace *get_face(long ID);
+  QVector<FFace *> &get_faces();
+
+  FFace *get_face(long ID);
 
   void clear();
 
@@ -49,7 +52,6 @@ public:
   cv::Size cv_size() const;
 
   QSize q_size() const;
-
 };
 
 #endif // FIMAGE_H

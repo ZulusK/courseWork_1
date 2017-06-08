@@ -35,7 +35,8 @@ SOURCES += main.cpp\
     ImageWork/FFace.cpp \
     ImageWork/FacecopeUtils.cpp \
     FImageShowDialog.cpp \
-    FImageDrawAreaWidget.cpp
+    FImageDrawAreaWidget.cpp \
+    ImageWork/FFaceDetector.cpp
 
 HEADERS+=\
     FMainWindow.h \
@@ -51,7 +52,8 @@ HEADERS+=\
     ImageWork/FacecopeTypes.h \
     ImageWork/FacecopeUtils.h \
     FImageShowDialog.h \
-    FImageDrawAreaWidget.h
+    FImageDrawAreaWidget.h \
+    ImageWork/FFaceDetector.h
 
 FORMS    +=  \
     FMainWindow.ui \

@@ -24,11 +24,25 @@ FImage::FImage(const QString &path) {
   this->is_recognized = false;
 }
 
+int FImage::add_face(FFace *face) {
+  this->faces.append(face);
+  face->set_ID(faces.size() - 1);
+  return face->get_ID();
+}
+
+void FImage::add_faces(std::vector<FFace *> &faces) {
+  for (auto it = faces.begin(); it != faces.end(); it++) {
+    add_face(*it);
+  }
+}
+
 FImage::~FImage() { this->cv_image.release(); }
 
 QString FImage::get_name() const { return name; }
 
 QImage FImage::to_q_image() { return q_image; }
+
+Mat FImage::to_cv_image() { return cv_image; }
 
 void FImage::set_recognized(bool recognized) {
   this->is_recognized = recognized;

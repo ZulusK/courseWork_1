@@ -2,7 +2,7 @@
 #define FACECOPETYPES_H
 #include <opencv2/imgproc.hpp>
 
-enum { MAN = 0xC, WOMAN } Sex;
+enum { MAN = 0xC, WOMAN,UNRECOGNIZED } Sex;
 
 class FFace;
 class FImage;
