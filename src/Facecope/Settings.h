@@ -14,6 +14,7 @@ private:
   bool skip_recognized;
   bool cut_files;
   unsigned int steps_of_detection;
+  unsigned int loader_buffer_size = 3;
 };
 
 #endif // SETTINGS_H

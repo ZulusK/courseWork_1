@@ -5,14 +5,15 @@
 #include <QImageReader>
 #include <QPixmap>
 #include <QString>
-FImageThumbModel::FImageThumbModel(QObject *parent)
+FImageThumbModel::FImageThumbModel(Settings &settings, QObject *parent)
     : QAbstractListModel(parent) {
   this->items = items;
+  this->settings = &settings;
   this->items[QString("~/Projects/progbase3/res/people.jpg")] =
-      new QImage("/home/zulus/Projects/progbase3/res/people.jpg");
+      new FImage("/home/zulus/Projects/progbase3/res/people.jpg");
 }
 FImageThumbModel::~FImageThumbModel() {
-  foreach (QImage *image, items) { delete image; }
+  foreach (auto image, items) { delete image; }
 }
 
 int FImageThumbModel::rowCount(const QModelIndex &parent) const {
@@ -32,14 +33,14 @@ QVariant FImageThumbModel::data(const QModelIndex &index, int role) const {
       return (QString)(items.begin() + index.row()).key();
     } else if (role == Qt::DecorationRole) {
       qDebug() << "return image" << endl;
-      if ((items.begin() + index.row()).value()->isNull()) {
+      if ((items.begin() + index.row()).value()->empty()) {
         return QFileIconProvider::File;
       } else {
         return QIcon(QPixmap::fromImage(
             (items.begin() + index.row())
                 .value()
-                ->scaled(image_scale_size,
-                         Qt::AspectRatioMode::KeepAspectRatio)));
+                ->to_q_image().scaled(image_scale_size,
+                                  Qt::AspectRatioMode::KeepAspectRatio)));
       }
     } else if (role == Qt::DisplayRole) {
       qDebug() << "return text" << endl;
@@ -55,11 +56,11 @@ bool FImageThumbModel::load(const QString &path) {
   if (isValid_path(path)) {
     beginInsertRows(QModelIndex(), 0, 0);
     loader_mutex.lock();
-    items.insert(items.begin(), path, new QImage(path));
+    items.insert(items.begin(), path, new FImage(path));
     loader_mutex.unlock();
     qDebug() << "inserted" + path;
     endInsertRows();
-    emit dataChanged(index(0, 0), index(items.size() - 1, 0));
+//    emit dataChanged(index(0, 0), index(items.size() - 1, 0));
     return true;
   }
   return false;
@@ -69,7 +70,7 @@ void FImageThumbModel::set_image_size(const QSize &newSize) {
   image_scale_size = newSize;
 }
 
-const QMap<QString, QImage *> &FImageThumbModel::get_items() { return items; }
+const QMap<QString, FImage *> &FImageThumbModel::get_items() { return items; }
 
 bool FImageThumbModel::remove(const QString &key) {
   if (items.contains(key)) {
@@ -112,7 +113,7 @@ bool FImageThumbModel::isValid_path(const QString &key) {
   return true;
 }
 
-QImage *FImageThumbModel::get_item(const QString &path) {
+FImage *FImageThumbModel::get_item(const QString &path) {
   if (items.contains(path)) {
     return items[path];
   } else {
@@ -120,7 +121,7 @@ QImage *FImageThumbModel::get_item(const QString &path) {
   }
 }
 
-QImage *FImageThumbModel::get_item(int index) {
+FImage *FImageThumbModel::get_item(int index) {
   if (index < 0 || index >= items.size()) {
     return NULL;
   } else {

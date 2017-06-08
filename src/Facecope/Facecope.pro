@@ -13,17 +13,16 @@ TEMPLATE = app
 QMAKE_CXXFLAGS += -std=c++14
 
 
-INCLUDEPATH+=ImageProcessing/   \
+INCLUDEPATH+=ImageWork/   \
             include/
 
 SOURCES += main.cpp\
-    ImageProcessing/Utils.cpp \
-    ImageProcessing/FPerson.cpp \
-    ImageProcessing/FImage.cpp \
-    ImageProcessing/FFaceRecognizer.cpp \
-    ImageProcessing/FFaceDetector.cpp \
-    ImageProcessing/FFaceArea.cpp \
-    FPicture.cpp \
+#    ImageProcessing/Utils.cpp \
+#    ImageProcessing/FPerson.cpp \
+#    ImageProcessing/FImage.cpp \
+#    ImageProcessing/FFaceRecognizer.cpp \
+#    ImageProcessing/FFaceDetector.cpp \
+#    ImageProcessing/FFaceArea.cpp \
     FMainWindow.cpp \
     FWorkingWidget.cpp \
     FIcon.cpp \
@@ -31,10 +30,14 @@ SOURCES += main.cpp\
     FImageProxyModel.cpp \
     FHelpWidget.cpp \
     FSettingsWidget.cpp \
-    Settings.cpp
+    Settings.cpp \
+    ImageWork/FImage.cpp \
+    ImageWork/FFace.cpp \
+    ImageWork/FacecopeUtils.cpp \
+    FImageShowDialog.cpp \
+    FImageDrawAreaWidget.cpp
 
 HEADERS+=\
-    FPicture.h \
     FMainWindow.h \
     FWorkingWidget.h \
     FIcon.h \
@@ -42,13 +45,21 @@ HEADERS+=\
     FImageProxyModel.h \
     FHelpWidget.h \
     FSettingsWidget.h \
-    Settings.h
+    Settings.h \
+    ImageWork/FImage.h \
+    ImageWork/FFace.h \
+    ImageWork/FacecopeTypes.h \
+    ImageWork/FacecopeUtils.h \
+    FImageShowDialog.h \
+    FImageDrawAreaWidget.h
 
 FORMS    +=  \
     FMainWindow.ui \
     FWorkingWidget.ui \
     FHelpWidget.ui \
-    FSettingsWidget.ui
+    FSettingsWidget.ui \
+    FImageShowDialog.ui \
+    FImageDrawAreaWidget.ui
 
 unix: CONFIG += link_pkgconfig
 unix: PKGCONFIG += opencv

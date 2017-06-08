@@ -1,5 +1,6 @@
 #include "FWorkingWidget.h"
 #include "ui_FWorkingWidget.h"
+#include <FImageShowDialog.h>
 #include <QDebug>
 #include <QDragEnterEvent>
 #include <QMimeData>
@@ -89,6 +90,8 @@ void FWorkingWidget::on_horizontalSlider_sliderMoved(int position) {
 void FWorkingWidget::on_list_view_doubleClicked(const QModelIndex &index) {
   qDebug() << index.row() << ":" << index.column();
   qDebug() << index.data(GET_FULL_ITEM_PATH);
+  FImageShowDialog dialog(*model->get_item(index.row()), *settings, this);
+  dialog.exec();
 }
 
 void FWorkingWidget::on_horizontalSlider_2_valueChanged(int value) {

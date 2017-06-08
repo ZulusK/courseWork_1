@@ -31,7 +31,7 @@ FMainWindow::~FMainWindow() {
 
 void FMainWindow::createWidgets() {
   //  this->settings.load("");
-  this->image_model = new FImageThumbModel(this);
+  this->image_model = new FImageThumbModel(settings,this);
   this->working_widget = new FWorkingWidget(settings, image_model, this);
 }
 

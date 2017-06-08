@@ -9,6 +9,7 @@
 #include <QFileInfoList>
 #include <QImage>
 #include <QList>
+#include <QMutex>
 #include <QSize>
 #include <QUrl>
 #include <QWidget>
