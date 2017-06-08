@@ -5,9 +5,11 @@
 #include <QMimeData>
 #include <QModelIndexList>
 #include <QProgressDialog>
-FWorkingWidget::FWorkingWidget(FImageThumbModel *model, QWidget *parent)
+FWorkingWidget::FWorkingWidget(Settings &settings, FImageThumbModel *model,
+                               QWidget *parent)
     : QWidget(parent), ui(new Ui::FWorkingWidget) {
   this->model = model;
+  this->settings = &settings;
   ui->setupUi(this);
   setUp();
 }

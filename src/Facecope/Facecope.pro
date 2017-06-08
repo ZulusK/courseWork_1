@@ -29,7 +29,9 @@ SOURCES += main.cpp\
     FIcon.cpp \
     FImageThumbModel.cpp \
     FImageProxyModel.cpp \
-    FHelpWidget.cpp
+    FHelpWidget.cpp \
+    FSettingsWidget.cpp \
+    Settings.cpp
 
 HEADERS+=\
     FPicture.h \
@@ -38,12 +40,15 @@ HEADERS+=\
     FIcon.h \
     FImageThumbModel.h \
     FImageProxyModel.h \
-    FHelpWidget.h
+    FHelpWidget.h \
+    FSettingsWidget.h \
+    Settings.h
 
 FORMS    +=  \
     FMainWindow.ui \
     FWorkingWidget.ui \
-    FHelpWidget.ui
+    FHelpWidget.ui \
+    FSettingsWidget.ui
 
 unix: CONFIG += link_pkgconfig
 unix: PKGCONFIG += opencv

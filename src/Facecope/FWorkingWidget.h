@@ -12,6 +12,7 @@
 #include <QSize>
 #include <QUrl>
 #include <QWidget>
+#include <Settings.h>
 namespace Ui {
 class FWorkingWidget;
 }
@@ -20,7 +21,8 @@ class FWorkingWidget : public QWidget {
   Q_OBJECT
 
 public:
-  explicit FWorkingWidget(FImageThumbModel *model, QWidget *parent = 0);
+  explicit FWorkingWidget(Settings &settings, FImageThumbModel *model,
+                          QWidget *parent = 0);
   ~FWorkingWidget();
 
 signals:
@@ -48,6 +50,7 @@ private:
   FImageThumbModel *model;
   FImageProxyModel *model_proxy;
   QCompleter *completer;
+  Settings *settings;
 };
 
 #endif // FWORKINGWIDGET_H

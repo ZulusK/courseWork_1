@@ -9,6 +9,7 @@
 #include <QMap>
 #include <QStringList>
 #include <QUrl>
+#include <Settings.h>
 namespace Ui {
 class FMainWindow;
 }
@@ -30,8 +31,6 @@ protected slots:
   void open_files();
   void show_widget();
 
-
-
 private:
   void createWidgets();
   void start();
@@ -41,6 +40,7 @@ private:
   bool is_loading_running;
   FImageThumbModel *image_model;
   FWorkingWidget *working_widget;
+  Settings settings;
 };
 
 #endif // FMAINWINDOW_H
