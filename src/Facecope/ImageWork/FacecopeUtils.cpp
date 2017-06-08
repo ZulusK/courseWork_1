@@ -1,4 +1,5 @@
 #include <FacecopeUtils.h>
+#include <QDebug>
 #include <QImageReader>
 #include <fstream>
 #include <opencv2/imgcodecs.hpp>
@@ -6,14 +7,73 @@ using namespace cv;
 using namespace std;
 
 QImage Mat2QImage(const Mat &cv_image) {
-  QImage q_image(cv_image.data, cv_image.cols, cv_image.rows, cv_image.step,
-                 QImage::Format_RGB888);
-  return q_image.rgbSwapped();
+  switch (cv_image.type()) {
+  // 8-bit, 4 channel
+  case CV_8UC4: {
+    QImage image(cv_image.data, cv_image.cols, cv_image.rows,
+                 static_cast<int>(cv_image.step), QImage::Format_ARGB32);
+
+    return image;
+  }
+
+  // 8-bit, 3 channel
+  case CV_8UC3: {
+    QImage image(cv_image.data, cv_image.cols, cv_image.rows,
+                 static_cast<int>(cv_image.step), QImage::Format_RGB888);
+
+    return image.rgbSwapped();
+  }
+
+  // 8-bit, 1 channel
+  case CV_8UC1: {
+    QImage image(cv_image.data, cv_image.cols, cv_image.rows,
+                 static_cast<int>(cv_image.step), QImage::Format_Grayscale8);
+    return image;
+  }
+  }
+
+  return QImage();
 }
 
-Mat QImage2Mat(const QImage &q_image) {
-  return Mat(q_image.height(), q_image.width(), CV_8UC3, (void *)q_image.bits(),
-             q_image.bytesPerLine());
+Mat QImage2Mat(const QImage &inImage) {
+  switch (inImage.format()) {
+  // 8-bit, 4 channel
+  case QImage::Format_ARGB32:
+  case QImage::Format_ARGB32_Premultiplied: {
+    cv::Mat mat(inImage.height(), inImage.width(), CV_8UC4,
+                const_cast<uchar *>(inImage.bits()),
+                static_cast<size_t>(inImage.bytesPerLine()));
+
+    return mat.clone();
+  }
+
+  // 8-bit, 3 channel
+  case QImage::Format_RGB32:
+  case QImage::Format_RGB888: {
+    QImage swapped = inImage;
+
+    if (inImage.format() == QImage::Format_RGB32) {
+      swapped = swapped.convertToFormat(QImage::Format_RGB888);
+    }
+
+    swapped = swapped.rgbSwapped();
+
+    return cv::Mat(swapped.height(), swapped.width(), CV_8UC3,
+                   const_cast<uchar *>(swapped.bits()),
+                   static_cast<size_t>(swapped.bytesPerLine()))
+        .clone();
+  }
+
+  // 8-bit, 1 channel
+  case QImage::Format_Indexed8: {
+    cv::Mat mat(inImage.height(), inImage.width(), CV_8UC1,
+                const_cast<uchar *>(inImage.bits()),
+                static_cast<size_t>(inImage.bytesPerLine()));
+
+    return mat.clone();
+  }
+  }
+  return cv::Mat();
 }
 
 bool isFileExist(const std::string &path) {
@@ -138,4 +198,3 @@ Eye getPair(Eye &eye, const Rect &frame) {
   return Eye{.pos = Point(frame.width - eye.pos.x, eye.pos.y),
              .radius = eye.radius};
 }
-

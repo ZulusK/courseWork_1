@@ -1,28 +1,32 @@
 #include "FImageThumbModel.h"
+#include <FFaceDetector.h>
 #include <QDebug>
 #include <QFileIconProvider>
 #include <QIcon>
 #include <QImageReader>
 #include <QPixmap>
 #include <QString>
-FImageThumbModel::FImageThumbModel(Settings &settings, QObject *parent)
+
+FImageThumbModel::FImageThumbModel(FacecopeProcessors &processors,
+                                   Settings &settings, QObject *parent)
     : QAbstractListModel(parent) {
   this->items = items;
   this->settings = &settings;
-  this->items[QString("~/Projects/progbase3/res/people.jpg")] =
-      new FImage("/home/zulus/Projects/progbase3/res/people.jpg");
+  this->processors = &processors;
+  this->items[QString("~/Projects/progbase3/res/people3.jpg")] =
+      new FImage("/home/zulus/Projects/progbase3/res/people3.jpg");
 }
 FImageThumbModel::~FImageThumbModel() {
   foreach (auto image, items) { delete image; }
 }
 
 int FImageThumbModel::rowCount(const QModelIndex &parent) const {
-  qDebug() << "row count " << items.size();
+  //  qDebug() << "row count " << items.size();
   return items.size();
 }
 
 QVariant FImageThumbModel::data(const QModelIndex &index, int role) const {
-  qDebug() << "call data" << endl;
+  //  qDebug() << "call data" << endl;
   if (!index.isValid())
     return QVariant();
 
@@ -32,18 +36,18 @@ QVariant FImageThumbModel::data(const QModelIndex &index, int role) const {
     if (role == GET_FULL_ITEM_PATH) {
       return (QString)(items.begin() + index.row()).key();
     } else if (role == Qt::DecorationRole) {
-      qDebug() << "return image" << endl;
       if ((items.begin() + index.row()).value()->empty()) {
         return QFileIconProvider::File;
       } else {
         return QIcon(QPixmap::fromImage(
             (items.begin() + index.row())
                 .value()
-                ->to_q_image().scaled(image_scale_size,
-                                  Qt::AspectRatioMode::KeepAspectRatio)));
+                ->to_q_image()
+                .scaled(image_scale_size,
+                        Qt::AspectRatioMode::KeepAspectRatio)));
       }
     } else if (role == Qt::DisplayRole) {
-      qDebug() << "return text" << endl;
+      //      qDebug() << "return text" << endl;
       return ((QString)(items.begin() + index.row()).key().split("/").last())
           .mid(0, 7);
     }
@@ -60,7 +64,6 @@ bool FImageThumbModel::load(const QString &path) {
     loader_mutex.unlock();
     qDebug() << "inserted" + path;
     endInsertRows();
-//    emit dataChanged(index(0, 0), index(items.size() - 1, 0));
     return true;
   }
   return false;
@@ -129,11 +132,28 @@ FImage *FImageThumbModel::get_item(int index) {
   }
 }
 
-bool FImageThumbModel::removeRow(int row, const QModelIndex &parent) {
-  qDebug() << "call remove " << row;
+FacecopeProcessors *FImageThumbModel::get_processors() const {
+  return this->processors;
+}
+
+void FImageThumbModel::recognize(int row) {
+  qDebug() << "call recognize";
   if (row >= 0 && row < items.size()) {
-    qDebug() << "remove";
-    remove(row);
+  }
+}
+
+void FImageThumbModel::detect(int row) {
+  qDebug() << "call detect";
+  if (row >= 0 && row < items.size()) {
+    this->processors->detector->detect_faces(*get_item(row),false,HAAR,20,360);
+    qDebug() << "end detecting";
+  }
+}
+
+bool FImageThumbModel::removeRow(int row, const QModelIndex &parent) {
+  //  qDebug() << "call remove " << row;
+  if (row >= 0 && row < items.size()) {
+    return remove(row);
   } else {
     return false;
   }

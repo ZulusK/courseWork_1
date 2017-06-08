@@ -16,18 +16,33 @@ FFaceDetector::FFaceDetector(const string &cascadesDir_face_haar,
     this->classifiers[FACE_HAAR]->load(cascadesDir_face_haar);
   } else {
     qDebug() << cascadesDir_face_haar.c_str() << " was not loaded";
+    if (isFileExist(CASCADE_FACE_HAAR_PATH)) {
+      qDebug() << CASCADE_FACE_HAAR_PATH;
+      this->classifiers[FACE_HAAR] = new CascadeClassifier();
+      this->classifiers[FACE_HAAR]->load(CASCADE_FACE_HAAR_PATH);
+    }
   }
   if (isFileExist(cascadesDir_face_lbp)) {
     this->classifiers[FACE_LBP] = new CascadeClassifier();
     this->classifiers[FACE_LBP]->load(cascadesDir_face_lbp);
   } else {
     qDebug() << cascadesDir_face_lbp.c_str() << " was not loaded";
+    if (isFileExist(CASCADE_FACE_LBP_PATH)) {
+      qDebug() << CASCADE_FACE_LBP_PATH;
+      this->classifiers[FACE_LBP] = new CascadeClassifier();
+      this->classifiers[FACE_LBP]->load(CASCADE_FACE_LBP_PATH);
+    }
   }
   if (isFileExist(cascadesDir_eye_haar)) {
     this->classifiers[EYES_HAAR] = new CascadeClassifier();
     this->classifiers[EYES_HAAR]->load(cascadesDir_eye_haar);
   } else {
     qDebug() << cascadesDir_eye_haar.c_str() << " was not loaded";
+    if (isFileExist(CASCADE_EYES_HAAR_PATH)) {
+      qDebug() << CASCADE_EYES_HAAR_PATH;
+      this->classifiers[EYES_HAAR] = new CascadeClassifier();
+      this->classifiers[EYES_HAAR]->load(CASCADE_EYES_HAAR_PATH);
+    }
   }
 }
 
@@ -51,22 +66,30 @@ void FFaceDetector::detect_faces(const cv::Mat &image,
                                  cv::Size max_size_ratio) {
   // convert image to gray
   Mat gray_image = toGray(image);
+  qDebug() << "converted";
+//  imshow("gray", gray_image);
+//  imshow("original", image);
+  waitKey(0);
   // if search only in original rotation
   if (steps <= 2) {
+    qDebug() << "search in original angle";
     find_faces(gray_image, faces, removeFaceWithoutEye, cascade_type,
                scaleFactor, min_size_ratio, max_size_ratio);
   } else {
     // if search on range degree
+    qDebug() << "search in range";
     find_faces(gray_image, faces, removeFaceWithoutEye, cascade_type, steps,
                angle_range, scaleFactor, min_size_ratio, max_size_ratio);
   }
   gray_image.release();
+  qDebug() << "released";
 }
 
 void FFaceDetector::detect_faces(FImage &image, bool removeFaceWithoutEye,
                                  int cascade_type, int steps, int angle_range,
                                  double scaleFactor, Size min_size_ratio,
                                  Size max_size_ratio) {
+  qDebug() << "detector run";
   if (!image.empty()) {
     vector<FFace *> faces;
     detect_faces(image.to_cv_image(), faces, removeFaceWithoutEye, cascade_type,
@@ -74,6 +97,7 @@ void FFaceDetector::detect_faces(FImage &image, bool removeFaceWithoutEye,
                  max_size_ratio);
     image.add_faces(faces);
   }
+  qDebug() << "detector end";
 }
 
 void FFaceDetector::find_faces(cv::Mat &image, std::vector<FFace *> &faces,
@@ -130,6 +154,7 @@ void FFaceDetector::detect_object(Mat &image_gray,
     classifier.detectMultiScale(image_gray, rects, scaleFactor, 3,
                                 0 | CV_HAAR_SCALE_IMAGE, min_size_ratio,
                                 max_size_ratio);
+
   } else {
     qDebug() << "NOT A GRAY";
   }
@@ -176,6 +201,7 @@ void FFaceDetector::get_faces_attr(Mat &image_gray, vector<Rect> &bounds,
   if (isLoaded(EYES_HAAR)) {
     for (int i = 0; i < bounds.size(); i++) {
       eye_bounds.clear();
+      imshow(to_string(i),image_gray(bounds[i]));
       // create eye search area (top half of face)
       Mat eyeArea = image_gray(Rect(bounds[i].x, bounds[i].y, bounds[i].width,
                                     bounds[i].height / 2));

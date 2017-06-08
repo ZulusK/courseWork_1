@@ -15,113 +15,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c95522f6-31d7-497d-8766-0290bdc8d51d" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/README" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/1.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/10.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/11.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/12.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/13.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/14.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/15.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/16.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/17.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/18.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/19.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/2.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/20.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/21.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/22.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/23.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/24.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/25.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/26.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/27.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/28.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/29.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/3.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/30.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/31.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/32.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/33.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/34.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/35.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/36.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/37.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/38.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/39.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/4.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/40.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/41.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/42.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/43.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/44.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/45.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/46.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/47.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/48.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/49.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/5.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/50.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/51.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/52.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/53.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/54.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/55.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/56.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/57.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/58.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/59.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/6.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/60.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/61.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/62.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/63.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/64.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/65.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/66.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/67.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/68.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/69.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/7.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/70.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/8.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/man/9.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/woman/1.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/woman/10.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/woman/11.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/woman/12.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/woman/13.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/woman/14.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/woman/15.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/woman/16.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/woman/17.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/woman/18.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/woman/19.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/woman/2.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/woman/20.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/woman/21.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/woman/22.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/woman/23.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/woman/24.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/woman/25.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/woman/26.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/woman/27.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/woman/28.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/woman/29.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/woman/3.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/woman/30.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/woman/4.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/woman/5.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/woman/6.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/woman/7.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/woman/8.pgm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/genderClassification/woman/9.pgm" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/samples/data.xml" afterPath="$PROJECT_DIR$/samples/data.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/samples/photo.csv" afterPath="$PROJECT_DIR$/samples/photo.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/samples/playground/Fisherface.cpp" afterPath="$PROJECT_DIR$/samples/playground/Fisherface.cpp" />
-    </list>
+    <list default="true" id="c95522f6-31d7-497d-8766-0290bdc8d51d" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -142,8 +36,8 @@
       <file leaf-file-name="Fisherface.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/samples/playground/Fisherface.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="382">
-              <caret line="151" column="40" lean-forward="false" selection-start-line="151" selection-start-column="40" selection-end-line="151" selection-end-column="40" />
+            <state relative-caret-position="358">
+              <caret line="102" column="5" lean-forward="true" selection-start-line="102" selection-start-column="5" selection-end-line="102" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -683,12 +577,12 @@
       <workItem from="1496742731660" duration="9371000" />
       <workItem from="1496797946512" duration="599000" />
       <workItem from="1496920958177" duration="18000" />
-      <workItem from="1496934618772" duration="2141000" />
+      <workItem from="1496934618772" duration="2358000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="179154000" />
+    <option name="totallyTimeSpent" value="179371000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -709,7 +603,7 @@
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3078203" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294509" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.41430947" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41430947" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.9351081" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -955,8 +849,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/samples/playground/Fisherface.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="382">
-          <caret line="151" column="40" lean-forward="false" selection-start-line="151" selection-start-column="40" selection-end-line="151" selection-end-column="40" />
+        <state relative-caret-position="358">
+          <caret line="102" column="5" lean-forward="true" selection-start-line="102" selection-start-column="5" selection-end-line="102" selection-end-column="5" />
           <folding />
         </state>
       </provider>

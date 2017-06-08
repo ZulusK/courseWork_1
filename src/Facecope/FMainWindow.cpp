@@ -1,5 +1,6 @@
 #include "FMainWindow.h"
 #include "ui_FMainWindow.h"
+#include <FFaceRecognizer.h>
 #include <FHelpWidget.h>
 #include <FSettingsWidget.h>
 #include <FWorkingWidget.h>
@@ -27,11 +28,17 @@ FMainWindow::~FMainWindow() {
   delete ui;
   delete working_widget;
   delete image_model;
+  delete this->processors.detector;
+  delete this->processors.recognizer;
 }
 
 void FMainWindow::createWidgets() {
   //  this->settings.load("");
-  this->image_model = new FImageThumbModel(settings,this);
+  this->processors.detector = new FFaceDetector(
+      std::string(RESOURCE_PATH)+"cascades/face_haar.xml", std::string(RESOURCE_PATH)+"cascades/face_lbp.xml",
+      std::string(RESOURCE_PATH)+"cascades/eye_haar.xml");
+  this->processors.recognizer = new FFaceRecognizer();
+  this->image_model = new FImageThumbModel(processors, settings, this);
   this->working_widget = new FWorkingWidget(settings, image_model, this);
 }
 

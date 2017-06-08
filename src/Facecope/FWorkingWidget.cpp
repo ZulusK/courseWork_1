@@ -26,10 +26,11 @@ void FWorkingWidget::setUp() {
   this->completer->setCaseSensitivity(Qt::CaseSensitive);
   ui->comboBox->setCompleter(completer);
 
-  connect(this, SIGNAL(load_images(QList<QUrl>)), this,
+  connect(this, SIGNAL(signal_load_images(QList<QUrl>)), this,
           SLOT(addImages(QList<QUrl>)));
-  connect(this, SIGNAL(load_images(QStringList)), this,
+  connect(this, SIGNAL(signal_load_images(QStringList)), this,
           SLOT(addImages(QStringList)));
+  connect(this, SIGNAL(signal_detect_face(int)), model, SLOT(detect(int)));
   on_horizontalSlider_sliderMoved(300);
 }
 
@@ -50,7 +51,7 @@ void FWorkingWidget::dropEvent(QDropEvent *e) {
     QString fileName = url.toLocalFile();
     qDebug() << "Dropped file:" << fileName;
   }
-  emit load_images(e->mimeData()->urls());
+  emit signal_load_images(e->mimeData()->urls());
 }
 
 void FWorkingWidget::addImages(const QList<QUrl> &urls) {
@@ -90,6 +91,7 @@ void FWorkingWidget::on_horizontalSlider_sliderMoved(int position) {
 void FWorkingWidget::on_list_view_doubleClicked(const QModelIndex &index) {
   qDebug() << index.row() << ":" << index.column();
   qDebug() << index.data(GET_FULL_ITEM_PATH);
+  this->model->detect(model_proxy->mapToSource(index).row());
   FImageShowDialog dialog(*model->get_item(index.row()), *settings, this);
   dialog.exec();
 }

@@ -3,6 +3,7 @@
 #include <QImage>
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/imgproc.hpp>
+#include <QDebug>
 using namespace cv;
 
 FImage::FImage(const Mat &mat) {
@@ -17,6 +18,9 @@ FImage::FImage(const QString &path) {
   if (isImage(path)) {
     // load qimage, its faster
     this->q_image = QImage(path);
+    if (q_image.format() == QImage::Format_Indexed8) {
+      q_image = q_image.convertToFormat(QImage::Format_RGB888);
+    }
     this->cv_image = QImage2Mat(q_image);
     this->name = path;
   }
@@ -27,6 +31,7 @@ FImage::FImage(const QString &path) {
 int FImage::add_face(FFace *face) {
   this->faces.append(face);
   face->set_ID(faces.size() - 1);
+  qDebug()<<"face aded";
   return face->get_ID();
 }
 

@@ -2,6 +2,7 @@
 #define FIMAGETHUMBMODEL_H
 
 #include <FImage.h>
+#include <FacecopeTypes.h>
 #include <QAbstractListModel>
 #include <QImage>
 #include <QMap>
@@ -11,11 +12,13 @@
 #include <Settings.h>
 
 enum { GET_FULL_ITEM_PATH = -1 };
+
 class FImageThumbModel : public QAbstractListModel {
   Q_OBJECT
 
 public:
-  explicit FImageThumbModel(Settings &settings, QObject *parent = 0);
+  explicit FImageThumbModel(FacecopeProcessors &processors, Settings &settings,
+                            QObject *parent = 0);
   ~FImageThumbModel();
   // Basic functionality:
   int rowCount(const QModelIndex &parent = QModelIndex()) const override;
@@ -32,16 +35,20 @@ public:
   bool isValid_path(const QString &key);
   FImage *get_item(const QString &path);
   FImage *get_item(int index);
+  FacecopeProcessors *get_processors() const;
 
 public slots:
   void set_image_size(const QSize &newSize);
   void clear();
+  void recognize(int row);
+  void detect(int row);
 
 private:
   QMutex loader_mutex;
   QMap<QString, FImage *> items;
   QSize image_scale_size;
   Settings *settings;
+  FacecopeProcessors *processors;
 };
 
 #endif // FIMAGETHUMBMODEL_H

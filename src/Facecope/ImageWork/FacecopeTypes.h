@@ -2,10 +2,16 @@
 #define FACECOPETYPES_H
 #include <opencv2/imgproc.hpp>
 
-enum { MAN = 0xC, WOMAN,UNRECOGNIZED } Sex;
+enum { MAN = 0xC, WOMAN, UNRECOGNIZED } Sex;
 
 class FFace;
 class FImage;
+class FFaceDetector;
+class FFaceRecognizer;
+typedef struct {
+  FFaceDetector *detector;
+  FFaceRecognizer *recognizer;
+} FacecopeProcessors;
 
 typedef struct {
   cv::Point pos;

@@ -19,5 +19,9 @@
         <file>icons/monitor.png</file>
         <file>icons/monitor2.png</file>
         <file>helpText.html</file>
+        <file>cascades/smile_haar.xml</file>
+        <file>cascades/face_lbp.xml</file>
+        <file>cascades/face_haar.xml</file>
+        <file>cascades/eye_haar.xml</file>
     </qresource>
 </RCC>

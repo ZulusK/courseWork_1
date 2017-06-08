@@ -1,15 +1,18 @@
 #ifndef FMAINWINDOW_H
 #define FMAINWINDOW_H
 
+#include <FFaceDetector.h>
 #include <FIcon.h>
 #include <FImageThumbModel.h>
 #include <FWorkingWidget.h>
+#include <FacecopeTypes.h>
 #include <QList>
 #include <QMainWindow>
 #include <QMap>
 #include <QStringList>
 #include <QUrl>
 #include <Settings.h>
+#define  RESOURCE_PATH "../../res/"
 namespace Ui {
 class FMainWindow;
 }
@@ -41,6 +44,7 @@ private:
   FImageThumbModel *image_model;
   FWorkingWidget *working_widget;
   Settings settings;
+  FacecopeProcessors processors;
 };
 
 #endif // FMAINWINDOW_H

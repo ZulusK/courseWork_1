@@ -27,10 +27,11 @@ public:
   ~FWorkingWidget();
 
 signals:
-  void UpdateItem(const QString &path);
-  void images_changed();
-  void load_images(const QList<QUrl> &urls);
-  void load_images(const QStringList &urls);
+  void signal_updateItem(const QString &path);
+  void signal_images_changed();
+  void signal_load_images(const QList<QUrl> &urls);
+  void signal_load_images(const QStringList &urls);
+  void signal_detect_face(int row);
 
 public slots:
   void addImages(const QStringList &urls);
