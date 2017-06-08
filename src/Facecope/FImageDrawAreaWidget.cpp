@@ -16,8 +16,8 @@ QSize FImageDrawAreaWidget::minimumSizeHint() const { return QSize(0, 0); }
 FImageDrawAreaWidget::~FImageDrawAreaWidget() { delete ui; }
 void FImageDrawAreaWidget::paintEvent(QPaintEvent *event) {
   QPainter painter(this);
-  painter.drawPixmap(
-      this->rect(),
-      QPixmap::fromImage(f_image->to_q_image().scaled(
-          this->rect().size(), Qt::AspectRatioMode::KeepAspectRatio)));
+  auto pix = QPixmap::fromImage(f_image->to_q_image().scaled(
+      this->rect().size(), Qt::AspectRatioMode::KeepAspectRatio));
+  QPoint point((this->rect().width()-pix.width())/2,(this->rect().height()-pix.height())/2);
+  painter.drawPixmap(point, pix);
 }

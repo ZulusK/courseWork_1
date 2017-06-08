@@ -9,6 +9,7 @@ FImageShowDialog::FImageShowDialog(FImage &image, Settings &settings,
   ui->setupUi(this);
   this->draw_area = new FImageDrawAreaWidget(image, settings, this);
   ui->splitter->insertWidget(0, draw_area);
+  ui->name_lbl->setText(image.get_name().split("/").last());
 }
 
 FImageShowDialog::~FImageShowDialog() {
