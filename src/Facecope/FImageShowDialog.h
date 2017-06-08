@@ -1,6 +1,6 @@
 #ifndef FIMAGESHOWDIALOG_H
 #define FIMAGESHOWDIALOG_H
-
+#include <FFaceModel.h>
 #include <FImage.h>
 #include <FImageDrawAreaWidget.h>
 #include <QDialog>
@@ -20,11 +20,14 @@ public:
 private slots:
   void on_splitter_splitterMoved(int pos, int index);
 
+  void on_size_slider_sliderMoved(int position);
+
 private:
   Ui::FImageShowDialog *ui;
   FImage *f_image;
   Settings *settings;
   FImageDrawAreaWidget *draw_area;
+  FFaceModel * model;
 };
 
 #endif // FIMAGESHOWDIALOG_H

@@ -6,6 +6,7 @@
 
 QT       += core gui
 QT      +=concurrent
+QT      +=sql
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = Facecope
@@ -36,7 +37,8 @@ SOURCES += main.cpp\
     FImageShowDialog.cpp \
     FImageDrawAreaWidget.cpp \
     ImageWork/FFaceDetector.cpp \
-    ImageWork/FFaceRecognizer.cpp
+    ImageWork/FFaceRecognizer.cpp \
+    FFaceModel.cpp
 
 HEADERS+=\
     FMainWindow.h \
@@ -53,7 +55,8 @@ HEADERS+=\
     FImageShowDialog.h \
     FImageDrawAreaWidget.h \
     ImageWork/FFaceDetector.h \
-    ImageWork/FFaceRecognizer.h
+    ImageWork/FFaceRecognizer.h \
+    FFaceModel.h
 
 FORMS    +=  \
     FMainWindow.ui \

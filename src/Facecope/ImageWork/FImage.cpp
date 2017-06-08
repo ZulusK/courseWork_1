@@ -39,7 +39,7 @@ FImage::FImage(const QString &path) {
 int FImage::add_face(FFace *face) {
   this->faces.append(face);
   face->set_ID(faces.size() - 1);
-  qDebug() << "face aded";
+  qDebug() << "face aded " << face->get_ID();
   return face->get_ID();
 }
 
@@ -77,7 +77,9 @@ FFace *FImage::remove_face(long ID) {
     return NULL;
   } else {
     auto face = faces.at(ID);
-    faces.remove(ID);
+    faces[ID] = faces[faces.size() - 1];
+    faces[ID]->set_ID(ID);
+    faces.remove(faces.size() - 1);
     return face;
   }
 }
@@ -85,7 +87,7 @@ FFace *FImage::remove_face(long ID) {
 QVector<FFace *> &FImage::get_faces() { return faces; }
 
 FFace *FImage::get_face(long ID) {
-  if (this->faces.size() >= ID || ID < 0) {
+  if (ID >= faces.size() || ID < 0) {
     return NULL;
   } else {
     return faces.at(ID);

@@ -115,8 +115,8 @@ Mat cut(const Mat &original, const Rect &frame) {
   Rect cut_frame;
   cut_frame.x = max(frame.x, 0);
   cut_frame.y = max(frame.y, 0);
-  cut_frame.width = max(min(frame.width, original.cols - cut_frame.x),1);
-  cut_frame.height = max(min(frame.height, original.rows - cut_frame.y),1);
+  cut_frame.width = max(min(frame.width, original.cols - cut_frame.x), 1);
+  cut_frame.height = max(min(frame.height, original.rows - cut_frame.y), 1);
   // cut image ange return it
   return original(cut_frame);
 }
@@ -141,9 +141,9 @@ Point getCenter(const Mat &M) { return Point(M.cols / 2, M.rows / 2); }
 float getAngle_radians(const Point &p1, const Point &p2) {
   float angle = 0;
   if (p1.x >= p2.x)
-    angle = atan((p1.y - p2.y) / (p1.x - p2.x));
+    angle = atan((p1.y - p2.y) / (p1.x - p2.x + 0.00000000001));
   else
-    angle = atan((p2.y - p1.y) / (p2.x - p1.x));
+    angle = atan((p2.y - p1.y) / (p2.x - p1.x + 0.00000000001));
   return angle;
 }
 
@@ -188,7 +188,7 @@ void disableArea(Mat &image, const Rect &rect) {
   circle(image, getCenter(rect), radius, Scalar(0, 0, 0), -1, 8, 0);
 }
 
-Eye createEye(cv::Rect &frame) {
+Eye createEye(const cv::Rect &frame) {
   return Eye{.pos =
                  Point(frame.x + frame.width / 2, frame.y + frame.height / 2),
              .radius = cvRound((frame.width + frame.height) * 0.25)};

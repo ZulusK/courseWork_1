@@ -201,7 +201,7 @@ void FFaceDetector::get_faces_attr(Mat &image_gray, vector<Rect> &bounds,
   if (isLoaded(EYES_HAAR)) {
     for (int i = 0; i < bounds.size(); i++) {
       eye_bounds.clear();
-      imshow(to_string(i),image_gray(bounds[i]));
+//      imshow(to_string(i),image_gray(bounds[i]));
       // create eye search area (top half of face)
       Mat eyeArea = image_gray(Rect(bounds[i].x, bounds[i].y, bounds[i].width,
                                     bounds[i].height / 2));

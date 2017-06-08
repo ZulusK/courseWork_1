@@ -37,8 +37,8 @@ public:
   void set_rotation(int angle);
   void set_original_frame(const cv::Rect &frame);
   void set_ID(long ID);
-  void set_left_eye(const cv::Rect &frame_eye);
-  void set_rigth_eye(const cv::Rect &frame_eye);
+  void create_eyes(const cv::Rect &eye_frame);
+  void set_eyes(const cv::Rect &eye_frame_1, const cv::Rect &eye_frame_2);
   void set_info(const Human &human);
 };
 

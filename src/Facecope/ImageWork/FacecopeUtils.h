@@ -16,7 +16,7 @@ cv::Mat toGray(const cv::Mat &src);
 
 cv::Mat cut(const cv::Mat &original, const cv::Rect &frame);
 
-Eye createEye(cv::Rect &frame);
+Eye createEye(const cv::Rect &frame);
 
 Eye getPair(Eye &eye, const cv::Rect &frame);
 
