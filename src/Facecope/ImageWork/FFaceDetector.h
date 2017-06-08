@@ -36,15 +36,9 @@ private:
                       std::vector<cv::Rect> &eyes_2);
 
   void create_faceAreas(std::vector<FFace *> &faces,
-                        std::vector<cv::Rect> &bounds,
-                        std::vector<cv::Rect> &eyes_1,
-                        std::vector<cv::Rect> &eyes_2);
-
-  void create_faceAreas_rotated(std::vector<FFace *> &faces,
                                 std::vector<cv::Rect> &bounds,
                                 std::vector<cv::Rect> &eyes_1,
-                                std::vector<cv::Rect> &eyes_2, int angle,
-                                const cv::Point &center);
+                                std::vector<cv::Rect> &eyes_2, int angle);
 
 public:
   FFaceDetector(

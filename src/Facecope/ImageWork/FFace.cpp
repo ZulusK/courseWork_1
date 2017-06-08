@@ -25,7 +25,7 @@ void FFace::normalize() {
       rotation = -15;
     }
     // randomize rotation to debug
-    rotation = 20;
+    //    rotation = 20;
     qDebug() << "rotation " << rotation;
     this->is_normalized = true;
     auto _e1 = eye_left;
@@ -44,6 +44,7 @@ FFace::FFace(int angle_src, const cv::Rect &frame_src, const cv::Rect &eye_1,
   this->original_frame = frame_src;
   this->face_frame = Rect(0, 0, original_frame.width, original_frame.height);
   this->original_rotation = angle_src;
+  qDebug() << angle_src << " original rotation";
   this->rotation = 15;
   set_eyes(eye_1, eye_2);
   set_ID(ID);

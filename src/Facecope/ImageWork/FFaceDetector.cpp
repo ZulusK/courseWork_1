@@ -67,8 +67,8 @@ void FFaceDetector::detect_faces(const cv::Mat &image,
   // convert image to gray
   Mat gray_image = toGray(image);
   qDebug() << "converted";
-//  imshow("gray", gray_image);
-//  imshow("original", image);
+  //  imshow("gray", gray_image);
+  //  imshow("original", image);
   waitKey(0);
   // if search only in original rotation
   if (steps <= 2) {
@@ -135,13 +135,13 @@ void FFaceDetector::find_faces(cv::Mat &image, std::vector<FFace *> &faces,
     // detect eyes
     // remove artifacts
     get_faces_attr(rotatedImage, bounds, removeFaceWithoutEye, eyes_1, eyes_2);
+    create_faceAreas(faces, bounds, eyes_1, eyes_2, currAngle);
     Point center = getCenter(image);
     // remove area
     for (auto i = 0; i < bounds.size(); i++) {
       rotateRect(bounds[i], center, toRadians(currAngle));
       disableArea(image, bounds[i]);
     }
-    create_faceAreas_rotated(faces, bounds, eyes_1, eyes_2, currAngle, center);
     //        imshow(to_string(currAngle), rotatedImage);
   }
 }
@@ -181,17 +181,9 @@ void FFaceDetector::find_faces(Mat &image, vector<FFace *> &faces,
   // detect eyes
   // remove artifacts
   get_faces_attr(image, bounds, removeFaceWithoutEye, eyes_1, eyes_2);
-  create_faceAreas(faces, bounds, eyes_1, eyes_2);
+  create_faceAreas(faces, bounds, eyes_1, eyes_2,0);
 }
 
-void FFaceDetector::create_faceAreas(vector<FFace *> &faces,
-                                     vector<Rect> &bounds, vector<Rect> &eyes_1,
-                                     vector<Rect> &eyes_2) {
-  for (int i = 0; i < bounds.size(); i++) {
-    auto faceArea = new FFace(0, bounds[i], eyes_1[i], eyes_2[i]);
-    faces.push_back(faceArea);
-  }
-}
 
 void FFaceDetector::get_faces_attr(Mat &image_gray, vector<Rect> &bounds,
                                    bool removeFaceWithoutEye,
@@ -201,7 +193,7 @@ void FFaceDetector::get_faces_attr(Mat &image_gray, vector<Rect> &bounds,
   if (isLoaded(EYES_HAAR)) {
     for (int i = 0; i < bounds.size(); i++) {
       eye_bounds.clear();
-//      imshow(to_string(i),image_gray(bounds[i]));
+      imshow(to_string(i),image_gray(bounds[i]));
       // create eye search area (top half of face)
       Mat eyeArea = image_gray(Rect(bounds[i].x, bounds[i].y, bounds[i].width,
                                     bounds[i].height / 2));
@@ -238,11 +230,10 @@ void FFaceDetector::get_faces_attr(Mat &image_gray, vector<Rect> &bounds,
   }
 }
 
-void FFaceDetector::create_faceAreas_rotated(vector<FFace *> &faces,
+void FFaceDetector::create_faceAreas(vector<FFace *> &faces,
                                              vector<Rect> &bounds,
                                              vector<Rect> &eyes_1,
-                                             vector<Rect> &eyes_2, int angle,
-                                             const Point &center) {
+                                             vector<Rect> &eyes_2, int angle) {
   for (int i = 0; i < bounds.size(); i++) {
     auto faceArea = new FFace(angle, bounds[i], eyes_1[i], eyes_2[i]);
     faces.push_back(faceArea);

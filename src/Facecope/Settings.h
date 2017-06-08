@@ -73,7 +73,6 @@ private:
   QString database_path;
   QString gender_database_path;
   QString save_settings_path;
-
   bool skip_unRecognized;
   bool cut_files;
   bool learn_gender;
