@@ -25,7 +25,6 @@ SOURCES += main.cpp\
 #    ImageProcessing/FFaceArea.cpp \
     FMainWindow.cpp \
     FWorkingWidget.cpp \
-    FIcon.cpp \
     FImageThumbModel.cpp \
     FImageProxyModel.cpp \
     FHelpWidget.cpp \
@@ -42,7 +41,6 @@ SOURCES += main.cpp\
 HEADERS+=\
     FMainWindow.h \
     FWorkingWidget.h \
-    FIcon.h \
     FImageThumbModel.h \
     FImageProxyModel.h \
     FHelpWidget.h \

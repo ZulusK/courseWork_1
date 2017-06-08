@@ -1,6 +1,8 @@
 #include "FImageShowDialog.h"
 #include "ui_FImageShowDialog.h"
 #include <QPixmap>
+#include <opencv/cv.hpp>
+
 FImageShowDialog::FImageShowDialog(FImage &image, Settings &settings,
                                    QWidget *parent)
     : QDialog(parent), ui(new Ui::FImageShowDialog) {
@@ -10,6 +12,11 @@ FImageShowDialog::FImageShowDialog(FImage &image, Settings &settings,
   this->draw_area = new FImageDrawAreaWidget(image, settings, this);
   ui->splitter->insertWidget(0, draw_area);
   ui->name_lbl->setText(image.get_name().split("/").last());
+  auto faces = image.get_faces();
+  int i = 0;
+  foreach (auto face, faces) {
+    cv::imshow(std::to_string(i), image.get_face_cv_image(face));
+  }
 }
 
 FImageShowDialog::~FImageShowDialog() {

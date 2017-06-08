@@ -145,7 +145,7 @@ void FImageThumbModel::recognize(int row) {
 void FImageThumbModel::detect(int row) {
   qDebug() << "call detect";
   if (row >= 0 && row < items.size()) {
-    this->processors->detector->detect_faces(*get_item(row),false,HAAR,20,360);
+    this->processors->detector->detect_faces(*get_item(row),false,HAAR,0,360);
     qDebug() << "end detecting";
   }
 }

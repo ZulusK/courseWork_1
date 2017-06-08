@@ -8,7 +8,6 @@ class FFace {
   int original_rotation;
   cv::Rect face_frame;
   cv::Rect original_frame;
-
   long face_area_id;
   Eye eye_left;
   Eye eye_rigth;
@@ -22,7 +21,7 @@ private:
   void normalize();
 
 public:
-  FFace(int angle, const cv::Rect &face_area_frame, const cv::Rect &eye_1,
+  FFace(int angle_src, const cv::Rect &area_src, const cv::Rect &eye_1,
         const cv::Rect &eye_2, long ID = -1);
   ~FFace();
 

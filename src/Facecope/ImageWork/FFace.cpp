@@ -24,10 +24,12 @@ void FFace::normalize() {
   }
 }
 
-FFace::FFace(int angle, const cv::Rect &face_area_frame, const cv::Rect &eye_1,
+FFace::FFace(int angle_src, const cv::Rect &frame_src, const cv::Rect &eye_1,
              const cv::Rect &eye_2, long ID) {
-  this->face_frame = face_area_frame;
-  this->original_rotation = angle;
+  this->original_frame = frame_src;
+  this->face_frame = Rect(0, 0, original_frame.width, original_frame.height);
+  this->original_rotation = angle_src;
+  this->rotation = 15;
   set_left_eye(eye_1);
   set_rigth_eye(eye_2);
   set_ID(ID);

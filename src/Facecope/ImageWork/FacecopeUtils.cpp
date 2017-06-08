@@ -113,12 +113,12 @@ bool isImage(const QString &path) {
 Mat cut(const Mat &original, const Rect &frame) {
   // create mask
   Rect cut_frame;
-  cut_frame.x = max(frame.x, 1);
-  cut_frame.y = max(frame.y, 1);
-  cut_frame.width = min(frame.width + cut_frame.x, original.cols);
-  cut_frame.height = min(frame.height + cut_frame.y, original.rows);
+  cut_frame.x = max(frame.x, 0);
+  cut_frame.y = max(frame.y, 0);
+  cut_frame.width = max(min(frame.width, original.cols - cut_frame.x),1);
+  cut_frame.height = max(min(frame.height, original.rows - cut_frame.y),1);
   // cut image ange return it
-  return original(frame);
+  return original(cut_frame);
 }
 
 Mat toGray(const Mat &src) {

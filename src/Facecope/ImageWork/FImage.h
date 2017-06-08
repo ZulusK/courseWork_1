@@ -52,6 +52,8 @@ public:
   cv::Size cv_size() const;
 
   QSize q_size() const;
+
+  cv::Mat get_face_cv_image(FFace *face);
 };
 
 #endif // FIMAGE_H

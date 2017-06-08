@@ -2,7 +2,6 @@
 #define FMAINWINDOW_H
 
 #include <FFaceDetector.h>
-#include <FIcon.h>
 #include <FImageThumbModel.h>
 #include <FWorkingWidget.h>
 #include <FacecopeTypes.h>
