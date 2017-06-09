@@ -20,7 +20,7 @@ FWorkingWidget::FWorkingWidget(Facecope &facecope, FMainFacecopeModel *model,
 
 void FWorkingWidget::setUp() {
   setAcceptDrops(true);
-  this->model_proxy = new FImageProxyModel(this);
+  this->model_proxy = new FImageProxyModel(*model, this);
   this->model_proxy->setSourceModel(model);
   ui->list_view->setModel(model_proxy);
 
@@ -135,9 +135,17 @@ void FWorkingWidget::on_selecthuman_CB_currentIndexChanged(int index) {
   emit signal_images_changed();
 }
 
-void FWorkingWidget::on_show_rec_RB_clicked() { emit signal_images_changed(); }
+void FWorkingWidget::on_show_rec_RB_clicked() {
+  model_proxy->setShow_recognized(ui->show_rec_RB->isChecked());
+  model_proxy->apply();
+  emit signal_images_changed();
+}
 
-void FWorkingWidget::on_show_UR_RB_clicked() { emit signal_images_changed(); }
+void FWorkingWidget::on_show_UR_RB_clicked() {
+  model_proxy->setShow_unrecognized(ui->show_UR_RB->isChecked());
+  model_proxy->apply();
+  emit signal_images_changed();
+}
 
 void FWorkingWidget::on_detect_B_clicked() {
   QProgressDialog dialog(this);
@@ -213,14 +221,11 @@ void FWorkingWidget::on_save_B_clicked() {
       if (facecope->settings->getCut_files()) {
         QFile::remove(oldpath);
       }
-    } else {
-      qDebug() << "pizdec";
-      qDebug() << newpath + subpath + oldpath.split("/").last();
     }
   }
 }
 
-void FWorkingWidget::on_clear_B_clicked() {}
+void FWorkingWidget::on_clear_B_clicked() { model_proxy->clear(); }
 
 void FWorkingWidget::on_show_woman(bool enable) {
   emit signal_images_changed();
@@ -228,4 +233,9 @@ void FWorkingWidget::on_show_woman(bool enable) {
 
 void FWorkingWidget::on_show_man(bool enable) { emit signal_images_changed(); }
 
-void FWorkingWidget::on_showAll_RB_clicked() {}
+void FWorkingWidget::on_showAll_RB_clicked() {
+  model_proxy->setShow_recognized(false);
+  model_proxy->setShow_unrecognized(false);
+  model_proxy->apply();
+  emit signal_images_changed();
+}
