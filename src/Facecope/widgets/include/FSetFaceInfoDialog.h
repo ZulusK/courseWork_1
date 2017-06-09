@@ -12,7 +12,7 @@ class FSetFaceInfoDialog : public QDialog {
   Q_OBJECT
 
 public:
-  explicit FSetFaceInfoDialog(Facecope *facecope, FFace *face, FImage *f_image,
+  explicit FSetFaceInfoDialog(Facecope &facecope, FFace &face, FImage &f_image,
                               QWidget *parent = 0);
   ~FSetFaceInfoDialog();
 

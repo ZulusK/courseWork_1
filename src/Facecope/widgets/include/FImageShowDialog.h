@@ -23,6 +23,8 @@ private slots:
 
   void on_size_slider_sliderMoved(int position);
 
+  void on_tableView_doubleClicked(const QModelIndex &index);
+
 private:
   Ui::FImageShowDialog *ui;
   FImage *f_image;

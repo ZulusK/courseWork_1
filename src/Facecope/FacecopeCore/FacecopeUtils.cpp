@@ -1,17 +1,17 @@
-#include <FDatabaseDriver.h>
-#include <FFaceDetector.h>
-#include <FFaceRecognizer.h>
-#include <FacecopeUtils.h>
-#include <QDebug>
-#include <QImageReader>
-#include <FFace.h>
-#include <fstream>
-#include <vector>
 #include "opencv2/core/core.hpp"
 #include "opencv2/face.hpp"
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/objdetect/objdetect.hpp"
+#include <FDatabaseDriver.h>
+#include <FFace.h>
+#include <FFaceDetector.h>
+#include <FFaceRecognizer.h>
+#include <FacecopeUtils.h>
+#include <QDebug>
+#include <QImageReader>
+#include <fstream>
+#include <vector>
 using namespace cv;
 using namespace std;
 
@@ -219,19 +219,20 @@ void learnNewHuman(Facecope &facecope, int id, int gender) {
   // Holds the current frame from the Video device:
   Mat frame;
   vector<Mat> images;
+  vector<Mat> images_gender;
   vector<int> ids;
   vector<int> genders;
   for (int i = 0; i < 100; i++) {
     cap >> frame;
     // Find the faces in the frame:
-    vector<FFace * > faces;
+    vector<FFace *> faces;
     facecope.detector->detect_faces(frame, faces, true, LBP);
     Mat original = frame.clone();
     if (!faces.empty()) {
       // get first frame
       Rect face_frame = faces[0]->get_original_frame();
       ids.push_back(id);
-      genders.push_back(gender);
+
       // cropp face
       Mat face = frame(face_frame);
       images.push_back(face);
@@ -244,13 +245,18 @@ void learnNewHuman(Facecope &facecope, int id, int gender) {
       } else {
         box_text = "not recognized";
       }
+      // if ot recogize gender
+      if (prediction != gender) {
+        images_gender.push_back(face);
+        genders.push_back(gender);
+      }
       rectangle(original, face_frame, CV_RGB(0, 255, 0), 1);
       int pos_x = std::max(face_frame.tl().x - 10, 0);
       int pos_y = std::max(face_frame.tl().y - 10, 0);
       putText(original, box_text, Point(pos_x, pos_y), FONT_HERSHEY_PLAIN, 1.0,
               CV_RGB(0, 255, 0), 2.0);
-      for(int i=0; i<faces.size();i++){
-          delete faces[i];
+      for (int i = 0; i < faces.size(); i++) {
+        delete faces[i];
       }
     }
     imshow("Facecop (press ESC to break)", original);
@@ -258,10 +264,14 @@ void learnNewHuman(Facecope &facecope, int id, int gender) {
     if (key == 27)
       break;
   }
-  ids.pop_back();
-  ids.push_back(-1);
-  genders.pop_back();
-  genders.push_back(-1);
-  facecope.recognizer_face->learn(images, ids);
-  facecope.recognizer_gender->learn(images, genders);
+  if (ids.size() > 2) {
+    ids.pop_back();
+    ids.push_back(-1);
+    facecope.recognizer_face->learn(images, ids);
+  }
+  if (genders.size() > 2) {
+    genders.pop_back();
+    genders.push_back(-1);
+    facecope.recognizer_gender->learn(images_gender, genders);
+  }
 }

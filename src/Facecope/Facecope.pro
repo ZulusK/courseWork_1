@@ -47,6 +47,7 @@ HEADERS+=\
     widgets/include/FSettingsWidget.h       \
     widgets/include/FImageShowDialog.h      \
     widgets/include/FImageDrawAreaWidget.h  \
+    widgets/include/FSetFaceInfoDialog.h    \
     models/include/FFaceModel.h             \
     models/include/FImageProxyModel.h       \
     FacecopeCore/include/FImage.h           \
@@ -57,7 +58,6 @@ HEADERS+=\
     FacecopeCore/include/FFaceRecognizer.h  \
     FacecopeCore/include/Settingsh          \
     FacecopeCore/include/FDatabaseDriver.h  \
-    widgets/FSetFaceInfoDialog.h \
     models/include/FMainFacecopeModel.h
 
 FORMS    +=  \

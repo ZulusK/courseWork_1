@@ -2,6 +2,7 @@
 #include "ui_FWorkingWidget.h"
 #include <FImageShowDialog.h>
 #include <QDebug>
+#include <QDir>
 #include <QDragEnterEvent>
 #include <QMimeData>
 #include <QModelIndexList>
@@ -11,7 +12,7 @@ FWorkingWidget::FWorkingWidget(Facecope &facecope, FMainFacecopeModel *model,
                                QWidget *parent)
     : QWidget(parent), ui(new Ui::FWorkingWidget) {
   this->model = model;
-  this->facecope=&facecope;
+  this->facecope = &facecope;
   ui->setupUi(this);
 
   setUp();
@@ -118,8 +119,7 @@ void FWorkingWidget::on_list_view_doubleClicked(const QModelIndex &index) {
   //  this->model->slot_detect(model_proxy->mapToSource(index).row());
   this->model->slot_recognize(model_proxy->mapToSource(index).row());
   emit signal_images_changed();
-  FImageShowDialog dialog(*facecope, *model->get_item(index.row()),
-                          this);
+  FImageShowDialog dialog(*facecope, *model->get_item(index.row()), this);
   dialog.exec();
 }
 
@@ -147,20 +147,78 @@ void FWorkingWidget::on_detect_B_clicked() {
 
   for (int pos = 0; pos < model->get_loaded_images_count(); pos++) {
     dialog.setLabelText(tr("process ") + model->get_item(pos)->get_name());
+    this->model->slot_detect(pos);
     dialog.setValue(pos++);
     if (dialog.wasCanceled()) {
       break;
     }
-    this->model->slot_detect(pos);
     QCoreApplication::processEvents();
     emit signal_images_changed();
   }
   dialog.hide();
 }
 
-void FWorkingWidget::on_recognize_B_clicked() { emit signal_images_changed(); }
+void FWorkingWidget::on_recognize_B_clicked() {
+  qDebug() << "recognize called";
+  QProgressDialog dialog(this);
+  dialog.setCancelButtonText(tr("&Cancel"));
+  dialog.setWindowTitle(tr("Wait while program is computing"));
+  dialog.setRange(0, model->get_loaded_images_count());
 
-void FWorkingWidget::on_save_B_clicked() {}
+  for (int pos = 0; pos < model->get_loaded_images_count(); pos++) {
+    dialog.setLabelText(tr("process ") + model->get_item(pos)->get_name());
+    this->model->slot_recognize(pos);
+    dialog.setValue(pos++);
+    if (dialog.wasCanceled()) {
+      break;
+    }
+    QCoreApplication::processEvents();
+    emit signal_images_changed();
+  }
+  dialog.hide();
+}
+
+void FWorkingWidget::on_save_B_clicked() {
+  if (!QDir(facecope->settings->getOutput_path()).exists()) {
+    // create dir
+    QDir().mkdir(facecope->settings->getOutput_path());
+  }
+  QString newpath = facecope->settings->getOutput_path();
+  QString home = QDir::home().absolutePath();
+  newpath.replace("~", home);
+
+  QDir().mkdir(newpath + "/males");
+  QDir().mkdir(newpath + "/females");
+  QDir().mkdir(newpath + "/not recognized");
+
+  on_recognize_B_clicked();
+  auto list = model->get_paths();
+  int i = 0;
+  auto it = model->get_items().begin();
+  foreach (QString oldpath, list) {
+    bool is_male = it.value()->contains(MALE);
+    bool is_female = it.value()->contains(FEMALE);
+    QString subpath;
+    if ((is_male && is_female) || (!is_male && !is_female)) {
+      subpath = "not recognized/";
+    } else if (is_male) {
+      subpath = "males/";
+    } else {
+      subpath = "female/";
+    }
+    it++;
+
+    oldpath.replace("~", home);
+    if (QFile::copy(oldpath, newpath + subpath + oldpath.split("/").last())) {
+      if (facecope->settings->getCut_files()) {
+        QFile::remove(oldpath);
+      }
+    } else {
+      qDebug() << "pizdec";
+      qDebug() << newpath + subpath + oldpath.split("/").last();
+    }
+  }
+}
 
 void FWorkingWidget::on_clear_B_clicked() {}
 

@@ -65,7 +65,7 @@ int main(int argc, const char *argv[]) {
 //    }
     // Get the path to your CSV:
     string fn_haar = "/home/zulus/Projects/progbase3/src/cascades/face_haar.xml";
-    string fn_csv = "/home/zulus/Projects/progbase3/samples/photo.csv";
+    string fn_csv = "/home/zulus/Projects/progbase3/samples/photo_humans.csv";
     int deviceId = 0;
     // These vectors hold the images and corresponding labels:
     vector<Mat> images;
@@ -86,13 +86,14 @@ int main(int argc, const char *argv[]) {
     // Create a FaceRecognizer and train it on the given images:
     Ptr<FaceRecognizer> model = createFisherFaceRecognizer(100, 1000);
     model->train(images, labels);
-    model->save("/home/zulus/Projects/progbase3/res/genders_recognition.xml");
+    model->save("/home/zulus/Projects/progbase3/res/recognizer_saved.xml");
     // model->load("/home/zulus/Projects/progbase3/samples/data.xml");
     // That's it for learning the Face Recognition model. You now
     // need to create the classifier for the task of Face Detection.
     // We are going to use the haar cascade you have specified in the
     // command line arguments:
     //
+    return 0;
     CascadeClassifier haar_cascade;
     haar_cascade.load(fn_haar);
     // Get a handle to the Video device:

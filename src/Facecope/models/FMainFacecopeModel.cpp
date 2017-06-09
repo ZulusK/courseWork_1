@@ -147,7 +147,16 @@ FImage *FMainFacecopeModel::get_item(int index) {
 }
 
 
+QStringList FMainFacecopeModel::get_paths(){
+    QStringList list;
+    for(auto it=items.begin();it!=items.end();it++){
+        list<<it.key();
+    }
+    return list;
+}
+
 void FMainFacecopeModel::slot_recognize(int row) {
+
   if (row >= 0 && row < items.size()) {
     auto image = get_item(row);
     if (!image->isRecognized() ||
@@ -172,6 +181,7 @@ void FMainFacecopeModel::slot_recognize(int row) {
         face->set_info(info);
       }
       image->set_recognized(true, facecope->settings->getThreahold());
+      recognized_humans += image->get_faces().size();
     }
   }
 }

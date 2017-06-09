@@ -1,12 +1,12 @@
 #include "FFaceModel.h"
+#include <FDatabaseDriver.h>
 #include <FacecopeUtils.h>
 #include <QIcon>
 #include <QPixmap>
-#include <FDatabaseDriver.h>
-FFaceModel::FFaceModel(Facecope & facecope, FImage &f_image,QObject *parent)
+FFaceModel::FFaceModel(Facecope &facecope, FImage &f_image, QObject *parent)
     : QAbstractTableModel(parent) {
   this->f_image = &f_image;
-  this->facecope=&facecope;
+  this->facecope = &facecope;
   foreach (auto face, f_image.get_faces()) {
     faces.append(Mat2QImage(f_image.get_face_cv_image(face)));
   }
@@ -67,7 +67,7 @@ QVariant FFaceModel::data(const QModelIndex &index, int role) const {
     if (role == Qt::DisplayRole) {
       auto face = this->f_image->get_face(index.row());
       if (face) {
-        auto name=facecope->database->get(face->get_info().ID,"name");
+        auto name = facecope->database->get(face->get_info().ID, "name");
         if (name.length() == 0) {
           return QString("Not recognized");
         } else {
@@ -99,3 +99,13 @@ QVariant FFaceModel::data(const QModelIndex &index, int role) const {
 void FFaceModel::set_image_size(const QSize &newSize) {
   this->icons_size = newSize;
 }
+
+FFace *FFaceModel::get_item(int row) {
+  if (row < 0 || row >= rowCount()) {
+    return NULL;
+  } else {
+    return f_image->get_face(row);
+  }
+}
+
+FImage *FFaceModel::get_image() { return f_image; }

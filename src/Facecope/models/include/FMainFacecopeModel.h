@@ -10,6 +10,7 @@
 #include <QSize>
 #include <QString>
 #include <Settings.h>
+#include <QStringList>
 enum { GET_FULL_ITEM_PATH = -1 };
 
 class FMainFacecopeModel : public QAbstractListModel {
@@ -32,6 +33,7 @@ public:
   bool isValid_path(const QString &key);
   FImage *get_item(const QString &path);
   FImage *get_item(int index);
+  QStringList get_paths();
   // methods for statistics
   int get_detected_image_count();
   int get_recognized_image_count();

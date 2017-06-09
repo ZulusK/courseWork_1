@@ -1,10 +1,10 @@
 {
-    "cut files": true,
+    "cut files": false,
     "learn gender": true,
-    "learn recognized": true,
+    "learn recognized": false,
     "out dir": "~/",
     "skip unrecognized": true,
-    "steps of detection": 20,
-    "threahold": 2400,
+    "steps of detection": 10,
+    "threahold": 4700,
     "use cascade": "HAAR"
 }

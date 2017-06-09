@@ -14,6 +14,15 @@ Mat FImage::get_face_cv_image(FFace *face) {
   return face_image;
 }
 
+bool FImage::contains(int val) {
+  foreach (FFace *face, faces) {
+    if (face->get_info().gender == val) {
+      return true;
+    }
+  }
+  return false;
+}
+
 QRect FImage::get_face_q_frame(FFace *face) {
   Rect original = face->get_original_frame();
   // clone
@@ -95,9 +104,7 @@ void FImage::set_detected(bool detected, int steps) {
 }
 
 void FImage::clear() {
-  foreach (auto face,faces ) {
-      delete face;
-  }
+  foreach (auto face, faces) { delete face; }
   faces.clear();
   this->is_detected = false;
   this->detection_steps = -1;

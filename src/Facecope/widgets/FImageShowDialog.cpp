@@ -1,5 +1,6 @@
 #include "FImageShowDialog.h"
 #include "ui_FImageShowDialog.h"
+#include <FSetFaceInfoDialog.h>
 #include <QPixmap>
 #include <opencv/cv.hpp>
 
@@ -9,7 +10,7 @@ FImageShowDialog::FImageShowDialog(Facecope &facecope, FImage &image,
   this->f_image = &image;
   this->facecope = &facecope;
   ui->setupUi(this);
-  this->draw_area = new FImageDrawAreaWidget( facecope, image,this);
+  this->draw_area = new FImageDrawAreaWidget(facecope, image, this);
   ui->splitter->insertWidget(0, draw_area);
   ui->name_lbl->setText(image.get_name().split("/").last());
   this->model = new FFaceModel(facecope, image, this);
@@ -38,4 +39,12 @@ void FImageShowDialog::on_size_slider_sliderMoved(int position) {
   ui->tableView->resizeColumnsToContents();
   ui->tableView->resizeRowsToContents();
   ui->tableView->horizontalHeader()->setStretchLastSection(true);
+}
+
+void FImageShowDialog::on_tableView_doubleClicked(const QModelIndex &index) {
+  auto face = this->model->get_item(index.row());
+  if (face) {
+    FSetFaceInfoDialog dialog(*facecope, *face, *f_image, this);
+    dialog.exec();
+  }
 }

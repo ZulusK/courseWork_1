@@ -20,6 +20,9 @@ public:
                 int role = Qt::DisplayRole) const override;
   QVariant headerData(int section, Qt::Orientation orientation,
                       int role = Qt::DisplayRole) const;
+
+  FFace *get_item(int row);
+  FImage *get_image();
 public slots:
   void set_image_size(const QSize &newSize);
 

@@ -54,9 +54,9 @@ public:
   cv::Size cv_size() const;
 
   QSize q_size() const;
-
+  bool contains(int val);
   cv::Mat get_face_cv_image(FFace *face);
-  QRect get_face_q_frame(FFace * face);
+  QRect get_face_q_frame(FFace *face);
   bool isRecognized() const;
   bool isDetected() const;
   int getDetection_steps() const;
