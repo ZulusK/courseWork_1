@@ -16,12 +16,12 @@ void FImageProxyModel::clear() {
 }
 
 bool FImageProxyModel::isValid(FImage *image) const{
-  if (image->get_faces().size() < min_human_number) {
-    return false;
-  }
-  if (show_only_human && !image->isDetected()) {
-    return false;
-  }
+//  if (image->get_faces().size() < min_human_number) {
+//    return false;
+//  }
+//  if (show_only_human && !image->isDetected()) {
+//    return false;
+//  }
   if (show_recognized && !image->isRecognized()) {
     return false;
   }

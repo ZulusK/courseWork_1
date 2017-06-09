@@ -136,13 +136,16 @@ void FWorkingWidget::on_selecthuman_CB_currentIndexChanged(int index) {
 }
 
 void FWorkingWidget::on_show_rec_RB_clicked() {
-  model_proxy->setShow_recognized(ui->show_rec_RB->isChecked());
+  model_proxy->setShow_recognized(true);
+  model_proxy->setShow_unrecognized(false);
   model_proxy->apply();
   emit signal_images_changed();
 }
 
 void FWorkingWidget::on_show_UR_RB_clicked() {
-  model_proxy->setShow_unrecognized(ui->show_UR_RB->isChecked());
+
+  model_proxy->setShow_recognized(false);
+  model_proxy->setShow_unrecognized(true);
   model_proxy->apply();
   emit signal_images_changed();
 }
