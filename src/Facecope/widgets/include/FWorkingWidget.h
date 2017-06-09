@@ -66,6 +66,8 @@ private slots:
   void on_show_man(bool enable);
 
   void setUp();
+  void on_showAll_RB_clicked();
+
 private:
   Ui::FWorkingWidget *ui;
   FImageThumbModel *model;

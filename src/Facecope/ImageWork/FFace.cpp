@@ -7,7 +7,7 @@ using namespace cv;
 void FFace::set_info(const Human &info) {
   this->info.face = info.face;
   this->info.ID = info.ID;
-  this->info.sex = info.sex;
+  this->info.gender = info.gender;
 }
 void FFace::normalize() {
   // todo

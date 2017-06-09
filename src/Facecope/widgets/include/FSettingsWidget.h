@@ -24,8 +24,6 @@ private slots:
 
   void on_selectOutDir_B_clicked();
 
-  void on_selectDatabase_B_clicked();
-
   void on_threahold_SB_valueChanged(double arg1);
 
   void on_threahold_SL_sliderMoved(int position);

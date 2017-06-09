@@ -201,6 +201,13 @@
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QRadioButton" name="showAll_RB">
+            <property name="text">
+             <string>show all</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </item>

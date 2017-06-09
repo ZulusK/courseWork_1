@@ -3,85 +3,83 @@
 #include <QJsonObject>
 #include <QString>
 enum { USE_HAAR = 13, USE_LBP };
+// name of fields
 #define THREAHOLD "threahold"
-#define OUT_DIR "out_dir"
-#define SKIP_UR "skip_unrecognized"
-#define LEARN_GENDER "learn_gender"
-#define LEARN_RECOGNIZED "learn_recognized"
-#define STEPS_DETECTION "steps_of_detection"
-#define CASCADE_TYPE "use_cascade"
-#define EXPORT_DIR "export_dir"
-#define DATABASE_PATH "database_path"
-#define EXPORT_SETTINGS_FILE_NAME "settings.fcp"
+#define CUT_FILES "cut files"
+#define OUT_PATH "out dir"
+#define SKIP_UR "skip unrecognized"
+#define LEARN_GENDER "learn gender"
+#define LEARN_RECOGNIZED "learn recognized"
+#define STEPS_DETECTION "steps of detection"
+#define CASCADE_TYPE "use cascade"
+#define EXPORT_DIR "export dir"
 
+// paths
+#define EXPORT_SETTINGS_FILE_NAME "settings.fcp"
+#define DEAFULT_DATABASE_PATH "../../res/facecope.db"
+#define DEFAULT_RECOGNIZER_PATH "../../res/faces.xml"
+#define DEFAULT_RECOGNIZER_GENDER_PATH "../../res/genders_recognition.xml"
+#define DEFAULT_SETTINGS_PATH "../../res/"
+#define DEFAULT_FACES_PATH "../../faces/"
+#define DEFAULT_OUTPUT_PATH "~/"
 class Settings {
 public:
-  Settings(const QString &settingsPath = QString());
+  Settings();
   ~Settings();
 
-  QString getOutput_dir() const;
-  void setOutput_dir(const QString &value);
-
-  double getThreahold() const;
-  void setThreahold(double value);
-
-  bool getSkip_recognized() const;
-  void setSkip_unRecognized(bool value);
-
-  bool getCut_files() const;
-  void setCut_files(bool value);
-
-  bool getLearn_gender() const;
-  void setLearn_gender(bool value);
-
-  bool getLearn_recognized() const;
-  void setLearn_recognized(bool value);
-
-  int getSteps_of_detection() const;
-  void setSteps_of_detection(int value);
-
-  int getCascade_type() const;
-  void setCascade_type(int value);
-
-  QString getExport_path() const;
-  void setExport_path(const QString &value);
-
   QString getDatabase_path() const;
-  void setDatabase_path(const QString &value);
-
-  QString getGender_database_path() const;
-
+  QString getFacesPrev_path() const;
+  QString getRecognizer_path() const;
+  QString getRecognizer_gender_path() const;
   QString getSave_settings_path() const;
 
   void load(const QString &path);
   void save(const QString &path = QString());
-
   void useDefault();
 
-private:
-  void setOutput_dir(const QJsonObject &jobj);
-  void setThreahold(const QJsonObject &jobj);
-  void setSkip_unRecognized(const QJsonObject &jobj);
-  void setCut_files(const QJsonObject &jobj);
-  void setLearn_gender(const QJsonObject &jobj);
-  void setLearn_recognized(const QJsonObject &jobj);
-  void setSteps_of_detection(const QJsonObject &jobj);
-  void setCascade_type(const QJsonObject &jobj);
-  void setExport_path(const QJsonObject &jobj);
-  void setDatabase_path(const QJsonObject &jobj);
+  QString getOutput_path() const;
+  void setOutput_path(const QString &output_path);
 
-  QString output_dir;
-  QString export_path;
-  QString database_path;
-  QString gender_database_path;
-  QString save_settings_path;
-  bool skip_unRecognized;
-  bool cut_files;
-  bool learn_gender;
-  bool learn_recognized;
-  int steps_of_detection;
-  int cascade_type;
-  double threahold;
+  bool getSkip_unRecognized() const;
+
+  void setSkip_unRecognized(bool skip_unRecognized);
+
+  bool getCut_files() const;
+  void setCut_files(bool cut_files);
+
+  bool getLearn_gender() const;
+  void setLearn_gender(bool learn_gender);
+
+  bool getLearn_recognized() const;
+  void setLearn_recognized(bool learn_recognized);
+
+  int getSteps_of_detection() const;
+  void setSteps_of_detection(int steps_of_detection);
+
+  int getCascade_type() const;
+  void setCascade_type(int cascade_type);
+
+  double getThreahold() const;
+  void setThreahold(double threahold);
+
+private:
+  void loadOutput_path(const QJsonObject &jobj);
+  void loadThreahold(const QJsonObject &jobj);
+  void loadSkip_unRecognized(const QJsonObject &jobj);
+  void loadCut_files(const QJsonObject &jobj);
+  void loadLearn_gender(const QJsonObject &jobj);
+  void loadLearn_recognized(const QJsonObject &jobj);
+  void loadSteps_of_detection(const QJsonObject &jobj);
+  void loadCascade_type(const QJsonObject &jobj);
+
+  QString _output_path;
+  bool _skip_unRecognized;
+  bool _cut_files;
+  bool _learn_gender;
+  bool _learn_recognized;
+  int _steps_of_detection;
+  int _cascade_type;
+  double _threahold;
 };
 
 #endif // SETTINGS_H

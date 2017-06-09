@@ -2,7 +2,6 @@
 #define FFACEDETECTOR_H
 #include <FacecopeTypes.h>
 #include <FacecopeUtils.h>
-#include <QList>
 #include <map>
 #include <opencv2/objdetect.hpp>
 enum { FACE_HAAR = 0xAA, FACE_LBP, EYES_HAAR, HAAR, LBP };

@@ -15,7 +15,7 @@ void FSettingsWidget::showSettings() {
   }
   ui->cutFiles_CB->setChecked(settings->getCut_files());
   ui->learnGender_CB->setChecked(settings->getLearn_gender());
-  ui->skipUnrecognized_CB->setChecked(settings->getSkip_recognized());
+  ui->skipUnrecognized_CB->setChecked(settings->getSkip_unRecognized());
   ui->learRecognized_CB->setChecked(settings->getLearn_recognized());
   ui->steps_SB->setValue(settings->getSteps_of_detection());
   ui->steps_SL->setValue(settings->getSteps_of_detection());
@@ -43,14 +43,7 @@ void FSettingsWidget::on_selectOutDir_B_clicked() {
       this, tr("Open Directory"), "~/",
       QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
   if (dirName.length() > 0)
-    settings->setOutput_dir(dirName + ((dirName.endsWith("/")) ? "" : "/"));
-}
-
-void FSettingsWidget::on_selectDatabase_B_clicked() {
-  QString fileName = QFileDialog::getOpenFileName(
-      this, QString(tr("Open database")), ".", "Database (*.db);;");
-  if (fileName.length() > 1)
-    settings->setDatabase_path(fileName);
+    settings->setOutput_path(dirName + ((dirName.endsWith("/")) ? "" : "/"));
 }
 
 void FSettingsWidget::on_threahold_SB_valueChanged(double arg1) {

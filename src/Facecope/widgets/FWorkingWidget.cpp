@@ -166,3 +166,8 @@ void FWorkingWidget::on_show_woman(bool enable) {
 }
 
 void FWorkingWidget::on_show_man(bool enable) { emit signal_images_changed(); }
+
+void FWorkingWidget::on_showAll_RB_clicked()
+{
+
+}

@@ -1,7 +1,9 @@
 #ifndef FMAINWINDOW_H
 #define FMAINWINDOW_H
 
+#include <FDatabaseDriver.h>
 #include <FFaceDetector.h>
+#include <FFaceRecognizer.h>
 #include <FImageThumbModel.h>
 #include <FWorkingWidget.h>
 #include <FacecopeTypes.h>
@@ -11,7 +13,7 @@
 #include <QStringList>
 #include <QUrl>
 #include <Settings.h>
-#define  RESOURCE_PATH "../../res/"
+#define RESOURCE_PATH "../../res/"
 namespace Ui {
 class FMainWindow;
 }
@@ -45,6 +47,7 @@ private:
   FWorkingWidget *working_widget;
   Settings settings;
   FacecopeProcessors processors;
+  FDatabaseDriver *database;
 };
 
 #endif // FMAINWINDOW_H

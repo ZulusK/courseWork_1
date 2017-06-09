@@ -6,108 +6,69 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QTextStream>
-Settings::Settings(const QString &settingsPath) {
-  useDefaultSettings();
-  if (QFile(settingsPath).exists()) {
-    this->save_settings_path = settingsPath;
-  } else {
-    this->save_settings_path = export_path;
-  }
-  load(save_settings_path+EXPORT_SETTINGS_FILE_NAME);
+Settings::Settings() {
+  useDefault();
+  load(DEFAULT_SETTINGS_PATH EXPORT_SETTINGS_FILE_NAME);
 }
-Settings::~Settings() { save(save_settings_path); }
+Settings::~Settings() { save(DEFAULT_SETTINGS_PATH); }
 
-QString Settings::getOutput_dir() const { return output_dir; }
-
-void Settings::useDefault(){
-    this->output_dir = "~/Facecope/";
-    this->gender_database_path = "./";
-    this->export_path = "./";
-    this->cut_files = false;
-    this->threahold = 1000;
-    this->steps_of_detection = 1;
-    this->skip_unRecognized = true;
-    this->learn_recognized = true;
-    this->learn_gender = true;
-    this->cascade_type = USE_HAAR;
+void Settings::useDefault() {
+  _output_path = DEFAULT_OUTPUT_PATH;
+  _skip_unRecognized = true;
+  _cut_files = true;
+  _learn_gender = true;
+  _learn_recognized = true;
+  _steps_of_detection = 1;
+  _cascade_type = USE_HAAR;
+  _threahold = 1000;
 }
 
-void Settings::setOutput_dir(const QString &value) {
-  qDebug() << "output dir changed" << value;
-  if (QDir(value).exists())
-    output_dir = value;
+QString Settings::getOutput_path() const { return _output_path; }
+
+void Settings::setOutput_path(const QString &output_path) {
+  if (QDir(output_path).exists())
+    _output_path = output_path;
 }
 
-double Settings::getThreahold() const { return threahold; }
+bool Settings::getSkip_unRecognized() const { return _skip_unRecognized; }
 
-void Settings::setThreahold(double value) {
-  qDebug() << "threahold changed" << value;
-  if (threahold > 0)
-    threahold = value;
+void Settings::setSkip_unRecognized(bool skip_unRecognized) {
+  _skip_unRecognized = skip_unRecognized;
 }
 
-bool Settings::getSkip_recognized() const { return skip_unRecognized; }
+bool Settings::getCut_files() const { return _cut_files; }
 
-void Settings::setSkip_unRecognized(bool value) {
-  qDebug() << "skip recognized changed" << value;
-  skip_unRecognized = value;
+void Settings::setCut_files(bool cut_files) { _cut_files = cut_files; }
+
+bool Settings::getLearn_gender() const { return _learn_gender; }
+
+void Settings::setLearn_gender(bool learn_gender) {
+  _learn_gender = learn_gender;
 }
 
-bool Settings::getCut_files() const { return cut_files; }
+bool Settings::getLearn_recognized() const { return _learn_recognized; }
 
-void Settings::setCut_files(bool value) {
-  qDebug() << "cut file changed" << value;
-  cut_files = value;
+void Settings::setLearn_recognized(bool learn_recognized) {
+  _learn_recognized = learn_recognized;
 }
 
-bool Settings::getLearn_gender() const { return learn_gender; }
+int Settings::getSteps_of_detection() const { return _steps_of_detection; }
 
-void Settings::setLearn_gender(bool value) {
-  qDebug() << "learn gender changed" << value;
-  learn_gender = value;
+void Settings::setSteps_of_detection(int steps_of_detection) {
+  if (steps_of_detection > 0)
+    _steps_of_detection = steps_of_detection;
 }
 
-bool Settings::getLearn_recognized() const { return learn_recognized; }
+int Settings::getCascade_type() const { return _cascade_type; }
 
-void Settings::setLearn_recognized(bool value) {
-  qDebug() << "lear recognized changed" << value;
-  learn_recognized = value;
+void Settings::setCascade_type(int cascade_type) {
+  _cascade_type = cascade_type;
 }
 
-int Settings::getSteps_of_detection() const { return steps_of_detection; }
+double Settings::getThreahold() const { return _threahold; }
 
-void Settings::setSteps_of_detection(int value) {
-  qDebug() << "step of detect changed" << value;
-  if (value > 0)
-    steps_of_detection = value;
-}
+void Settings::setThreahold(double threahold) { _threahold = threahold; }
 
-int Settings::getCascade_type() const { return cascade_type; }
-
-void Settings::setCascade_type(int value) {
-  qDebug() << "cascade type changed" << value;
-  cascade_type = value;
-}
-
-QString Settings::getExport_path() const { return export_path; }
-
-void Settings::setExport_path(const QString &value) {
-  qDebug() << "export path changed" << value;
-  if (QDir(value).exists())
-    export_path = value;
-}
-
-QString Settings::getDatabase_path() const { return database_path; }
-
-void Settings::setDatabase_path(const QString &value) {
-  qDebug() << "database changed" << value;
-  if (QFile(value).exists())
-    database_path = value;
-}
-
-QString Settings::getGender_database_path() const {
-  return gender_database_path;
-}
 QString readJSON(const QString &filePath) {
   QFile file(filePath);
   if (!file.open(QFile::ReadOnly | QFile::Text)) {
@@ -119,89 +80,75 @@ QString readJSON(const QString &filePath) {
   }
 }
 
-void Settings::setOutput_dir(const QJsonObject &jobj) {
-  if (!jobj[QString(OUT_DIR)].isNull()) {
-    setOutput_dir(this->output_dir = jobj[QString(OUT_DIR)].toString());
-  }
-}
-
-void Settings::setThreahold(const QJsonObject &jobj) {
-  if (!jobj[QString(THREAHOLD)].isNull()) {
-    setThreahold(jobj[QString(THREAHOLD)].toDouble());
-  }
-}
-
-void Settings::setSkip_unRecognized(const QJsonObject &jobj) {
-  if (!jobj[QString(SKIP_UR)].isNull()) {
-    setSkip_unRecognized(jobj[QString(SKIP_UR)].toBool());
-  }
-}
-
-void Settings::setCut_files(const QJsonObject &jobj) {
-  if (!jobj[QString(SKIP_UR)].isNull()) {
-    setSkip_unRecognized(jobj[QString(SKIP_UR)].toBool());
-  }
-}
-
-void Settings::setLearn_gender(const QJsonObject &jobj) {
-  if (!jobj[QString(LEARN_GENDER)].isNull()) {
-    setLearn_gender(jobj[QString(LEARN_GENDER)].toBool());
-  }
-}
-
-void Settings::setLearn_recognized(const QJsonObject &jobj) {
-  if (!jobj[QString(LEARN_RECOGNIZED)].isNull()) {
-    setLearn_recognized(jobj[QString(LEARN_RECOGNIZED)].toBool());
-  }
-}
-
-void Settings::setSteps_of_detection(const QJsonObject &jobj) {
-  if (!jobj[QString(STEPS_DETECTION)].isNull()) {
-    setSteps_of_detection(jobj[QString(STEPS_DETECTION)].toInt());
-  }
-}
-
-void Settings::setCascade_type(const QJsonObject &jobj) {
-  if (!jobj[QString(CASCADE_TYPE)].isNull()) {
-    if (jobj[QString(CASCADE_TYPE)].toString().compare("LBP") == 0) {
-      setCascade_type(USE_LBP);
-    } else {
-      setCascade_type(USE_HAAR);
-    }
-  }
-}
-
-void Settings::setExport_path(const QJsonObject &jobj) {
-  if (!jobj[QString(EXPORT_DIR)].isNull()) {
-    setExport_path(jobj[QString(EXPORT_DIR)].toString());
-  }
-}
-
-void Settings::setDatabase_path(const QJsonObject &jobj) {
-  if (!jobj[QString(DATABASE_PATH)].isNull()) {
-    setDatabase_path(jobj[QString(DATABASE_PATH)].toString());
-  }
-}
-
 void Settings::load(const QString &path) {
   // todo
-  qDebug() << "load " << path;
+  qDebug() << "load settings" << path;
   QString text = readJSON(path);
   if (text.length() != 0) {
     QJsonDocument jdoc = QJsonDocument::fromJson(text.toUtf8());
     if (jdoc.isObject()) {
       auto jobj = jdoc.object();
-      setOutput_dir(jobj);
-      setThreahold(jobj);
-      setSkip_unRecognized(jobj);
-      setCut_files(jobj);
-      setLearn_gender(jobj);
-      setLearn_recognized(jobj);
-      setSteps_of_detection(jobj);
-      setCascade_type(jobj);
-      setExport_path(jobj);
-      setDatabase_path(jobj);
-      qDebug()<<"loaded";
+      loadOutput_path(jobj);
+      loadThreahold(jobj);
+      loadSkip_unRecognized(jobj);
+      loadCut_files(jobj);
+      loadLearn_gender(jobj);
+      loadLearn_recognized(jobj);
+      loadSteps_of_detection(jobj);
+      loadCascade_type(jobj);
+      qDebug() << "settings has been loaded";
+    }
+  }
+}
+
+void Settings::loadOutput_path(const QJsonObject &jobj) {
+  if (jobj.contains(OUT_PATH)) {
+    setOutput_path(jobj[OUT_PATH].toString());
+  }
+}
+
+void Settings::loadThreahold(const QJsonObject &jobj) {
+  if (jobj.contains(THREAHOLD)) {
+    setThreahold(jobj[THREAHOLD].toDouble());
+  }
+}
+
+void Settings::loadSkip_unRecognized(const QJsonObject &jobj) {
+  if (jobj.contains(SKIP_UR)) {
+    setSkip_unRecognized(jobj[SKIP_UR].toBool());
+  }
+}
+
+void Settings::loadCut_files(const QJsonObject &jobj) {
+  if (jobj.contains(CUT_FILES)) {
+    setCut_files(jobj[CUT_FILES].toBool());
+  }
+}
+
+void Settings::loadLearn_gender(const QJsonObject &jobj) {
+  if (jobj.contains(LEARN_GENDER)) {
+    setLearn_gender(jobj[LEARN_GENDER].toBool());
+  }
+}
+
+void Settings::loadLearn_recognized(const QJsonObject &jobj) {
+  if (jobj.contains(LEARN_RECOGNIZED)) {
+    setLearn_recognized(jobj[LEARN_RECOGNIZED].toBool());
+  }
+}
+
+void Settings::loadSteps_of_detection(const QJsonObject &jobj) {
+  if (jobj.contains(STEPS_DETECTION)) {
+    setSteps_of_detection(jobj[STEPS_DETECTION].toInt());
+  }
+}
+
+void Settings::loadCascade_type(const QJsonObject &jobj) {
+  if (jobj.contains(CASCADE_TYPE)) {
+    if (jobj[CASCADE_TYPE].toString().compare("LBP") == 0) {
+      setCascade_type(USE_LBP);
+    } else {
+      setCascade_type(USE_HAAR);
     }
   }
 }
@@ -210,25 +157,32 @@ void Settings::save(const QString &dir_path) {
   // todo
   QString path = dir_path + EXPORT_SETTINGS_FILE_NAME;
 
-  qDebug() << "save " << path;
+  qDebug() << "save settings to " << path;
   QJsonObject jobj;
-  jobj[QString(THREAHOLD)] = threahold;
-  jobj[QString(OUT_DIR)] = output_dir;
-  jobj[QString(SKIP_UR)] = skip_unRecognized;
-  jobj[QString(LEARN_GENDER)] = learn_gender;
-  jobj[QString(LEARN_RECOGNIZED)] = LEARN_RECOGNIZED;
-  jobj[QString(CASCADE_TYPE)] = (cascade_type == USE_LBP) ? "LBP" : "HAAR";
-  jobj[QString(EXPORT_DIR)] = export_path;
-  jobj[QString(STEPS_DETECTION)] = steps_of_detection;
-  jobj[QString(DATABASE_PATH)] = database_path;
+  jobj[QString(THREAHOLD)] = _threahold;
+  jobj[QString(OUT_PATH)] = _output_path;
+  jobj[QString(SKIP_UR)] = _skip_unRecognized;
+  jobj[QString(CUT_FILES)] = _cut_files;
+  jobj[QString(LEARN_GENDER)] = _learn_gender;
+  jobj[QString(LEARN_RECOGNIZED)] = _learn_recognized;
+  jobj[QString(CASCADE_TYPE)] = (_cascade_type == USE_LBP) ? "LBP" : "HAAR";
+  jobj[QString(STEPS_DETECTION)] = _steps_of_detection;
   QJsonDocument jdoc(jobj);
   QFile jfile(path);
   jfile.open(QFile::WriteOnly);
   if (jfile.isOpen()) {
     jfile.write(jdoc.toJson());
     jfile.close();
-    qDebug()<<"saved";
+    qDebug() << "settings has been saved to " << path;
   }
 }
 
-QString Settings::getSave_settings_path() const { return save_settings_path; }
+QString Settings::getSave_settings_path() const {
+  return DEFAULT_SETTINGS_PATH EXPORT_SETTINGS_FILE_NAME;
+}
+QString Settings::getDatabase_path() const { return DEAFULT_DATABASE_PATH; }
+
+QString Settings::getRecognizer_gender_path() const {
+  return DEFAULT_RECOGNIZER_GENDER_PATH;
+}
+QString Settings::getRecognizer_path() const { return DEFAULT_RECOGNIZER_PATH; }

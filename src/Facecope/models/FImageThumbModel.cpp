@@ -25,12 +25,10 @@ FImageThumbModel::~FImageThumbModel() {
 }
 
 int FImageThumbModel::rowCount(const QModelIndex &parent) const {
-  //  qDebug() << "row count " << items.size();
   return items.size();
 }
 
 QVariant FImageThumbModel::data(const QModelIndex &index, int role) const {
-  //  qDebug() << "call data" << endl;
   if (!index.isValid())
     return QVariant();
 
@@ -51,7 +49,6 @@ QVariant FImageThumbModel::data(const QModelIndex &index, int role) const {
                         Qt::AspectRatioMode::KeepAspectRatio)));
       }
     } else if (role == Qt::DisplayRole) {
-      //      qDebug() << "return text" << endl;
       return ((QString)(items.begin() + index.row()).key().split("/").last())
           .mid(0, 7);
     }
@@ -157,8 +154,8 @@ void FImageThumbModel::slot_recognize(int row) {
   if (row >= 0 && row < items.size()) {
     // todo
     auto image = get_item(row);
-    if (image->isRecognized()) {
-      recognized_count++;
+    if (!image->isRecognized()) {
+        qDebug()<<"call recognize";
     }
   }
 }

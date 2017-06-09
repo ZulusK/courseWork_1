@@ -14,26 +14,26 @@ FFaceModel::FFaceModel(FImage &f_image, Settings &settings, QObject *parent)
 
 QVariant FFaceModel::headerData(int section, Qt::Orientation orientation,
                                 int role) const {
-    switch (section) {
-    case 0:
-        return QString("№");
-        break;
-    case 1:
-        return QString("Face");
-        break;
-    case 2:
-        return QString("Name");
-        break;
-    case 3:
-        return QString("Gender");
-        break;
-    case 4:
-        return QString("Assigned photos");
-        break;
-    default:
-        return QVariant();
-        break;
-    }
+  switch (section) {
+  case 0:
+    return QString("№");
+    break;
+  case 1:
+    return QString("Face");
+    break;
+  case 2:
+    return QString("Name");
+    break;
+  case 3:
+    return QString("Gender");
+    break;
+  case 4:
+    return QString("Assigned photos");
+    break;
+  default:
+    return QVariant();
+    break;
+  }
 }
 int FFaceModel::rowCount(const QModelIndex &parent) const {
   return faces.size();
@@ -64,17 +64,30 @@ QVariant FFaceModel::data(const QModelIndex &index, int role) const {
     break;
   case 2:
     if (role == Qt::DisplayRole) {
-      return QString("name");
+      auto face = this->f_image->get_face(index.row);
+      if (face) {
+        auto name = face->get_info().name;
+        if (name.length() == 0) {
+          return QString("Not recognized");
+        } else {
+          return name;
+        }
+      }
     }
     break;
   case 3:
     if (role == Qt::DisplayRole) {
-      return QString("gender");
+      auto face = this->f_image->get_face(index.row);
+      if (face) {
+        return (gender == MALE) ? "Male"
+                                : (gender == FEMALE) ? "Female" : "Male/Female";
+      }
     }
+
     break;
   case 4:
     if (role == Qt::DisplayRole) {
-      return QString("count of photos");
+      return "12334";
     }
     break;
   }

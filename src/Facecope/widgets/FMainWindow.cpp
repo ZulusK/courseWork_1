@@ -7,6 +7,7 @@
 #include <QFileDialog>
 #include <QProgressDialog>
 enum { HELP, WORK, BACK, SETTINGS };
+
 FMainWindow::FMainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::FMainWindow) {
   ui->setupUi(this);
@@ -19,7 +20,8 @@ void FMainWindow::connect_signals() {
   connect(ui->action_help, SIGNAL(triggered()), this, SLOT(show_widget()));
   connect(ui->action_back, SIGNAL(triggered()), this, SLOT(show_widget()));
   connect(ui->action_settings, SIGNAL(triggered()), this, SLOT(show_widget()));
-  connect(ui->action_trash, SIGNAL(triggered()), image_model, SLOT(slot_clear()));
+  connect(ui->action_trash, SIGNAL(triggered()), image_model,
+          SLOT(slot_clear()));
   connect(ui->action_delete, SIGNAL(triggered()), working_widget,
           SLOT(slot_remove_selected()));
   connect(ui->action_run, SIGNAL(triggered()), working_widget,
@@ -39,18 +41,30 @@ FMainWindow::~FMainWindow() {
   delete working_widget;
   delete image_model;
   delete this->processors.detector;
-  delete this->processors.recognizer;
+  this->processors.recognizer_face->save(
+      settings.getRecognizer_path().toStdString());
+  this->processors.recognizer_gender->save(
+      settings.getRecognizer_gender_path().toStdString());
+  delete this->processors.recognizer_face;
+  delete this->processors.recognizer_gender;
+  delete this->database;
 }
 
 void FMainWindow::slot_recognize_webcam() {}
 
 void FMainWindow::createWidgets() {
-  //  this->settings.load("");
+  this->database = new FDatabaseDriver(settings);
+  this->database->get_user(1);
   this->processors.detector =
       new FFaceDetector(std::string(RESOURCE_PATH) + "cascades/face_haar.xml",
                         std::string(RESOURCE_PATH) + "cascades/face_lbp.xml",
                         std::string(RESOURCE_PATH) + "cascades/eye_haar.xml");
-  this->processors.recognizer = new FFaceRecognizer();
+  this->processors.recognizer_face = new FFaceRecognizer();
+  this->processors.recognizer_gender = new FFaceRecognizer();
+  this->processors.recognizer_face->load(
+      settings.getRecognizer_path().toStdString());
+  this->processors.recognizer_gender->load(
+      settings.getRecognizer_gender_path().toStdString());
   this->image_model = new FImageThumbModel(processors, settings, this);
   this->working_widget = new FWorkingWidget(settings, image_model, this);
 }
