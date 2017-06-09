@@ -14,6 +14,7 @@
 #include <QUrl>
 #include <QWidget>
 #include <Settings.h>
+#include <FDatabaseDriver.h>
 namespace Ui {
 class FWorkingWidget;
 }
@@ -22,7 +23,7 @@ class FWorkingWidget : public QWidget {
   Q_OBJECT
 
 public:
-  explicit FWorkingWidget(Settings &settings, FImageThumbModel *model,
+  explicit FWorkingWidget(Settings &settings, FDatabaseDriver * database,FImageThumbModel *model,
                           QWidget *parent = 0);
   ~FWorkingWidget();
 
@@ -74,6 +75,7 @@ private:
   FImageProxyModel *model_proxy;
   QCompleter *completer;
   Settings *settings;
+  FDatabaseDriver * database;
 };
 
 #endif // FWORKINGWIDGET_H

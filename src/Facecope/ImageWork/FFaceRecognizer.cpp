@@ -1,8 +1,8 @@
 #include "FFaceRecognizer.h"
 #include <FacecopeUtils.h>
+#include <QDebug>
 #include <opencv/cv.h>
 #include <opencv2/imgproc.hpp>
-
 using namespace std;
 using namespace cv;
 using namespace face;

@@ -1,5 +1,6 @@
 #ifndef FIMAGESHOWDIALOG_H
 #define FIMAGESHOWDIALOG_H
+#include <FDatabaseDriver.h>
 #include <FFaceModel.h>
 #include <FImage.h>
 #include <FImageDrawAreaWidget.h>
@@ -13,8 +14,8 @@ class FImageShowDialog : public QDialog {
   Q_OBJECT
 
 public:
-  explicit FImageShowDialog(FImage &image, Settings &settings,
-                            QWidget *parent = 0);
+  explicit FImageShowDialog(FDatabaseDriver &database, FImage &image,
+                            Settings &settings, QWidget *parent = 0);
   ~FImageShowDialog();
 
 private slots:
@@ -27,7 +28,8 @@ private:
   FImage *f_image;
   Settings *settings;
   FImageDrawAreaWidget *draw_area;
-  FFaceModel * model;
+  FFaceModel *model;
+  FDatabaseDriver *database;
 };
 
 #endif // FIMAGESHOWDIALOG_H

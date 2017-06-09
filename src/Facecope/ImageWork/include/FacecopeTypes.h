@@ -2,7 +2,7 @@
 #define FACECOPETYPES_H
 #include <QString>
 #include <opencv2/imgproc.hpp>
-enum { MALE = 0xC, FEMALE, UNRECOGNIZED } Sex;
+enum { MALE = 1, FEMALE=2, UNRECOGNIZED=-1 } Sex;
 
 class FFace;
 class FImage;

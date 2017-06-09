@@ -10,7 +10,6 @@
 #include <QSize>
 #include <QString>
 #include <Settings.h>
-
 enum { GET_FULL_ITEM_PATH = -1 };
 
 class FImageThumbModel : public QAbstractListModel {
@@ -54,7 +53,6 @@ private:
   QSize image_scale_size;
   Settings *settings;
   FacecopeProcessors *processors;
-
   int detected_count;
 
   int recognized_count;

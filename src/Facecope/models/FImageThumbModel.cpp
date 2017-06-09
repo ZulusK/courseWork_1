@@ -1,12 +1,14 @@
 #include "FImageThumbModel.h"
+#include <FFace.h>
 #include <FFaceDetector.h>
+#include <FFaceRecognizer.h>
+#include <FacecopeTypes.h>
 #include <QDebug>
 #include <QFileIconProvider>
 #include <QIcon>
 #include <QImageReader>
 #include <QPixmap>
 #include <QString>
-
 FImageThumbModel::FImageThumbModel(FacecopeProcessors &processors,
                                    Settings &settings, QObject *parent)
     : QAbstractListModel(parent) {
@@ -152,10 +154,29 @@ FacecopeProcessors *FImageThumbModel::get_processors() const {
 
 void FImageThumbModel::slot_recognize(int row) {
   if (row >= 0 && row < items.size()) {
-    // todo
     auto image = get_item(row);
-    if (!image->isRecognized()) {
-        qDebug()<<"call recognize";
+    if (!image->isRecognized() ||
+        image->getThreahold_of_recognition() < settings->getThreahold()) {
+      slot_detect(row);
+      //
+      recognized_count += !image->isRecognized();
+      recognized_humans -= image->get_faces().size();
+      //
+      this->processors->recognizer_gender->set_threahold(
+          settings->getThreahold());
+      foreach (auto face, image->get_faces()) {
+        auto face_image = image->get_face_cv_image(face);
+        int gender = this->processors->recognizer_gender->recognize(face_image);
+        int ID = this->processors->recognizer_face->recognize(face_image);
+
+        Human info;
+        info.face = face;
+        info.gender = gender;
+        info.ID = ID;
+        face->set_info(info);
+
+      }
+      image->set_recognized(true, settings->getThreahold());
     }
   }
 }
@@ -174,6 +195,7 @@ void FImageThumbModel::slot_detect(int row) {
           *image, false, (settings->getCascade_type() == USE_LBP) ? LBP : HAAR,
           settings->getSteps_of_detection(), 360);
       image->set_detected(true, settings->getSteps_of_detection());
+      image->set_recognized(false, -1);
       //
       detected_humans += image->get_faces().size();
     }

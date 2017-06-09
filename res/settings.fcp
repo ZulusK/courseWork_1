@@ -4,7 +4,7 @@
     "learn recognized": true,
     "out dir": "~/",
     "skip unrecognized": true,
-    "steps of detection": 1,
-    "threahold": 1000,
+    "steps of detection": 20,
+    "threahold": 2400,
     "use cascade": "HAAR"
 }

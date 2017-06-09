@@ -65,6 +65,47 @@ bool FDatabaseDriver::openDataBase(const QString &path) {
   }
 }
 
+bool FDatabaseDriver::set(int id, const QString &key, const QString &value) {
+  QSqlQuery query;
+  if (query.exec("UPDATE recognizedHumans SET " + key + "='" + value +
+                 "' WHERE id=" + QString::number(id))) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+int FDatabaseDriver::getNextId() {
+  QSqlQuery query;
+  if (query.exec("INSERT INTO recognizedHumans (" + value + ")VALUES('" + key +
+                 "')")) {
+    return true;
+  } else {
+    return 0;
+  }
+}
+
+bool FDatabaseDriver::insert(const QString &key, const QString &value) {
+  QSqlQuery query;
+  if (query.exec("SELECT last_insert_rowid()")) {
+    query.first();
+    return query.value("last_inserted_rowid()").toString();
+  } else {
+    return false;
+  }
+}
+
+QString FDatabaseDriver::get(int id, const QString &key) {
+  QSqlQuery query;
+  if (query.exec("SELECT " + key +
+                 " FROM  recognizedHumans WHERE id=" + QString::number(id))) {
+    query.first();
+    return query.value(key).toString();
+  } else {
+    return "";
+  }
+}
+
 void FDatabaseDriver::closeDataBase() {
 
   qDebug() << "save data base";
@@ -74,10 +115,10 @@ void FDatabaseDriver::closeDataBase() {
 
 bool FDatabaseDriver::createTable() {
   QSqlQuery query;
-  if (!query.exec(
-          "CREATE TABLE `recognizedHumans` ( `id` INTEGER NOT NULL "
-          "PRIMARY KEY AUTOINCREMENT UNIQUE, `name` TEXT NOT NULL, "
-          "`gender` INTEGER NOT NULL, `images` INTEGER, `path` TEXT )")) {
+  if (!query.exec("CREATE TABLE  recognizedHumans"
+                  " ( `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, "
+                  "`name` TEXT NOT NULL, `gender` INTEGER DEFAULT -1, `images` "
+                  "INTEGER DEFAULT 1, `path` TEXT )")) {
     qDebug() << "Cannot create table";
     return false;
   } else {

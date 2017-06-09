@@ -191,6 +191,7 @@ void FFaceDetector::get_faces_attr(Mat &image_gray, vector<Rect> &bounds,
       // process collected data
       if (eye_bounds.size() == 0) {
         // if didn't find, erase face
+        qDebug() << "don't fid eye";
         if (removeFaceWithoutEye) {
           bounds.erase(bounds.begin() + i);
           i--;
@@ -200,10 +201,12 @@ void FFaceDetector::get_faces_attr(Mat &image_gray, vector<Rect> &bounds,
         }
       } else if (eye_bounds.size() == 1) {
         // if find only 1 eye, make second eye invalid
+        qDebug() << "find 1 eye";
         eyes_1.push_back(eye_bounds[0]);
         eyes_2.push_back(Rect(-1, -1, 0, 0));
       } else {
         // add two eyes
+        qDebug() << "find 2 eye";
         eyes_1.push_back(eye_bounds[0]);
         eyes_2.push_back(eye_bounds[1]);
       }

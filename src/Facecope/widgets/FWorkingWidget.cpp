@@ -7,12 +7,13 @@
 #include <QModelIndexList>
 #include <QProgressDialog>
 #include <QSet>
-FWorkingWidget::FWorkingWidget(Settings &settings, FImageThumbModel *model,
-                               QWidget *parent)
+FWorkingWidget::FWorkingWidget(Settings &settings, FDatabaseDriver *database,
+                               FImageThumbModel *model, QWidget *parent)
     : QWidget(parent), ui(new Ui::FWorkingWidget) {
   this->model = model;
   this->settings = &settings;
   ui->setupUi(this);
+  this->database = database;
   setUp();
 }
 
@@ -114,9 +115,11 @@ void FWorkingWidget::on_sizeSlider_sliderMoved(int position) {
 }
 
 void FWorkingWidget::on_list_view_doubleClicked(const QModelIndex &index) {
-  this->model->slot_detect(model_proxy->mapToSource(index).row());
+  //  this->model->slot_detect(model_proxy->mapToSource(index).row());
+  this->model->slot_recognize(model_proxy->mapToSource(index).row());
   emit signal_images_changed();
-  FImageShowDialog dialog(*model->get_item(index.row()), *settings, this);
+  FImageShowDialog dialog(*database, *model->get_item(index.row()), *settings,
+                          this);
   dialog.exec();
 }
 
@@ -167,7 +170,4 @@ void FWorkingWidget::on_show_woman(bool enable) {
 
 void FWorkingWidget::on_show_man(bool enable) { emit signal_images_changed(); }
 
-void FWorkingWidget::on_showAll_RB_clicked()
-{
-
-}
+void FWorkingWidget::on_showAll_RB_clicked() {}

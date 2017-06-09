@@ -12,11 +12,14 @@ class FDatabaseDriver {
   Settings *settings;
 
 public:
-  FDatabaseDriver(Settings & settings );
+  FDatabaseDriver(Settings &settings);
   ~FDatabaseDriver();
 
   QMap<QString, QVariant> get_user(int id);
-
+  QString get(int id, const QString &key);
+  bool insert(const QString &key, const QString &value);
+  int getNextId();
+  bool set(int id, const QString &key, const QString &value);
   void closeDataBase();
   bool createTable();
   bool connectTo(const QString &path);

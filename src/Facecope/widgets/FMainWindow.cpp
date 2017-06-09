@@ -66,7 +66,8 @@ void FMainWindow::createWidgets() {
   this->processors.recognizer_gender->load(
       settings.getRecognizer_gender_path().toStdString());
   this->image_model = new FImageThumbModel(processors, settings, this);
-  this->working_widget = new FWorkingWidget(settings, image_model, this);
+  this->working_widget =
+      new FWorkingWidget(settings, database, image_model, this);
 }
 
 void FMainWindow::start() {

@@ -36,6 +36,7 @@ static void read_csv(const string &filename, vector<Mat> &images, vector<int> &l
         CV_Error(CV_StsBadArg, error_message);
     }
     string line, path, classlabel;
+    int i = 0;
     while (getline(file, line)) {
         stringstream liness(line);
         getline(liness, path, separator);
@@ -44,8 +45,8 @@ static void read_csv(const string &filename, vector<Mat> &images, vector<int> &l
             Mat m = imread(path, 0);
             if (!m.empty()) {
                 Mat r;
-                cout << m.rows << " " << m.cols << endl;
-                resize(m, r, Size(300, 300));
+                cout << i++ << endl;
+                resize(m, r, Size(150, 150));
                 images.push_back(r);
                 labels.push_back(atoi(classlabel.c_str()));
             }
@@ -84,9 +85,9 @@ int main(int argc, const char *argv[]) {
     int im_height = images[0].rows;
     // Create a FaceRecognizer and train it on the given images:
     Ptr<FaceRecognizer> model = createFisherFaceRecognizer(100, 1000);
-//    model->train(images, labels);
-
-    model->load("/home/zulus/Projects/progbase3/samples/data.xml");
+    model->train(images, labels);
+    model->save("/home/zulus/Projects/progbase3/res/genders_recognition.xml");
+    // model->load("/home/zulus/Projects/progbase3/samples/data.xml");
     // That's it for learning the Face Recognition model. You now
     // need to create the classifier for the task of Face Detection.
     // We are going to use the haar cascade you have specified in the
@@ -143,13 +144,13 @@ int main(int argc, const char *argv[]) {
             rectangle(original, face_i, CV_RGB(0, 255, 0), 1);
             // Create the text we will annotate the box with:
 
-            string box_text ="";
-            if(prediction==1){
-                box_text="man";
-            } else if(prediction==2){
-                box_text="woman";
-            }else{
-                box_text="not recognized";
+            string box_text = "";
+            if (prediction == 1) {
+                box_text = "man";
+            } else if (prediction == 2) {
+                box_text = "woman";
+            } else {
+                box_text = "not recognized";
             }
             // Calculate the position for annotated text (make sure we don't
             // put illegal values in there):
@@ -166,6 +167,5 @@ int main(int argc, const char *argv[]) {
         if (key == 27)
             break;
     }
-    model->save("/home/zulus/Projects/progbase3/samples/genders_recognition.xml");
     return 0;
 }

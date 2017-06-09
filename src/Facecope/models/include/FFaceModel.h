@@ -1,6 +1,7 @@
 #ifndef FFACEMODEL_H
 #define FFACEMODEL_H
 
+#include <FDatabaseDriver.h>
 #include <FFace.h>
 #include <FImage.h>
 #include <QAbstractTableModel>
@@ -9,7 +10,8 @@ class FFaceModel : public QAbstractTableModel {
   Q_OBJECT
 
 public:
-  explicit FFaceModel(FImage &f_image, Settings &settings, QObject *parent = 0);
+  explicit FFaceModel(FDatabaseDriver & database, FImage &f_image,
+                      Settings &settings, QObject *parent = 0);
 
   // Basic functionality:
   int rowCount(const QModelIndex &parent = QModelIndex()) const override;
@@ -27,6 +29,7 @@ private:
   FImage *f_image;
   Settings *settings;
   QSize icons_size;
+  FDatabaseDriver *database;
 };
 
 #endif // FFACEMODEL_H

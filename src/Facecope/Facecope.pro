@@ -37,7 +37,8 @@ SOURCES +=\
     ImageWork/FFaceDetector.cpp         \
     ImageWork/FFaceRecognizer.cpp       \
     Settings.cpp                        \
-    FDatabaseDriver.cpp
+    FDatabaseDriver.cpp \
+    widgets/FSetFaceInfoDialog.cpp
 
 HEADERS+=\
     widgets/include/FMainWindow.h           \
@@ -56,7 +57,8 @@ HEADERS+=\
     ImageWork/include/FFaceDetector.h       \
     ImageWork/include/FFaceRecognizer.h     \
     Settings.h                              \
-    FDatabaseDriver.h
+    FDatabaseDriver.h \
+    widgets/FSetFaceInfoDialog.h
 
 FORMS    +=  \
     widgets/uis/FMainWindow.ui \
@@ -64,7 +66,8 @@ FORMS    +=  \
     widgets/uis/FHelpWidget.ui \
     widgets/uis/FSettingsWidget.ui \
     widgets/uis/FImageShowDialog.ui \
-    widgets/uis/FImageDrawAreaWidget.ui
+    widgets/uis/FImageDrawAreaWidget.ui \
+    widgets/FSetFaceInfoDialog.ui
 
 unix: CONFIG += link_pkgconfig
 unix: PKGCONFIG += opencv
