@@ -14,6 +14,17 @@ Mat FImage::get_face_cv_image(FFace *face) {
   return face_image;
 }
 
+QRect FImage::get_face_q_frame(FFace *face) {
+  Rect original = face->get_original_frame();
+  // clone
+  Rect rotated(original.x, original.y, original.width, original.height);
+  // rotate
+  rotateRect(rotated, getCenter(cv_image),
+             toRadians(face->get_rotation_original()));
+  // cut
+  return QRect(rotated.x, rotated.y, rotated.width, rotated.height);
+}
+
 FImage::FImage(const Mat &mat) {
   this->name = "";
   this->cv_image = mat.clone();
@@ -70,7 +81,7 @@ void FImage::clear() {
 bool FImage::empty() const { return q_image.isNull() || cv_image.empty(); }
 
 Size FImage::cv_size() const { return Size(cv_image.cols, cv_image.rows); }
-QSize FImage::q_size() const { return q_image.size(); }
+QSize FImage::q_size() const { return QSize(cv_image.cols, cv_image.rows); }
 
 FFace *FImage::remove_face(long ID) {
   if (this->faces.size() >= ID || ID < 0) {

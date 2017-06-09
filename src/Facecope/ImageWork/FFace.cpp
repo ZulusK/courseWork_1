@@ -4,11 +4,6 @@
 #include <opencv2/imgproc.hpp>
 using namespace cv;
 
-void FFace::set_face_frame(const cv::Rect &frame) {
-  this->is_normalized = false;
-  this->original_frame = frame;
-}
-
 void FFace::set_info(const Human &info) {
   this->info.face = info.face;
   this->info.ID = info.ID;
@@ -26,7 +21,6 @@ void FFace::normalize() {
     }
     // randomize rotation to debug
     //    rotation = 20;
-    qDebug() << "rotation " << rotation;
     this->is_normalized = true;
     auto _e1 = eye_left;
     auto _e2 = eye_rigth;
@@ -44,7 +38,6 @@ FFace::FFace(int angle_src, const cv::Rect &frame_src, const cv::Rect &eye_1,
   this->original_frame = frame_src;
   this->face_frame = Rect(0, 0, original_frame.width, original_frame.height);
   this->original_rotation = angle_src;
-  qDebug() << angle_src << " original rotation";
   this->rotation = 15;
   set_eyes(eye_1, eye_2);
   set_ID(ID);

@@ -38,6 +38,7 @@ cv::Size getSize(const cv::Rect &R, float scale);
 
 void rotateRect(cv::Rect &R, const cv::Point2f &center, float angle);
 
+
 void rotatePoint(int &x, int &y, const cv::Point &center, float angle);
 
 void rotatePoint(cv::Point &point, const cv::Point &center, float angle);

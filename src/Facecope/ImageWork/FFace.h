@@ -17,7 +17,6 @@ class FFace {
   bool is_normalized;
 
 private:
-  void set_face_frame(const cv::Rect &frame);
   void normalize();
 
 public:

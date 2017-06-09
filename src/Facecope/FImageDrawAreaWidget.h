@@ -4,6 +4,7 @@
 #include <FImage.h>
 #include <QWidget>
 #include <Settings.h>
+#include <QPen>
 namespace Ui {
 class FImageDrawAreaWidget;
 }
@@ -26,6 +27,9 @@ private:
   Ui::FImageDrawAreaWidget *ui;
   FImage *f_image;
   Settings *settings;
+  QPen recognized_male;
+  QPen recognized_female;
+  QPen unrecognized;
 };
 
 #endif // FIMAGEDRAWAREAWIDGET_H

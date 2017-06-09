@@ -27,23 +27,45 @@ int FFaceModel::rowCount(const QModelIndex &parent) const {
   return faces.size();
 }
 
-int FFaceModel::columnCount(const QModelIndex &parent) const { return 2; }
+int FFaceModel::columnCount(const QModelIndex &parent) const { return 5; }
 
 QVariant FFaceModel::data(const QModelIndex &index, int role) const {
-  if (!index.isValid() || index.column() >= 2 || index.row() < 0 ||
+  if (!index.isValid() || index.column() >= columnCount() || index.row() < 0 ||
       index.row() >= rowCount())
     return QVariant();
   if (index.column() == 0 && role == Qt::SizeHintRole) {
     return icons_size;
   }
-  if (index.column() == 0 && role == Qt::DecorationRole) {
-    return QPixmap::fromImage(faces[index.row()].scaled(
-        icons_size,Qt::IgnoreAspectRatio,
-        Qt::SmoothTransformation));
-  } else if (index.column() == 1) {
-    return QString::number(f_image->get_face(index.row())->get_rotation());
+  switch (index.column()) {
+  case 0:
+    if (role == Qt::DisplayRole) {
+      return QString::number(f_image->get_face(index.row())->get_ID());
+    }
+    break;
+  case 1:
+    if (role == Qt::SizeHintRole) {
+      return icons_size;
+    } else if (role == Qt::DecorationRole) {
+      return QPixmap::fromImage(faces[index.row()].scaled(
+          icons_size, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+    }
+    break;
+  case 2:
+    if (role == Qt::DisplayRole) {
+      return QString("name");
+    }
+    break;
+  case 3:
+    if (role == Qt::DisplayRole) {
+      return QString("gender");
+    }
+    break;
+  case 4:
+    if (role == Qt::DisplayRole) {
+      return QString("count of photos");
+    }
+    break;
   }
-
   return QVariant();
 }
 
