@@ -28,9 +28,22 @@ QRect FImage::get_face_q_frame(FFace *face) {
 FImage::FImage(const Mat &mat) {
   this->name = "";
   this->cv_image = mat.clone();
-  this->is_detected = false;
-  this->is_recognized = false;
   this->q_image = Mat2QImage(cv_image);
+
+  this->is_detected = false;
+  this->detection_steps = -1;
+  this->is_recognized = false;
+  this->threahold_of_recognition = -1;
+}
+
+bool FImage::isRecognized() const { return is_recognized; }
+
+bool FImage::isDetected() const { return is_detected; }
+
+int FImage::getDetection_steps() const { return detection_steps; }
+
+double FImage::getThreahold_of_recognition() const {
+  return threahold_of_recognition;
 }
 
 FImage::FImage(const QString &path) {
@@ -43,8 +56,11 @@ FImage::FImage(const QString &path) {
     this->cv_image = QImage2Mat(q_image);
     this->name = path;
   }
+
   this->is_detected = false;
+  this->detection_steps = -1;
   this->is_recognized = false;
+  this->threahold_of_recognition = -1;
 }
 
 int FImage::add_face(FFace *face) {
@@ -68,14 +84,25 @@ QImage FImage::to_q_image() { return q_image; }
 
 Mat FImage::to_cv_image() { return cv_image; }
 
-void FImage::set_recognized(bool recognized) {
+void FImage::set_recognized(bool recognized, double threahold) {
   this->is_recognized = recognized;
+  this->threahold_of_recognition = threahold;
 }
 
-void FImage::set_detected(bool detected) { this->is_detected = detected; }
+void FImage::set_detected(bool detected, int steps) {
+  this->is_detected = detected;
+  this->detection_steps = steps;
+}
 
 void FImage::clear() {
-  // todo
+  foreach (auto face,faces ) {
+      delete face;
+  }
+  faces.clear();
+  this->is_detected = false;
+  this->detection_steps = -1;
+  this->is_recognized = false;
+  this->threahold_of_recognition = -1;
 }
 
 bool FImage::empty() const { return q_image.isNull() || cv_image.empty(); }

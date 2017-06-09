@@ -66,30 +66,23 @@ void FFaceDetector::detect_faces(const cv::Mat &image,
                                  cv::Size max_size_ratio) {
   // convert image to gray
   Mat gray_image = toGray(image);
-  qDebug() << "converted";
-  //  imshow("gray", gray_image);
-  //  imshow("original", image);
-  waitKey(0);
   // if search only in original rotation
   if (steps <= 2) {
-    qDebug() << "search in original angle";
     find_faces(gray_image, faces, removeFaceWithoutEye, cascade_type,
                scaleFactor, min_size_ratio, max_size_ratio);
   } else {
     // if search on range degree
-    qDebug() << "search in range";
     find_faces(gray_image, faces, removeFaceWithoutEye, cascade_type, steps,
                angle_range, scaleFactor, min_size_ratio, max_size_ratio);
   }
   gray_image.release();
-  qDebug() << "released";
 }
 
 void FFaceDetector::detect_faces(FImage &image, bool removeFaceWithoutEye,
                                  int cascade_type, int steps, int angle_range,
                                  double scaleFactor, Size min_size_ratio,
                                  Size max_size_ratio) {
-  qDebug() << "detector run";
+
   if (!image.empty()) {
     vector<FFace *> faces;
     detect_faces(image.to_cv_image(), faces, removeFaceWithoutEye, cascade_type,
@@ -97,7 +90,6 @@ void FFaceDetector::detect_faces(FImage &image, bool removeFaceWithoutEye,
                  max_size_ratio);
     image.add_faces(faces);
   }
-  qDebug() << "detector end";
 }
 
 void FFaceDetector::find_faces(cv::Mat &image, std::vector<FFace *> &faces,
@@ -109,7 +101,7 @@ void FFaceDetector::find_faces(cv::Mat &image, std::vector<FFace *> &faces,
   int angleIncrement = range * 2 / (steps - 1);
   // starts from
   int leftBound = -range;
-  // nd with
+  // end with
   int rigthBound = range;
 
   vector<Rect> bounds;
@@ -142,7 +134,6 @@ void FFaceDetector::find_faces(cv::Mat &image, std::vector<FFace *> &faces,
       rotateRect(bounds[i], center, toRadians(currAngle));
       disableArea(image, bounds[i]);
     }
-    //        imshow(to_string(currAngle), rotatedImage);
   }
 }
 
@@ -154,9 +145,6 @@ void FFaceDetector::detect_object(Mat &image_gray,
     classifier.detectMultiScale(image_gray, rects, scaleFactor, 3,
                                 0 | CV_HAAR_SCALE_IMAGE, min_size_ratio,
                                 max_size_ratio);
-
-  } else {
-    qDebug() << "NOT A GRAY";
   }
 }
 
@@ -181,9 +169,8 @@ void FFaceDetector::find_faces(Mat &image, vector<FFace *> &faces,
   // detect eyes
   // remove artifacts
   get_faces_attr(image, bounds, removeFaceWithoutEye, eyes_1, eyes_2);
-  create_faceAreas(faces, bounds, eyes_1, eyes_2,0);
+  create_faceAreas(faces, bounds, eyes_1, eyes_2, 0);
 }
-
 
 void FFaceDetector::get_faces_attr(Mat &image_gray, vector<Rect> &bounds,
                                    bool removeFaceWithoutEye,
@@ -193,7 +180,7 @@ void FFaceDetector::get_faces_attr(Mat &image_gray, vector<Rect> &bounds,
   if (isLoaded(EYES_HAAR)) {
     for (int i = 0; i < bounds.size(); i++) {
       eye_bounds.clear();
-//      imshow(to_string(i),image_gray(bounds[i]));
+      //      imshow(to_string(i),image_gray(bounds[i]));
       // create eye search area (top half of face)
       Mat eyeArea = image_gray(Rect(bounds[i].x, bounds[i].y, bounds[i].width,
                                     bounds[i].height / 2));
@@ -231,9 +218,8 @@ void FFaceDetector::get_faces_attr(Mat &image_gray, vector<Rect> &bounds,
 }
 
 void FFaceDetector::create_faceAreas(vector<FFace *> &faces,
-                                             vector<Rect> &bounds,
-                                             vector<Rect> &eyes_1,
-                                             vector<Rect> &eyes_2, int angle) {
+                                     vector<Rect> &bounds, vector<Rect> &eyes_1,
+                                     vector<Rect> &eyes_2, int angle) {
   for (int i = 0; i < bounds.size(); i++) {
     auto faceArea = new FFace(angle, bounds[i], eyes_1[i], eyes_2[i]);
     faces.push_back(faceArea);

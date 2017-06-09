@@ -9,6 +9,7 @@ public:
   FImageProxyModel(QObject *parent = 0);
   ~FImageProxyModel();
   bool filterAcceptsRow(int source_row, const QModelIndex &source_parent);
+  int getDisplaingPhotos();
 
 private:
   bool show_recognized;

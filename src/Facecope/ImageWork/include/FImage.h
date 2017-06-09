@@ -13,7 +13,9 @@ class FImage {
   QImage q_image;
   cv::Mat cv_image;
   bool is_detected;
+  int detection_steps;
   bool is_recognized;
+  double threahold_of_recognition;
   QString name;
 
 public:
@@ -31,9 +33,9 @@ public:
 
   cv::Mat to_cv_image();
 
-  void set_recognized(bool recognized);
+  void set_recognized(bool recognized, double threahold_of_recognition);
 
-  void set_detected(bool detected);
+  void set_detected(bool detected, int steps);
 
   int add_face(FFace *face);
 
@@ -55,6 +57,10 @@ public:
 
   cv::Mat get_face_cv_image(FFace *face);
   QRect get_face_q_frame(FFace * face);
+  bool isRecognized() const;
+  bool isDetected() const;
+  int getDetection_steps() const;
+  double getThreahold_of_recognition() const;
 };
 
 #endif // FIMAGE_H

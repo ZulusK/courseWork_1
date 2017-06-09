@@ -14,14 +14,26 @@ FFaceModel::FFaceModel(FImage &f_image, Settings &settings, QObject *parent)
 
 QVariant FFaceModel::headerData(int section, Qt::Orientation orientation,
                                 int role) const {
-  switch (section) {
-  case 0:
-    return QString("detected humans");
-    break;
-  default:
-    return QString("info");
-    break;
-  }
+    switch (section) {
+    case 0:
+        return QString("№");
+        break;
+    case 1:
+        return QString("Face");
+        break;
+    case 2:
+        return QString("Name");
+        break;
+    case 3:
+        return QString("Gender");
+        break;
+    case 4:
+        return QString("Assigned photos");
+        break;
+    default:
+        return QVariant();
+        break;
+    }
 }
 int FFaceModel::rowCount(const QModelIndex &parent) const {
   return faces.size();

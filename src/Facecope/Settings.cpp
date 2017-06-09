@@ -7,16 +7,7 @@
 #include <QJsonObject>
 #include <QTextStream>
 Settings::Settings(const QString &settingsPath) {
-  this->output_dir = "~/Facecope/";
-  this->gender_database_path = "./";
-  this->export_path = "./";
-  this->cut_files = false;
-  this->threahold = 1000;
-  this->steps_of_detection = 1;
-  this->skip_unRecognized = true;
-  this->learn_recognized = true;
-  this->learn_gender = true;
-  this->cascade_type = USE_HAAR;
+  useDefaultSettings();
   if (QFile(settingsPath).exists()) {
     this->save_settings_path = settingsPath;
   } else {
@@ -27,6 +18,19 @@ Settings::Settings(const QString &settingsPath) {
 Settings::~Settings() { save(save_settings_path); }
 
 QString Settings::getOutput_dir() const { return output_dir; }
+
+void Settings::useDefault(){
+    this->output_dir = "~/Facecope/";
+    this->gender_database_path = "./";
+    this->export_path = "./";
+    this->cut_files = false;
+    this->threahold = 1000;
+    this->steps_of_detection = 1;
+    this->skip_unRecognized = true;
+    this->learn_recognized = true;
+    this->learn_gender = true;
+    this->cascade_type = USE_HAAR;
+}
 
 void Settings::setOutput_dir(const QString &value) {
   qDebug() << "output dir changed" << value;

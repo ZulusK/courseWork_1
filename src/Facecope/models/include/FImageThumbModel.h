@@ -22,7 +22,6 @@ public:
   ~FImageThumbModel();
   // Basic functionality:
   int rowCount(const QModelIndex &parent = QModelIndex()) const override;
-
   QVariant data(const QModelIndex &index,
                 int role = Qt::DisplayRole) const override;
   bool removeRow(int row, const QModelIndex &parent = QModelIndex());
@@ -36,12 +35,18 @@ public:
   FImage *get_item(const QString &path);
   FImage *get_item(int index);
   FacecopeProcessors *get_processors() const;
+  // methods for statistics
+  int get_detected_image_count();
+  int get_recognized_image_count();
+  int get_detected_faces_count();
+  int get_recognized_faces_count();
+  int get_loaded_images_count();
 
 public slots:
-  void set_image_size(const QSize &newSize);
-  void clear();
-  void recognize(int row);
-  void detect(int row);
+  void slot_set_image_size(const QSize &newSize);
+  void slot_clear();
+  void slot_recognize(int row);
+  void slot_detect(int row);
 
 private:
   QMutex loader_mutex;
@@ -49,6 +54,14 @@ private:
   QSize image_scale_size;
   Settings *settings;
   FacecopeProcessors *processors;
+
+  int detected_count;
+
+  int recognized_count;
+
+  int detected_humans;
+
+  int recognized_humans;
 };
 
 #endif // FIMAGETHUMBMODEL_H

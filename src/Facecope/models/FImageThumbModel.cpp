@@ -15,6 +15,10 @@ FImageThumbModel::FImageThumbModel(FacecopeProcessors &processors,
   this->processors = &processors;
   this->items[QString("~/Projects/progbase3/res/people3.jpg")] =
       new FImage("/home/zulus/Projects/progbase3/res/people3.jpg");
+  this->detected_count = 0;
+  this->recognized_count = 0;
+  this->detected_humans = 0;
+  this->recognized_humans = 0;
 }
 FImageThumbModel::~FImageThumbModel() {
   foreach (auto image, items) { delete image; }
@@ -56,20 +60,22 @@ QVariant FImageThumbModel::data(const QModelIndex &index, int role) const {
 }
 
 bool FImageThumbModel::load(const QString &path) {
-  qDebug() << "try to insert" + path;
   if (isValid_path(path)) {
+    //
     beginInsertRows(QModelIndex(), 0, 0);
+    //
     loader_mutex.lock();
     items.insert(items.begin(), path, new FImage(path));
     loader_mutex.unlock();
-    qDebug() << "inserted" + path;
+    //
     endInsertRows();
+    //
     return true;
   }
   return false;
 }
 
-void FImageThumbModel::set_image_size(const QSize &newSize) {
+void FImageThumbModel::slot_set_image_size(const QSize &newSize) {
   image_scale_size = newSize;
 }
 
@@ -79,11 +85,20 @@ bool FImageThumbModel::remove(const QString &key) {
   if (items.contains(key)) {
     // calculate pos;
     int pos = items.keys().indexOf(key);
+    //
+    if (items[key]->isDetected()) {
+      detected_count--;
+      detected_humans -= items[key]->get_faces().size();
+    }
+    //
     beginRemoveRows(QModelIndex(), pos, pos);
+    //
     loader_mutex.lock();
     items.remove(key);
     loader_mutex.unlock();
+    //
     endRemoveRows();
+    //
     return true;
   }
   return false;
@@ -93,13 +108,15 @@ bool FImageThumbModel::remove(int index) {
   if (index < 0 || index >= items.size()) {
     return false;
   } else {
-
+    //
     beginRemoveRows(QModelIndex(), index, index);
+    //
     loader_mutex.lock();
     items.remove((items.begin() + index).key());
     loader_mutex.unlock();
+    //
     endRemoveRows();
-
+    //
     return true;
   }
 }
@@ -136,22 +153,37 @@ FacecopeProcessors *FImageThumbModel::get_processors() const {
   return this->processors;
 }
 
-void FImageThumbModel::recognize(int row) {
-  qDebug() << "call recognize";
+void FImageThumbModel::slot_recognize(int row) {
   if (row >= 0 && row < items.size()) {
+    // todo
+    auto image = get_item(row);
+    if (image->isRecognized()) {
+      recognized_count++;
+    }
   }
 }
 
-void FImageThumbModel::detect(int row) {
-  qDebug() << "call detect";
+void FImageThumbModel::slot_detect(int row) {
   if (row >= 0 && row < items.size()) {
-    this->processors->detector->detect_faces(*get_item(row),false,HAAR,20,360);
-    qDebug() << "end detecting";
+    auto image = get_item(row);
+    if (!image->isDetected() ||
+        image->getDetection_steps() < settings->getSteps_of_detection()) {
+      //
+      detected_count += !image->isDetected();
+      detected_humans -= image->get_faces().size();
+      image->clear();
+      //
+      this->processors->detector->detect_faces(
+          *image, false, (settings->getCascade_type() == USE_LBP) ? LBP : HAAR,
+          settings->getSteps_of_detection(), 360);
+      image->set_detected(true, settings->getSteps_of_detection());
+      //
+      detected_humans += image->get_faces().size();
+    }
   }
 }
 
 bool FImageThumbModel::removeRow(int row, const QModelIndex &parent) {
-  //  qDebug() << "call remove " << row;
   if (row >= 0 && row < items.size()) {
     return remove(row);
   } else {
@@ -159,11 +191,29 @@ bool FImageThumbModel::removeRow(int row, const QModelIndex &parent) {
   }
 }
 
-void FImageThumbModel::clear() {
+void FImageThumbModel::slot_clear() {
   this->loader_mutex.lock();
+  //
   beginRemoveRows(QModelIndex(), 0, items.size());
+  //
   foreach (auto image, items) { delete image; }
   items.clear();
+  //
   endRemoveRows();
+  //
+  this->detected_count = 0;
+  this->detected_humans = 0;
+  this->recognized_count = 0;
+  this->recognized_humans = 0;
   this->loader_mutex.unlock();
 }
+
+int FImageThumbModel::get_detected_image_count() { return detected_count; }
+
+int FImageThumbModel::get_recognized_image_count() { return recognized_count; }
+
+int FImageThumbModel::get_detected_faces_count() { return detected_humans; }
+
+int FImageThumbModel::get_recognized_faces_count() { return recognized_humans; }
+
+int FImageThumbModel::get_loaded_images_count() { return items.size(); }

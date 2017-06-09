@@ -32,7 +32,7 @@ signals:
 protected slots:
   void open_files();
   void show_widget();
-  void recognize_webcam();
+  void slot_recognize_webcam();
 
 private:
   void createWidgets();

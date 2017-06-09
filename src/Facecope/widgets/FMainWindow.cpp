@@ -19,9 +19,9 @@ void FMainWindow::connect_signals() {
   connect(ui->action_help, SIGNAL(triggered()), this, SLOT(show_widget()));
   connect(ui->action_back, SIGNAL(triggered()), this, SLOT(show_widget()));
   connect(ui->action_settings, SIGNAL(triggered()), this, SLOT(show_widget()));
-  connect(ui->action_trash, SIGNAL(triggered()), image_model, SLOT(clear()));
+  connect(ui->action_trash, SIGNAL(triggered()), image_model, SLOT(slot_clear()));
   connect(ui->action_delete, SIGNAL(triggered()), working_widget,
-          SLOT(remove_selected()));
+          SLOT(slot_remove_selected()));
   connect(ui->action_run, SIGNAL(triggered()), working_widget,
           SLOT(on_recognize_B_clicked()));
   connect(ui->action_man, SIGNAL(triggered(bool)), working_widget,
@@ -31,7 +31,7 @@ void FMainWindow::connect_signals() {
   connect(ui->action_save, SIGNAL(triggered()), working_widget,
           SLOT(on_save_B_clicked()));
   connect(ui->action_webcam, SIGNAL(triggered()), this,
-          SLOT(recognize_webcam()));
+          SLOT(slot_recognize_webcam()));
 }
 
 FMainWindow::~FMainWindow() {
@@ -42,7 +42,7 @@ FMainWindow::~FMainWindow() {
   delete this->processors.recognizer;
 }
 
-void FMainWindow::recognize_webcam() {}
+void FMainWindow::slot_recognize_webcam() {}
 
 void FMainWindow::createWidgets() {
   //  this->settings.load("");
@@ -64,7 +64,7 @@ void FMainWindow::start() {
 void FMainWindow::open_files() {
   QStringList filesNames = QFileDialog::getOpenFileNames(
       this, QString("Open file"), ".", "Images (*.png  *.jpg);;");
-  working_widget->addImages(filesNames);
+  working_widget->slot_add_images(filesNames);
 }
 void FMainWindow::show_widget() {
   auto sender = QObject::sender();

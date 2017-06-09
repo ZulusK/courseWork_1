@@ -56,6 +56,8 @@ public:
   void load(const QString &path);
   void save(const QString &path = QString());
 
+  void useDefault();
+
 private:
   void setOutput_dir(const QJsonObject &jobj);
   void setThreahold(const QJsonObject &jobj);
