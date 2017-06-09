@@ -12,13 +12,12 @@
 #include <Settings.h>
 enum { GET_FULL_ITEM_PATH = -1 };
 
-class FImageThumbModel : public QAbstractListModel {
+class FMainFacecopeModel : public QAbstractListModel {
   Q_OBJECT
 
 public:
-  explicit FImageThumbModel(FacecopeProcessors &processors, Settings &settings,
-                            QObject *parent = 0);
-  ~FImageThumbModel();
+  explicit FMainFacecopeModel(Facecope &facecope, QObject *parent = 0);
+  ~FMainFacecopeModel();
   // Basic functionality:
   int rowCount(const QModelIndex &parent = QModelIndex()) const override;
   QVariant data(const QModelIndex &index,
@@ -33,7 +32,6 @@ public:
   bool isValid_path(const QString &key);
   FImage *get_item(const QString &path);
   FImage *get_item(int index);
-  FacecopeProcessors *get_processors() const;
   // methods for statistics
   int get_detected_image_count();
   int get_recognized_image_count();
@@ -51,14 +49,10 @@ private:
   QMutex loader_mutex;
   QMap<QString, FImage *> items;
   QSize image_scale_size;
-  Settings *settings;
-  FacecopeProcessors *processors;
+  Facecope *facecope;
   int detected_count;
-
   int recognized_count;
-
   int detected_humans;
-
   int recognized_humans;
 };
 

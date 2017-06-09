@@ -3,17 +3,16 @@
 #include <QPixmap>
 #include <opencv/cv.hpp>
 
-FImageShowDialog::FImageShowDialog(FDatabaseDriver &database, FImage &image,
-                                   Settings &settings, QWidget *parent)
+FImageShowDialog::FImageShowDialog(Facecope &facecope, FImage &image,
+                                   QWidget *parent)
     : QDialog(parent), ui(new Ui::FImageShowDialog) {
   this->f_image = &image;
-  this->settings = &settings;
-  this->database = &database;
+  this->facecope = &facecope;
   ui->setupUi(this);
-  this->draw_area = new FImageDrawAreaWidget(image, settings, this);
+  this->draw_area = new FImageDrawAreaWidget( facecope, image,this);
   ui->splitter->insertWidget(0, draw_area);
   ui->name_lbl->setText(image.get_name().split("/").last());
-  this->model = new FFaceModel(database,image, settings, this);
+  this->model = new FFaceModel(facecope, image, this);
   ui->tableView->setModel(model);
   ui->tableView->resizeColumnsToContents();
   ui->tableView->resizeRowsToContents();

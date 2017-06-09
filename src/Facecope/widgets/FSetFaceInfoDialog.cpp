@@ -1,7 +1,8 @@
 #include "FSetFaceInfoDialog.h"
 #include "ui_FSetFaceInfoDialog.h"
 
-FSetFaceInfoDialog::FSetFaceInfoDialog(QWidget *parent) :
+FSetFaceInfoDialog::FSetFaceInfoDialog(Facecope *facecope, FFace *face, FImage *f_image,
+                                       QWidget *parent ) :
     QDialog(parent),
     ui(new Ui::FSetFaceInfoDialog)
 {
@@ -15,5 +16,5 @@ FSetFaceInfoDialog::~FSetFaceInfoDialog()
 
 void FSetFaceInfoDialog::on_buttonBox_accepted()
 {
-
+    
 }

@@ -1,8 +1,17 @@
+#include <FDatabaseDriver.h>
+#include <FFaceDetector.h>
+#include <FFaceRecognizer.h>
 #include <FacecopeUtils.h>
 #include <QDebug>
 #include <QImageReader>
+#include <FFace.h>
 #include <fstream>
-#include <opencv2/imgcodecs.hpp>
+#include <vector>
+#include "opencv2/core/core.hpp"
+#include "opencv2/face.hpp"
+#include "opencv2/highgui/highgui.hpp"
+#include "opencv2/imgproc/imgproc.hpp"
+#include "opencv2/objdetect/objdetect.hpp"
 using namespace cv;
 using namespace std;
 
@@ -147,7 +156,6 @@ float getAngle_radians(const Point &p1, const Point &p2) {
   return angle;
 }
 
-
 float toDegrees(float radians) { return radians / M_PI * 180.0; }
 
 float toRadians(float degree) { return degree * M_PI / 180.0; }
@@ -198,4 +206,62 @@ Eye createEye(const cv::Rect &frame) {
 Eye getPair(Eye &eye, const Rect &frame) {
   return Eye{.pos = Point(frame.width - eye.pos.x, eye.pos.y),
              .radius = eye.radius};
+}
+
+void learnNewHuman(Facecope &facecope, int id, int gender) {
+  int deviceId = 0;
+  // Get a handle to the Video device:
+  VideoCapture cap(deviceId);
+  // Check if we can use this device at all:
+  if (!cap.isOpened()) {
+    return;
+  }
+  // Holds the current frame from the Video device:
+  Mat frame;
+  vector<Mat> images;
+  vector<int> ids;
+  vector<int> genders;
+  for (int i = 0; i < 100; i++) {
+    cap >> frame;
+    // Find the faces in the frame:
+    vector<FFace * > faces;
+    facecope.detector->detect_faces(frame, faces, true, LBP);
+    Mat original = frame.clone();
+    if (!faces.empty()) {
+      // get first frame
+      Rect face_frame = faces[0]->get_original_frame();
+      ids.push_back(id);
+      genders.push_back(gender);
+      // cropp face
+      Mat face = frame(face_frame);
+      images.push_back(face);
+      int prediction = facecope.recognizer_gender->recognize(face);
+      string box_text = "";
+      if (prediction == 1) {
+        box_text = "man";
+      } else if (prediction == 2) {
+        box_text = "woman";
+      } else {
+        box_text = "not recognized";
+      }
+      rectangle(original, face_frame, CV_RGB(0, 255, 0), 1);
+      int pos_x = std::max(face_frame.tl().x - 10, 0);
+      int pos_y = std::max(face_frame.tl().y - 10, 0);
+      putText(original, box_text, Point(pos_x, pos_y), FONT_HERSHEY_PLAIN, 1.0,
+              CV_RGB(0, 255, 0), 2.0);
+      for(int i=0; i<faces.size();i++){
+          delete faces[i];
+      }
+    }
+    imshow("Facecop (press ESC to break)", original);
+    char key = (char)waitKey(20);
+    if (key == 27)
+      break;
+  }
+  ids.pop_back();
+  ids.push_back(-1);
+  genders.pop_back();
+  genders.push_back(-1);
+  facecope.recognizer_face->learn(images, ids);
+  facecope.recognizer_gender->learn(images, genders);
 }

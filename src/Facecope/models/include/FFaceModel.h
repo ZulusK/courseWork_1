@@ -1,17 +1,16 @@
 #ifndef FFACEMODEL_H
 #define FFACEMODEL_H
 
-#include <FDatabaseDriver.h>
 #include <FFace.h>
 #include <FImage.h>
+#include <FacecopeTypes.h>
 #include <QAbstractTableModel>
 #include <Settings.h>
 class FFaceModel : public QAbstractTableModel {
   Q_OBJECT
 
 public:
-  explicit FFaceModel(FDatabaseDriver & database, FImage &f_image,
-                      Settings &settings, QObject *parent = 0);
+  explicit FFaceModel(Facecope &facecope, FImage &f_image, QObject *parent = 0);
 
   // Basic functionality:
   int rowCount(const QModelIndex &parent = QModelIndex()) const override;
@@ -27,9 +26,8 @@ public slots:
 private:
   QList<QImage> faces;
   FImage *f_image;
-  Settings *settings;
   QSize icons_size;
-  FDatabaseDriver *database;
+  Facecope *facecope;
 };
 
 #endif // FFACEMODEL_H

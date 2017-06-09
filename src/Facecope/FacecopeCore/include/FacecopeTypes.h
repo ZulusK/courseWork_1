@@ -2,18 +2,14 @@
 #define FACECOPETYPES_H
 #include <QString>
 #include <opencv2/imgproc.hpp>
-enum { MALE = 1, FEMALE=2, UNRECOGNIZED=-1 } Sex;
+enum { MALE = 1, FEMALE = 2, UNRECOGNIZED = -1 } Sex;
 
 class FFace;
 class FImage;
 class FFaceDetector;
 class FFaceRecognizer;
-typedef struct {
-  FFaceDetector *detector;
-  FFaceRecognizer *recognizer_face;
-  FFaceRecognizer *recognizer_gender;
-} FacecopeProcessors;
-
+class Settings;
+class FDatabaseDriver;
 typedef struct {
   cv::Point pos;
   int radius;
@@ -26,4 +22,13 @@ typedef struct {
   QString name;
 } Human;
 
+typedef struct {
+  FFaceDetector *detector;
+  FFaceRecognizer *recognizer_face;
+  FFaceRecognizer *recognizer_gender;
+  FDatabaseDriver *database;
+  Settings *settings;
+} Facecope;
+
+void learnNewHuman(Facecope &facecope, int ID, int gender);
 #endif // FACECOPETYPES_H

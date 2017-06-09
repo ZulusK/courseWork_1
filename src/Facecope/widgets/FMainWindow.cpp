@@ -5,6 +5,7 @@
 #include <FSettingsWidget.h>
 #include <FWorkingWidget.h>
 #include <QFileDialog>
+#include <QMessageBox>
 #include <QProgressDialog>
 enum { HELP, WORK, BACK, SETTINGS };
 
@@ -40,34 +41,35 @@ FMainWindow::~FMainWindow() {
   delete ui;
   delete working_widget;
   delete image_model;
-  delete this->processors.detector;
-  this->processors.recognizer_face->save(
-      settings.getRecognizer_path().toStdString());
-  this->processors.recognizer_gender->save(
-      settings.getRecognizer_gender_path().toStdString());
-  delete this->processors.recognizer_face;
-  delete this->processors.recognizer_gender;
-  delete this->database;
+  delete facecope.detector;
+  facecope.recognizer_face->save(
+      facecope.settings->getRecognizer_path().toStdString());
+  facecope.recognizer_gender->save(
+      facecope.settings->getRecognizer_gender_path().toStdString());
+  delete facecope.database;
+  delete facecope.settings;
+  delete facecope.recognizer_face;
+  delete facecope.recognizer_gender;
 }
 
-void FMainWindow::slot_recognize_webcam() {}
-
 void FMainWindow::createWidgets() {
-  this->database = new FDatabaseDriver(settings);
-  this->database->get_user(1);
-  this->processors.detector =
+  this->facecope.settings = new Settings();
+  this->facecope.database = new FDatabaseDriver(settings);
+  this->facecope.database->get_user(1);
+  this->facecope.detector =
       new FFaceDetector(std::string(RESOURCE_PATH) + "cascades/face_haar.xml",
                         std::string(RESOURCE_PATH) + "cascades/face_lbp.xml",
                         std::string(RESOURCE_PATH) + "cascades/eye_haar.xml");
-  this->processors.recognizer_face = new FFaceRecognizer();
-  this->processors.recognizer_gender = new FFaceRecognizer();
-  this->processors.recognizer_face->load(
-      settings.getRecognizer_path().toStdString());
-  this->processors.recognizer_gender->load(
-      settings.getRecognizer_gender_path().toStdString());
-  this->image_model = new FImageThumbModel(processors, settings, this);
-  this->working_widget =
-      new FWorkingWidget(settings, database, image_model, this);
+
+  this->facecope.recognizer_face = new FFaceRecognizer();
+  this->facecope.recognizer_gender = new FFaceRecognizer();
+  this->facecope.recognizer_face->load(
+      facecope.settings->getRecognizer_path().toStdString());
+  this->facecope.recognizer_gender->load(
+      facecope.settings->getRecognizer_gender_path().toStdString());
+
+  this->image_model = new FMainFacecopeModel(facecope, this);
+  this->working_widget = new FWorkingWidget(facecope, image_model, this);
 }
 
 void FMainWindow::start() {
@@ -94,4 +96,20 @@ void FMainWindow::show_widget() {
       setCentralWidget(working_widget);
     }
   }
+}
+
+void FMainWindow::slot_recognize_webcam() {
+  QMessageBox::StandardButton reply;
+  int gender = -1;
+  reply = QMessageBox::question(this, "Choose gender", "Its will be a man?",
+                                QMessageBox::Yes | QMessageBox::No);
+  if (reply == QMessageBox::Yes) {
+    gender = MALE;
+  } else {
+    gender = FEMALE;
+  }
+  this->hide();
+
+  learnNewHuman(facecope, facecope.database->getNextId(), gender);
+  this->show();
 }

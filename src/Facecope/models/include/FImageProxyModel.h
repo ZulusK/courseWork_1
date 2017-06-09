@@ -2,7 +2,6 @@
 #define QIMAGEPROXYMODEL_H
 #include <QSet>
 #include <QSortFilterProxyModel>
-
 class FImageProxyModel : public QSortFilterProxyModel {
   Q_OBJECT
 public:

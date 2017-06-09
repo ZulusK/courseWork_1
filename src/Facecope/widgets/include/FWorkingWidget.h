@@ -2,7 +2,8 @@
 #define FWORKINGWIDGET_H
 
 #include <FImageProxyModel.h>
-#include <FImageThumbModel.h>
+#include <FMainFacecopeModel.h>
+#include <FacecopeTypes.h>
 #include <QCompleter>
 #include <QDragEnterEvent>
 #include <QDropEvent>
@@ -14,7 +15,6 @@
 #include <QUrl>
 #include <QWidget>
 #include <Settings.h>
-#include <FDatabaseDriver.h>
 namespace Ui {
 class FWorkingWidget;
 }
@@ -23,7 +23,7 @@ class FWorkingWidget : public QWidget {
   Q_OBJECT
 
 public:
-  explicit FWorkingWidget(Settings &settings, FDatabaseDriver * database,FImageThumbModel *model,
+  explicit FWorkingWidget(Facecope &facecope, FMainFacecopeModel *model,
                           QWidget *parent = 0);
   ~FWorkingWidget();
 
@@ -71,11 +71,10 @@ private slots:
 
 private:
   Ui::FWorkingWidget *ui;
-  FImageThumbModel *model;
+  FMainFacecopeModel *model;
   FImageProxyModel *model_proxy;
   QCompleter *completer;
-  Settings *settings;
-  FDatabaseDriver * database;
+  Facecope *facecope;
 };
 
 #endif // FWORKINGWIDGET_H

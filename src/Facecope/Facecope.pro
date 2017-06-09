@@ -14,11 +14,11 @@ TEMPLATE = app
 QMAKE_CXXFLAGS += -std=c++14
 
 
-INCLUDEPATH+=ImageWork/         \
+INCLUDEPATH+=FacecopeCore/         \
             include/            \
             widgets/include     \
             models/include      \
-            ImageWork/include   \
+            FacecopeCore/include   \
 
 SOURCES +=\
     main.cpp                            \
@@ -28,17 +28,17 @@ SOURCES +=\
     widgets/FSettingsWidget.cpp         \
     widgets/FImageShowDialog.cpp        \
     widgets/FImageDrawAreaWidget.cpp    \
-    models/FImageThumbModel.cpp         \
+    widgets/FSetFaceInfoDialog.cpp      \
     models/FImageProxyModel.cpp         \
     models/FFaceModel.cpp               \
-    ImageWork/FImage.cpp                \
-    ImageWork/FFace.cpp                 \
-    ImageWork/FacecopeUtils.cpp         \
-    ImageWork/FFaceDetector.cpp         \
-    ImageWork/FFaceRecognizer.cpp       \
-    Settings.cpp                        \
-    FDatabaseDriver.cpp \
-    widgets/FSetFaceInfoDialog.cpp
+    FacecopeCore/FImage.cpp             \
+    FacecopeCore/FFace.cpp              \
+    FacecopeCore/FacecopeUtils.cpp      \
+    FacecopeCore/FFaceDetector.cpp      \
+    FacecopeCore/FFaceRecognizer.cpp    \
+    FacecopeCore/Settings.cpp           \
+    FacecopeCore/FDatabaseDriver.cpp    \
+    models/FMainFacecopeModel.cpp
 
 HEADERS+=\
     widgets/include/FMainWindow.h           \
@@ -48,17 +48,17 @@ HEADERS+=\
     widgets/include/FImageShowDialog.h      \
     widgets/include/FImageDrawAreaWidget.h  \
     models/include/FFaceModel.h             \
-    models/include/FImageThumbModel.h       \
     models/include/FImageProxyModel.h       \
-    ImageWork/include/FImage.h              \
-    ImageWork/include/FFace.h               \
-    ImageWork/include/FacecopeTypes.h       \
-    ImageWork/include/FacecopeUtils.h       \
-    ImageWork/include/FFaceDetector.h       \
-    ImageWork/include/FFaceRecognizer.h     \
-    Settings.h                              \
-    FDatabaseDriver.h \
-    widgets/FSetFaceInfoDialog.h
+    FacecopeCore/include/FImage.h           \
+    FacecopeCore/include/FFace.h            \
+    FacecopeCore/include/FacecopeTypes.h    \
+    FacecopeCore/include/FacecopeUtils.h    \
+    FacecopeCore/include/FFaceDetector.h    \
+    FacecopeCore/include/FFaceRecognizer.h  \
+    FacecopeCore/include/Settingsh          \
+    FacecopeCore/include/FDatabaseDriver.h  \
+    widgets/FSetFaceInfoDialog.h \
+    models/include/FMainFacecopeModel.h
 
 FORMS    +=  \
     widgets/uis/FMainWindow.ui \

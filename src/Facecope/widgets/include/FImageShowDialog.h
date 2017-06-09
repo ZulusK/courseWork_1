@@ -14,8 +14,8 @@ class FImageShowDialog : public QDialog {
   Q_OBJECT
 
 public:
-  explicit FImageShowDialog(FDatabaseDriver &database, FImage &image,
-                            Settings &settings, QWidget *parent = 0);
+  explicit FImageShowDialog(Facecope &facecope, FImage &image,
+                            QWidget *parent = 0);
   ~FImageShowDialog();
 
 private slots:
@@ -26,10 +26,9 @@ private slots:
 private:
   Ui::FImageShowDialog *ui;
   FImage *f_image;
-  Settings *settings;
   FImageDrawAreaWidget *draw_area;
   FFaceModel *model;
-  FDatabaseDriver *database;
+  Facecope *facecope;
 };
 
 #endif // FIMAGESHOWDIALOG_H

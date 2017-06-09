@@ -4,7 +4,7 @@
 #include <FDatabaseDriver.h>
 #include <FFaceDetector.h>
 #include <FFaceRecognizer.h>
-#include <FImageThumbModel.h>
+#include <FMainFacecopeModel.h>
 #include <FWorkingWidget.h>
 #include <FacecopeTypes.h>
 #include <QList>
@@ -43,10 +43,10 @@ private:
   Ui::FMainWindow *ui;
   QMap<QString, QImage> loaded_images;
   bool is_loading_running;
-  FImageThumbModel *image_model;
+  FMainFacecopeModel *image_model;
   FWorkingWidget *working_widget;
   Settings settings;
-  FacecopeProcessors processors;
+  Facecope facecope;
   FDatabaseDriver *database;
 };
 

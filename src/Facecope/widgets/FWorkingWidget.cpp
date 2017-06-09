@@ -7,19 +7,19 @@
 #include <QModelIndexList>
 #include <QProgressDialog>
 #include <QSet>
-FWorkingWidget::FWorkingWidget(Settings &settings, FDatabaseDriver *database,
-                               FImageThumbModel *model, QWidget *parent)
+FWorkingWidget::FWorkingWidget(Facecope &facecope, FMainFacecopeModel *model,
+                               QWidget *parent)
     : QWidget(parent), ui(new Ui::FWorkingWidget) {
   this->model = model;
-  this->settings = &settings;
+  this->facecope=&facecope;
   ui->setupUi(this);
-  this->database = database;
+
   setUp();
 }
 
 void FWorkingWidget::setUp() {
   setAcceptDrops(true);
-  this->model_proxy = new FImageProxyModel();
+  this->model_proxy = new FImageProxyModel(this);
   this->model_proxy->setSourceModel(model);
   ui->list_view->setModel(model_proxy);
 
@@ -118,7 +118,7 @@ void FWorkingWidget::on_list_view_doubleClicked(const QModelIndex &index) {
   //  this->model->slot_detect(model_proxy->mapToSource(index).row());
   this->model->slot_recognize(model_proxy->mapToSource(index).row());
   emit signal_images_changed();
-  FImageShowDialog dialog(*database, *model->get_item(index.row()), *settings,
+  FImageShowDialog dialog(*facecope, *model->get_item(index.row()),
                           this);
   dialog.exec();
 }

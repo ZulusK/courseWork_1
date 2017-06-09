@@ -1,10 +1,11 @@
 #ifndef FIMAGEDRAWAREAWIDGET_H
 #define FIMAGEDRAWAREAWIDGET_H
 
-#include <FImage.h>
-#include <QWidget>
-#include <Settings.h>
+#include <FacecopeTypes.h>
 #include <QPen>
+#include <QWidget>
+#include<FImage.h>
+#include <Settings.h>
 namespace Ui {
 class FImageDrawAreaWidget;
 }
@@ -13,8 +14,7 @@ class FImageDrawAreaWidget : public QWidget {
   Q_OBJECT
 
 public:
-  explicit FImageDrawAreaWidget(FImage &image, Settings &settings,
-                                QWidget *parent = 0);
+  explicit FImageDrawAreaWidget(Facecope &facecope, FImage &image, QWidget *parent = 0);
   ~FImageDrawAreaWidget();
   QSize minimumSizeHint() const override;
 
@@ -26,6 +26,7 @@ protected:
 private:
   Ui::FImageDrawAreaWidget *ui;
   FImage *f_image;
+  Facecope *facecope;
   Settings *settings;
   QPen recognized_male;
   QPen recognized_female;

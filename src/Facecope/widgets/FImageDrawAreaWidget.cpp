@@ -4,12 +4,13 @@
 #include <QColor>
 #include <QDebug>
 #include <QPainter>
+
 #define min(A, B) (((A) > (B)) ? (B) : (A))
-FImageDrawAreaWidget::FImageDrawAreaWidget(FImage &image, Settings &settings,
+FImageDrawAreaWidget::FImageDrawAreaWidget(Facecope &facecope, FImage &image,
                                            QWidget *parent)
     : QWidget(parent), ui(new Ui::FImageDrawAreaWidget) {
   this->f_image = &image;
-  this->settings = &settings;
+  this->facecope = &facecope;
   ui->setupUi(this);
   this->recognized_female = QPen(QColor(244, 66, 185));
   this->recognized_male = QPen(QColor(0, 20, 250));

@@ -74,8 +74,8 @@ bool FDatabaseDriver::set(int id, const QString &key, const QString &value) {
     return false;
   }
 }
+bool FDatabaseDriver::insert(const QString &key, const QString &value) {
 
-int FDatabaseDriver::getNextId() {
   QSqlQuery query;
   if (query.exec("INSERT INTO recognizedHumans (" + value + ")VALUES('" + key +
                  "')")) {
@@ -85,11 +85,11 @@ int FDatabaseDriver::getNextId() {
   }
 }
 
-bool FDatabaseDriver::insert(const QString &key, const QString &value) {
+int FDatabaseDriver::getNextId() {
   QSqlQuery query;
   if (query.exec("SELECT last_insert_rowid()")) {
     query.first();
-    return query.value("last_inserted_rowid()").toString();
+    return query.value("last_inserted_rowid()").toInt();
   } else {
     return false;
   }

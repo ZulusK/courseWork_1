@@ -1,4 +1,4 @@
-#include "FImageThumbModel.h"
+#include "FMainFacecopeModel.h"
 #include <FFace.h>
 #include <FFaceDetector.h>
 #include <FFaceRecognizer.h>
@@ -9,12 +9,10 @@
 #include <QImageReader>
 #include <QPixmap>
 #include <QString>
-FImageThumbModel::FImageThumbModel(FacecopeProcessors &processors,
-                                   Settings &settings, QObject *parent)
+FMainFacecopeModel::FMainFacecopeModel(Facecope &facecope, QObject *parent)
     : QAbstractListModel(parent) {
   this->items = items;
-  this->settings = &settings;
-  this->processors = &processors;
+  this->facecope = &facecope;
   this->items[QString("~/Projects/progbase3/res/people3.jpg")] =
       new FImage("/home/zulus/Projects/progbase3/res/people3.jpg");
   this->detected_count = 0;
@@ -22,15 +20,15 @@ FImageThumbModel::FImageThumbModel(FacecopeProcessors &processors,
   this->detected_humans = 0;
   this->recognized_humans = 0;
 }
-FImageThumbModel::~FImageThumbModel() {
+FMainFacecopeModel::~FMainFacecopeModel() {
   foreach (auto image, items) { delete image; }
 }
 
-int FImageThumbModel::rowCount(const QModelIndex &parent) const {
+int FMainFacecopeModel::rowCount(const QModelIndex &parent) const {
   return items.size();
 }
 
-QVariant FImageThumbModel::data(const QModelIndex &index, int role) const {
+QVariant FMainFacecopeModel::data(const QModelIndex &index, int role) const {
   if (!index.isValid())
     return QVariant();
 
@@ -58,7 +56,7 @@ QVariant FImageThumbModel::data(const QModelIndex &index, int role) const {
   return QVariant();
 }
 
-bool FImageThumbModel::load(const QString &path) {
+bool FMainFacecopeModel::load(const QString &path) {
   if (isValid_path(path)) {
     //
     beginInsertRows(QModelIndex(), 0, 0);
@@ -74,13 +72,13 @@ bool FImageThumbModel::load(const QString &path) {
   return false;
 }
 
-void FImageThumbModel::slot_set_image_size(const QSize &newSize) {
+void FMainFacecopeModel::slot_set_image_size(const QSize &newSize) {
   image_scale_size = newSize;
 }
 
-const QMap<QString, FImage *> &FImageThumbModel::get_items() { return items; }
+const QMap<QString, FImage *> &FMainFacecopeModel::get_items() { return items; }
 
-bool FImageThumbModel::remove(const QString &key) {
+bool FMainFacecopeModel::remove(const QString &key) {
   if (items.contains(key)) {
     // calculate pos;
     int pos = items.keys().indexOf(key);
@@ -103,7 +101,7 @@ bool FImageThumbModel::remove(const QString &key) {
   return false;
 }
 
-bool FImageThumbModel::remove(int index) {
+bool FMainFacecopeModel::remove(int index) {
   if (index < 0 || index >= items.size()) {
     return false;
   } else {
@@ -120,7 +118,7 @@ bool FImageThumbModel::remove(int index) {
   }
 }
 
-bool FImageThumbModel::isValid_path(const QString &key) {
+bool FMainFacecopeModel::isValid_path(const QString &key) {
   if (items.contains(key)) {
     return false;
   }
@@ -132,7 +130,7 @@ bool FImageThumbModel::isValid_path(const QString &key) {
   return true;
 }
 
-FImage *FImageThumbModel::get_item(const QString &path) {
+FImage *FMainFacecopeModel::get_item(const QString &path) {
   if (items.contains(path)) {
     return items[path];
   } else {
@@ -140,7 +138,7 @@ FImage *FImageThumbModel::get_item(const QString &path) {
   }
 }
 
-FImage *FImageThumbModel::get_item(int index) {
+FImage *FMainFacecopeModel::get_item(int index) {
   if (index < 0 || index >= items.size()) {
     return NULL;
   } else {
@@ -148,53 +146,52 @@ FImage *FImageThumbModel::get_item(int index) {
   }
 }
 
-FacecopeProcessors *FImageThumbModel::get_processors() const {
-  return this->processors;
-}
 
-void FImageThumbModel::slot_recognize(int row) {
+void FMainFacecopeModel::slot_recognize(int row) {
   if (row >= 0 && row < items.size()) {
     auto image = get_item(row);
     if (!image->isRecognized() ||
-        image->getThreahold_of_recognition() < settings->getThreahold()) {
+        image->getThreahold_of_recognition() <
+            facecope->settings->getThreahold()) {
       slot_detect(row);
       //
       recognized_count += !image->isRecognized();
       recognized_humans -= image->get_faces().size();
       //
-      this->processors->recognizer_gender->set_threahold(
-          settings->getThreahold());
+      this->facecope->recognizer_gender->set_threahold(
+          this->facecope->settings->getThreahold());
       foreach (auto face, image->get_faces()) {
         auto face_image = image->get_face_cv_image(face);
-        int gender = this->processors->recognizer_gender->recognize(face_image);
-        int ID = this->processors->recognizer_face->recognize(face_image);
+        int gender = facecope->recognizer_gender->recognize(face_image);
+        int ID = facecope->recognizer_face->recognize(face_image);
 
         Human info;
         info.face = face;
         info.gender = gender;
         info.ID = ID;
         face->set_info(info);
-
       }
-      image->set_recognized(true, settings->getThreahold());
+      image->set_recognized(true, facecope->settings->getThreahold());
     }
   }
 }
 
-void FImageThumbModel::slot_detect(int row) {
+void FMainFacecopeModel::slot_detect(int row) {
   if (row >= 0 && row < items.size()) {
     auto image = get_item(row);
     if (!image->isDetected() ||
-        image->getDetection_steps() < settings->getSteps_of_detection()) {
+        image->getDetection_steps() <
+            facecope->settings->getSteps_of_detection()) {
       //
       detected_count += !image->isDetected();
       detected_humans -= image->get_faces().size();
       image->clear();
       //
-      this->processors->detector->detect_faces(
-          *image, false, (settings->getCascade_type() == USE_LBP) ? LBP : HAAR,
-          settings->getSteps_of_detection(), 360);
-      image->set_detected(true, settings->getSteps_of_detection());
+      facecope->detector->detect_faces(
+          *image, false,
+          (facecope->settings->getCascade_type() == USE_LBP) ? LBP : HAAR,
+          facecope->settings->getSteps_of_detection(), 360);
+      image->set_detected(true, facecope->settings->getSteps_of_detection());
       image->set_recognized(false, -1);
       //
       detected_humans += image->get_faces().size();
@@ -202,7 +199,7 @@ void FImageThumbModel::slot_detect(int row) {
   }
 }
 
-bool FImageThumbModel::removeRow(int row, const QModelIndex &parent) {
+bool FMainFacecopeModel::removeRow(int row, const QModelIndex &parent) {
   if (row >= 0 && row < items.size()) {
     return remove(row);
   } else {
@@ -210,7 +207,7 @@ bool FImageThumbModel::removeRow(int row, const QModelIndex &parent) {
   }
 }
 
-void FImageThumbModel::slot_clear() {
+void FMainFacecopeModel::slot_clear() {
   this->loader_mutex.lock();
   //
   beginRemoveRows(QModelIndex(), 0, items.size());
@@ -227,12 +224,16 @@ void FImageThumbModel::slot_clear() {
   this->loader_mutex.unlock();
 }
 
-int FImageThumbModel::get_detected_image_count() { return detected_count; }
+int FMainFacecopeModel::get_detected_image_count() { return detected_count; }
 
-int FImageThumbModel::get_recognized_image_count() { return recognized_count; }
+int FMainFacecopeModel::get_recognized_image_count() {
+  return recognized_count;
+}
 
-int FImageThumbModel::get_detected_faces_count() { return detected_humans; }
+int FMainFacecopeModel::get_detected_faces_count() { return detected_humans; }
 
-int FImageThumbModel::get_recognized_faces_count() { return recognized_humans; }
+int FMainFacecopeModel::get_recognized_faces_count() {
+  return recognized_humans;
+}
 
-int FImageThumbModel::get_loaded_images_count() { return items.size(); }
+int FMainFacecopeModel::get_loaded_images_count() { return items.size(); }
