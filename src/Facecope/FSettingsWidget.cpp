@@ -40,16 +40,17 @@ void FSettingsWidget::on_cutFiles_CB_clicked() {
 void FSettingsWidget::on_selectOutDir_B_clicked() {
 
   QString dirName = QFileDialog::getExistingDirectory(
-      this, tr("Open Directory"), "/home",
+      this, tr("Open Directory"), "~/",
       QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
-  settings->setOutput_dir(dirName + ((dirName.endsWith("/")) ? "" : "/"));
+  if (dirName.length() > 0)
+    settings->setOutput_dir(dirName + ((dirName.endsWith("/")) ? "" : "/"));
 }
 
 void FSettingsWidget::on_selectDatabase_B_clicked() {
-  QString dirName = QFileDialog::getExistingDirectory(
-      this, tr("Open Directory"), "/home",
-      QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
-  settings->setDatabase_path(dirName + ((dirName.endsWith("/")) ? "" : "/"));
+  QString fileName = QFileDialog::getOpenFileName(
+      this, QString(tr("Open database")), ".", "Database (*.db);;");
+  if (fileName.length() > 1)
+    settings->setDatabase_path(fileName);
 }
 
 void FSettingsWidget::on_threahold_SB_valueChanged(double arg1) {
@@ -77,8 +78,7 @@ void FSettingsWidget::on_import_B_clicked() {
       this, QString("Open file"), settings->getSave_settings_path(),
       "Settings (settings.fcp);;");
   settings->load(fileName);
-    showSettings();
-
+  showSettings();
 }
 
 void FSettingsWidget::on_export_B_clicked() {

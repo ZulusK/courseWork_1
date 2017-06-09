@@ -22,6 +22,16 @@ void FMainWindow::connect_signals() {
   connect(ui->action_trash, SIGNAL(triggered()), image_model, SLOT(clear()));
   connect(ui->action_delete, SIGNAL(triggered()), working_widget,
           SLOT(remove_selected()));
+  connect(ui->action_run, SIGNAL(triggered()), working_widget,
+          SLOT(on_recognize_B_clicked()));
+  connect(ui->action_man, SIGNAL(triggered(bool)), working_widget,
+          SLOT(on_show_man(bool)));
+  connect(ui->action_woman, SIGNAL(triggered(bool)), working_widget,
+          SLOT(on_show_woman(bool)));
+  connect(ui->action_save, SIGNAL(triggered()), working_widget,
+          SLOT(on_save_B_clicked()));
+  connect(ui->action_webcam, SIGNAL(triggered()), this,
+          SLOT(recognize_webcam()));
 }
 
 FMainWindow::~FMainWindow() {
@@ -32,11 +42,14 @@ FMainWindow::~FMainWindow() {
   delete this->processors.recognizer;
 }
 
+void FMainWindow::recognize_webcam() {}
+
 void FMainWindow::createWidgets() {
   //  this->settings.load("");
-  this->processors.detector = new FFaceDetector(
-      std::string(RESOURCE_PATH)+"cascades/face_haar.xml", std::string(RESOURCE_PATH)+"cascades/face_lbp.xml",
-      std::string(RESOURCE_PATH)+"cascades/eye_haar.xml");
+  this->processors.detector =
+      new FFaceDetector(std::string(RESOURCE_PATH) + "cascades/face_haar.xml",
+                        std::string(RESOURCE_PATH) + "cascades/face_lbp.xml",
+                        std::string(RESOURCE_PATH) + "cascades/eye_haar.xml");
   this->processors.recognizer = new FFaceRecognizer();
   this->image_model = new FImageThumbModel(processors, settings, this);
   this->working_widget = new FWorkingWidget(settings, image_model, this);

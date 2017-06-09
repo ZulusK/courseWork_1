@@ -40,11 +40,28 @@ public slots:
 
 private slots:
   void dropEvent(QDropEvent *e);
+
   void dragEnterEvent(QDragEnterEvent *e);
-  void on_horizontalSlider_sliderMoved(int position);
+
   void on_list_view_doubleClicked(const QModelIndex &index);
-  void on_horizontalSlider_2_valueChanged(int value);
-  void on_spinBox_valueChanged(int arg1);
+
+  void on_selecthuman_CB_currentIndexChanged(int index);
+
+  void on_show_rec_RB_clicked();
+
+  void on_show_UR_RB_clicked();
+
+  void on_detect_B_clicked();
+
+  void on_recognize_B_clicked();
+
+  void on_save_B_clicked();
+
+  void on_clear_B_clicked();
+
+  void on_sizeSlider_sliderMoved(int position);
+  void on_show_woman(bool enable);
+  void on_show_man(bool enable);
 
 private:
   void setUp();

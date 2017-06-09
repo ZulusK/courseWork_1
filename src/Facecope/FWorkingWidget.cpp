@@ -22,16 +22,16 @@ void FWorkingWidget::setUp() {
   ui->list_view->setModel(model_proxy);
 
   this->completer = new QCompleter(this);
-  this->completer->setModel(ui->comboBox->model());
+  this->completer->setModel(ui->selecthuman_CB->model());
   this->completer->setCaseSensitivity(Qt::CaseSensitive);
-  ui->comboBox->setCompleter(completer);
+  ui->selecthuman_CB->setCompleter(completer);
 
   connect(this, SIGNAL(signal_load_images(QList<QUrl>)), this,
           SLOT(addImages(QList<QUrl>)));
   connect(this, SIGNAL(signal_load_images(QStringList)), this,
           SLOT(addImages(QStringList)));
   connect(this, SIGNAL(signal_detect_face(int)), model, SLOT(detect(int)));
-  on_horizontalSlider_sliderMoved(300);
+  on_sizeSlider_sliderMoved(300);
 }
 
 FWorkingWidget::~FWorkingWidget() {
@@ -81,7 +81,7 @@ void FWorkingWidget::addImages(const QStringList &urls) {
   dialog.hide();
 }
 
-void FWorkingWidget::on_horizontalSlider_sliderMoved(int position) {
+void FWorkingWidget::on_sizeSlider_sliderMoved(int position) {
   float width = ui->list_view->rect().width() * position / 100.0;
   float height = ui->list_view->rect().height() * position / 100.0;
   this->model->set_image_size(QSize(width, height));
@@ -96,13 +96,6 @@ void FWorkingWidget::on_list_view_doubleClicked(const QModelIndex &index) {
   dialog.exec();
 }
 
-void FWorkingWidget::on_horizontalSlider_2_valueChanged(int value) {
-  ui->spinBox->setValue(value);
-}
-
-void FWorkingWidget::on_spinBox_valueChanged(int arg1) {
-  ui->horizontalSlider_2->setValue(arg1);
-}
 
 void FWorkingWidget::remove_selected() {
   auto indexList = ui->list_view->selectionModel()->selectedRows();
@@ -110,4 +103,47 @@ void FWorkingWidget::remove_selected() {
     qDebug() << "try to remove " + model_proxy->mapToSource(proxy_index).row();
     model->removeRow(model_proxy->mapToSource(proxy_index).row());
   }
+}
+
+void FWorkingWidget::on_selecthuman_CB_currentIndexChanged(int index)
+{
+    qDebug()<<ui->selecthuman_CB->currentText()<<endl;
+}
+
+void FWorkingWidget::on_show_rec_RB_clicked()
+{
+
+}
+
+void FWorkingWidget::on_show_UR_RB_clicked()
+{
+
+}
+
+void FWorkingWidget::on_detect_B_clicked()
+{
+
+}
+
+void FWorkingWidget::on_recognize_B_clicked()
+{
+
+}
+
+void FWorkingWidget::on_save_B_clicked()
+{
+
+}
+
+void FWorkingWidget::on_clear_B_clicked()
+{
+    ui->selecthuman_CB->setCurrentIndex(0);
+}
+
+void FWorkingWidget::on_show_woman(bool enable){
+
+}
+
+void FWorkingWidget::on_show_man(bool enable){
+
 }

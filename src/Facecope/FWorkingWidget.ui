@@ -43,7 +43,11 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QLineEdit" name="lineEdit"/>
+          <widget class="QLineEdit" name="loaded_E">
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+          </widget>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="label_3">
@@ -53,30 +57,46 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QLineEdit" name="lineEdit_2"/>
+          <widget class="QLineEdit" name="showImage_E">
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+          </widget>
          </item>
          <item row="2" column="0">
           <widget class="QLabel" name="label_4">
            <property name="text">
-            <string>detected</string>
+            <string>detected photos</string>
            </property>
           </widget>
          </item>
          <item row="2" column="1">
-          <widget class="QLineEdit" name="lineEdit_3"/>
+          <widget class="QLineEdit" name="detectedPhotos_E">
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+          </widget>
          </item>
          <item row="3" column="0">
           <widget class="QLabel" name="label_5">
            <property name="text">
-            <string>recognized</string>
+            <string>recognized photos</string>
            </property>
           </widget>
          </item>
          <item row="3" column="1">
-          <widget class="QLineEdit" name="lineEdit_4"/>
+          <widget class="QLineEdit" name="recognizedPhotos_E">
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+          </widget>
          </item>
          <item row="4" column="1">
-          <widget class="QLineEdit" name="lineEdit_5"/>
+          <widget class="QLineEdit" name="detected_E">
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+          </widget>
          </item>
          <item row="5" column="0">
           <widget class="QLabel" name="personRecognizedLabel">
@@ -86,7 +106,11 @@
           </widget>
          </item>
          <item row="5" column="1">
-          <widget class="QLineEdit" name="personRecognizedLineEdit"/>
+          <widget class="QLineEdit" name="recognized_E">
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+          </widget>
          </item>
          <item row="4" column="0">
           <widget class="QLabel" name="label_6">
@@ -120,7 +144,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="comboBox">
+          <widget class="QComboBox" name="selecthuman_CB">
            <property name="editable">
             <bool>true</bool>
            </property>
@@ -140,32 +164,27 @@
         </layout>
        </item>
        <item>
-        <widget class="QRadioButton" name="radioButton">
-         <property name="text">
-          <string>show recognized</string>
+        <widget class="QGroupBox" name="groupBox_2">
+         <property name="title">
+          <string>Display settings</string>
          </property>
+         <layout class="QVBoxLayout" name="verticalLayout_6">
+          <item>
+           <widget class="QRadioButton" name="show_rec_RB">
+            <property name="text">
+             <string>show recognized</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="show_UR_RB">
+            <property name="text">
+             <string>show unrecognized</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
-       </item>
-       <item>
-        <widget class="QRadioButton" name="radioButton_2">
-         <property name="text">
-          <string>show unrecognized</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_4">
-         <item>
-          <widget class="QSlider" name="horizontalSlider_2">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QSpinBox" name="spinBox"/>
-         </item>
-        </layout>
        </item>
        <item>
         <widget class="Line" name="line_2">
@@ -179,14 +198,14 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_3">
            <item>
-            <widget class="QPushButton" name="pushButton">
+            <widget class="QPushButton" name="detect_B">
              <property name="text">
               <string>detect</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_2">
+            <widget class="QPushButton" name="recognize_B">
              <property name="text">
               <string>recognize</string>
              </property>
@@ -197,14 +216,14 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
-            <widget class="QPushButton" name="pushButton_3">
+            <widget class="QPushButton" name="save_B">
              <property name="text">
               <string>save</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_4">
+            <widget class="QPushButton" name="clear_B">
              <property name="text">
               <string>clear</string>
              </property>
@@ -274,7 +293,7 @@ margin:5px;
           </spacer>
          </item>
          <item>
-          <widget class="QSlider" name="horizontalSlider">
+          <widget class="QSlider" name="sizeSlider">
            <property name="minimum">
             <number>25</number>
            </property>
