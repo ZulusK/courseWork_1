@@ -1,0 +1,44 @@
+\hypertarget{classFFaceRecognizer}{}\section{F\+Face\+Recognizer Class Reference}
+\label{classFFaceRecognizer}\index{F\+Face\+Recognizer@{F\+Face\+Recognizer}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classFFaceRecognizer_ae6cbd9976fcef82a1810c900461e4324}\label{classFFaceRecognizer_ae6cbd9976fcef82a1810c900461e4324}} 
+{\bfseries F\+Face\+Recognizer} (const std\+::string \&dir\+Path, const cv\+::\+Size \&size\+Of\+Image=cv\+::\+Size(150, 150), int num\+Of\+Components=80, double threahold=D\+B\+L\+\_\+\+M\+AX)
+\item 
+\mbox{\Hypertarget{classFFaceRecognizer_af53533828fa55959003de034ce36f5bc}\label{classFFaceRecognizer_af53533828fa55959003de034ce36f5bc}} 
+{\bfseries F\+Face\+Recognizer} (const cv\+::\+Size \&image\+Scale\+Size=cv\+::\+Size(150, 150))
+\item 
+\mbox{\Hypertarget{classFFaceRecognizer_aa115a2ee94b62ba56c24677681d90cf5}\label{classFFaceRecognizer_aa115a2ee94b62ba56c24677681d90cf5}} 
+int {\bfseries recognize} (const cv\+::\+Mat \&face)
+\item 
+\mbox{\Hypertarget{classFFaceRecognizer_aad62aeda81f1f80a1474a8c4b7cdffa6}\label{classFFaceRecognizer_aad62aeda81f1f80a1474a8c4b7cdffa6}} 
+bool {\bfseries load} (const std\+::string \&load\+Path)
+\item 
+\mbox{\Hypertarget{classFFaceRecognizer_a69dc6bf3209b3e8b46e0315682281ada}\label{classFFaceRecognizer_a69dc6bf3209b3e8b46e0315682281ada}} 
+bool {\bfseries save} (const std\+::string \&save\+Path)
+\item 
+\mbox{\Hypertarget{classFFaceRecognizer_a281e25216015de853e1cf01689e13d9c}\label{classFFaceRecognizer_a281e25216015de853e1cf01689e13d9c}} 
+void {\bfseries set\+\_\+threahold} (double threahold)
+\item 
+\mbox{\Hypertarget{classFFaceRecognizer_a2e482df0822dc7747ef5cff0a31b75a8}\label{classFFaceRecognizer_a2e482df0822dc7747ef5cff0a31b75a8}} 
+double {\bfseries get\+\_\+threahold} ()
+\item 
+\mbox{\Hypertarget{classFFaceRecognizer_aeead25d21c46e87d6895fb63a80a084f}\label{classFFaceRecognizer_aeead25d21c46e87d6895fb63a80a084f}} 
+int {\bfseries get\+\_\+num\+\_\+of\+\_\+components} ()
+\item 
+\mbox{\Hypertarget{classFFaceRecognizer_ae26c8de753c3a5c48b2270d1e80d769c}\label{classFFaceRecognizer_ae26c8de753c3a5c48b2270d1e80d769c}} 
+void {\bfseries set\+\_\+num\+\_\+of\+\_\+components} (int number)
+\item 
+\mbox{\Hypertarget{classFFaceRecognizer_ad8d59cc8cd95ee58877b49f59bfbc48a}\label{classFFaceRecognizer_ad8d59cc8cd95ee58877b49f59bfbc48a}} 
+bool {\bfseries learn} (const std\+::vector$<$ cv\+::\+Mat $>$ \&images, const std\+::vector$<$ int $>$ labels)
+\item 
+\mbox{\Hypertarget{classFFaceRecognizer_a417ead8d39d07d5b1cbfc5b8ac95f014}\label{classFFaceRecognizer_a417ead8d39d07d5b1cbfc5b8ac95f014}} 
+cv\+::\+Size {\bfseries get\+\_\+size\+\_\+of\+\_\+image} ()
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Facecope/\+Facecope\+Core/include/F\+Face\+Recognizer.\+h\item 
+Facecope/\+Facecope\+Core/F\+Face\+Recognizer.\+cpp\end{DoxyCompactItemize}

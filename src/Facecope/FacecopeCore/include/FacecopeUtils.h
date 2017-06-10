@@ -1,3 +1,6 @@
+/** @file
+    @brief defines usefull fuctions for image transforation
+*/
 #ifndef FACECOPEUTILS_H
 #define FACECOPEUTILS_H
 

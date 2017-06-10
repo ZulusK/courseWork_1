@@ -1,0 +1,23 @@
+\hypertarget{classFFaceDetector}{}\section{F\+Face\+Detector Class Reference}
+\label{classFFaceDetector}\index{F\+Face\+Detector@{F\+Face\+Detector}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classFFaceDetector_a85d71ee3f97ea60bcd7adc94d68d30e6}\label{classFFaceDetector_a85d71ee3f97ea60bcd7adc94d68d30e6}} 
+{\bfseries F\+Face\+Detector} (const std\+::string \&cascades\+Dir\+\_\+face\+\_\+haar=C\+A\+S\+C\+A\+D\+E\+\_\+\+F\+A\+C\+E\+\_\+\+H\+A\+A\+R\+\_\+\+P\+A\+TH, const std\+::string \&cascades\+Dir\+\_\+face\+\_\+lbp=C\+A\+S\+C\+A\+D\+E\+\_\+\+F\+A\+C\+E\+\_\+\+L\+B\+P\+\_\+\+P\+A\+TH, const std\+::string \&cascades\+Dir\+\_\+eye\+\_\+haar=C\+A\+S\+C\+A\+D\+E\+\_\+\+E\+Y\+E\+S\+\_\+\+H\+A\+A\+R\+\_\+\+P\+A\+TH)
+\item 
+\mbox{\Hypertarget{classFFaceDetector_a734d9d1224a97db0db4556e2804bb04c}\label{classFFaceDetector_a734d9d1224a97db0db4556e2804bb04c}} 
+void {\bfseries detect\+\_\+faces} (\hyperlink{classFImage}{F\+Image} \&image, bool remove\+Face\+Without\+Eye=false, int cascade\+\_\+type=H\+A\+AR, int steps=0, int angle\+\_\+range=360, double scale\+Factor=1.\+2, cv\+::\+Size min\+\_\+size\+\_\+ratio=cv\+::\+Size(), cv\+::\+Size max\+\_\+size\+\_\+ratio=cv\+::\+Size())
+\item 
+\mbox{\Hypertarget{classFFaceDetector_a6bf029be40508d735d440f193083d2a9}\label{classFFaceDetector_a6bf029be40508d735d440f193083d2a9}} 
+void {\bfseries detect\+\_\+faces} (const cv\+::\+Mat \&image, std\+::vector$<$ \hyperlink{classFFace}{F\+Face} $\ast$$>$ \&faces, bool remove\+Face\+Without\+Eye=false, int cascade\+\_\+type=H\+A\+AR, int steps=0, int angle\+\_\+range=360, double scale\+Factor=1.\+2, cv\+::\+Size min\+\_\+size\+\_\+ratio=cv\+::\+Size(), cv\+::\+Size max\+\_\+size\+\_\+ratio=cv\+::\+Size())
+\item 
+\mbox{\Hypertarget{classFFaceDetector_a1799777797a5153b50b40615ae58e953}\label{classFFaceDetector_a1799777797a5153b50b40615ae58e953}} 
+bool {\bfseries is\+Loaded} (int what)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Facecope/\+Facecope\+Core/include/F\+Face\+Detector.\+h\item 
+Facecope/\+Facecope\+Core/F\+Face\+Detector.\+cpp\end{DoxyCompactItemize}

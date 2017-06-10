@@ -1,3 +1,6 @@
+/** @file
+    @brief defines drawing area with faces-widget
+*/
 #ifndef FIMAGEDRAWAREAWIDGET_H
 #define FIMAGEDRAWAREAWIDGET_H
 

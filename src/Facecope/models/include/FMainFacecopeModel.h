@@ -1,3 +1,6 @@
+/** @file
+    @brief The announcement of the main model of user interaction with photo data
+*/
 #ifndef FIMAGETHUMBMODEL_H
 #define FIMAGETHUMBMODEL_H
 

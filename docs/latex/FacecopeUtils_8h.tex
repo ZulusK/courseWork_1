@@ -1,0 +1,95 @@
+\hypertarget{FacecopeUtils_8h}{}\section{Facecope/\+Facecope\+Core/include/\+Facecope\+Utils.h File Reference}
+\label{FacecopeUtils_8h}\index{Facecope/\+Facecope\+Core/include/\+Facecope\+Utils.\+h@{Facecope/\+Facecope\+Core/include/\+Facecope\+Utils.\+h}}
+
+
+defines usefull fuctions for image transforation  
+
+
+{\ttfamily \#include $<$Facecope\+Types.\+h$>$}\newline
+{\ttfamily \#include $<$Q\+Image$>$}\newline
+{\ttfamily \#include $<$Q\+String$>$}\newline
+{\ttfamily \#include $<$opencv2/imgproc.\+hpp$>$}\newline
+Include dependency graph for Facecope\+Utils.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{FacecopeUtils_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=210pt]{FacecopeUtils_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{FacecopeUtils_8h_a6c96cc230a295d8c1fc9c9e27f73d7eb}\label{FacecopeUtils_8h_a6c96cc230a295d8c1fc9c9e27f73d7eb}} 
+Q\+Image {\bfseries Mat2\+Q\+Image} (const cv\+::\+Mat \&cv\+\_\+image)
+\item 
+\mbox{\Hypertarget{FacecopeUtils_8h_a588fe30cf79103aba88c3558b4d34915}\label{FacecopeUtils_8h_a588fe30cf79103aba88c3558b4d34915}} 
+cv\+::\+Mat {\bfseries Q\+Image2\+Mat} (const Q\+Image \&q\+\_\+image)
+\item 
+\mbox{\Hypertarget{FacecopeUtils_8h_abfe582409bcd7f0348692611f4d9b48b}\label{FacecopeUtils_8h_abfe582409bcd7f0348692611f4d9b48b}} 
+bool {\bfseries is\+Image} (const Q\+String \&path)
+\item 
+\mbox{\Hypertarget{FacecopeUtils_8h_a42938b905cd2fc15914b4ad4c89519fe}\label{FacecopeUtils_8h_a42938b905cd2fc15914b4ad4c89519fe}} 
+cv\+::\+Mat {\bfseries to\+Gray} (const cv\+::\+Mat \&src)
+\item 
+\mbox{\Hypertarget{FacecopeUtils_8h_a83fbeac8ca9be52ddcb69a0a03a1216d}\label{FacecopeUtils_8h_a83fbeac8ca9be52ddcb69a0a03a1216d}} 
+cv\+::\+Mat {\bfseries cut} (const cv\+::\+Mat \&original, const cv\+::\+Rect \&frame)
+\item 
+\mbox{\Hypertarget{FacecopeUtils_8h_a8b6ec68f07e8687aa1924a8868cd5df0}\label{FacecopeUtils_8h_a8b6ec68f07e8687aa1924a8868cd5df0}} 
+\hyperlink{structEye}{Eye} {\bfseries create\+Eye} (const cv\+::\+Rect \&frame)
+\item 
+\mbox{\Hypertarget{FacecopeUtils_8h_a7b743dba2e6894161831905c7752743f}\label{FacecopeUtils_8h_a7b743dba2e6894161831905c7752743f}} 
+\hyperlink{structEye}{Eye} {\bfseries get\+Pair} (\hyperlink{structEye}{Eye} \&eye, const cv\+::\+Rect \&frame)
+\item 
+\mbox{\Hypertarget{FacecopeUtils_8h_aeacb9fcf0bd49a6530548454872fbae1}\label{FacecopeUtils_8h_aeacb9fcf0bd49a6530548454872fbae1}} 
+cv\+::\+Point {\bfseries get\+Center} (const cv\+::\+Rect \&rect)
+\item 
+\mbox{\Hypertarget{FacecopeUtils_8h_ad50ba094e4ffcb058262d846b15a87b8}\label{FacecopeUtils_8h_ad50ba094e4ffcb058262d846b15a87b8}} 
+cv\+::\+Point {\bfseries get\+Center} (const cv\+::\+Mat \&M)
+\item 
+\mbox{\Hypertarget{FacecopeUtils_8h_a07fbb220752489abc0f8f1c531739001}\label{FacecopeUtils_8h_a07fbb220752489abc0f8f1c531739001}} 
+bool {\bfseries is\+File\+Exist} (const std\+::string \&path)
+\item 
+\mbox{\Hypertarget{FacecopeUtils_8h_abc260db414c3b757337994f9dc560737}\label{FacecopeUtils_8h_abc260db414c3b757337994f9dc560737}} 
+float {\bfseries get\+Angle\+\_\+radians} (const cv\+::\+Point \&p1, const cv\+::\+Point \&p2)
+\item 
+\mbox{\Hypertarget{FacecopeUtils_8h_a46f4af3bc6187d57458df35b654b6df5}\label{FacecopeUtils_8h_a46f4af3bc6187d57458df35b654b6df5}} 
+float {\bfseries to\+Degrees} (float radians)
+\item 
+\mbox{\Hypertarget{FacecopeUtils_8h_af2303ff3ec9c1d09c978fe6bcced33ee}\label{FacecopeUtils_8h_af2303ff3ec9c1d09c978fe6bcced33ee}} 
+float {\bfseries to\+Radians} (float degree)
+\item 
+\mbox{\Hypertarget{FacecopeUtils_8h_a058d10b7bfade5dbfbf2c31cc985c34a}\label{FacecopeUtils_8h_a058d10b7bfade5dbfbf2c31cc985c34a}} 
+cv\+::\+Size {\bfseries get\+Size} (const cv\+::\+Mat \&M, float scale)
+\item 
+\mbox{\Hypertarget{FacecopeUtils_8h_a8c064e59942fe91d03194f0d8702ddec}\label{FacecopeUtils_8h_a8c064e59942fe91d03194f0d8702ddec}} 
+cv\+::\+Size {\bfseries get\+Size} (const cv\+::\+Rect \&R, float scale)
+\item 
+\mbox{\Hypertarget{FacecopeUtils_8h_adcd8eb6ae8250995106fd01ace424ee7}\label{FacecopeUtils_8h_adcd8eb6ae8250995106fd01ace424ee7}} 
+void {\bfseries rotate\+Rect} (cv\+::\+Rect \&R, const cv\+::\+Point2f \&center, float angle)
+\item 
+\mbox{\Hypertarget{FacecopeUtils_8h_a6ec8a7cd0a66c0293f97ca9d7bbba7fe}\label{FacecopeUtils_8h_a6ec8a7cd0a66c0293f97ca9d7bbba7fe}} 
+void {\bfseries rotate\+Point} (int \&x, int \&y, const cv\+::\+Point \&center, float angle)
+\item 
+\mbox{\Hypertarget{FacecopeUtils_8h_a9b33abe1c7579f7097105a6571ff63ee}\label{FacecopeUtils_8h_a9b33abe1c7579f7097105a6571ff63ee}} 
+void {\bfseries rotate\+Point} (cv\+::\+Point \&point, const cv\+::\+Point \&center, float angle)
+\item 
+\mbox{\Hypertarget{FacecopeUtils_8h_a6346d71220bbdc2c11abc7b72602e76f}\label{FacecopeUtils_8h_a6346d71220bbdc2c11abc7b72602e76f}} 
+cv\+::\+Mat {\bfseries rotate} (const cv\+::\+Mat \&image, float degree, bool increase\+Bounds=false)
+\item 
+\mbox{\Hypertarget{FacecopeUtils_8h_af3e733e53f31a385d86e8eb532e1ae7c}\label{FacecopeUtils_8h_af3e733e53f31a385d86e8eb532e1ae7c}} 
+void {\bfseries disable\+Area} (cv\+::\+Mat \&image, const cv\+::\+Rect \&rect)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+defines usefull fuctions for image transforation 
+

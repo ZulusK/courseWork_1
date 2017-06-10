@@ -1,3 +1,6 @@
+/** @file
+    @brief defines settings-widget
+*/
 #ifndef FSETTINGSWIDGET_H
 #define FSETTINGSWIDGET_H
 

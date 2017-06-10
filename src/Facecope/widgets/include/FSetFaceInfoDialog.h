@@ -1,3 +1,6 @@
+/** @file
+    @brief defines dialog for editing labels of face
+*/
 #ifndef FSETFACEINFODIALOG_H
 #define FSETFACEINFODIALOG_H
 

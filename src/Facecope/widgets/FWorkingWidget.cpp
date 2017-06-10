@@ -197,11 +197,13 @@ void FWorkingWidget::on_save_B_clicked() {
   QString newpath = facecope->settings->getOutput_path();
   QString home = QDir::home().absolutePath();
   newpath.replace("~", home);
-
+  newpath += "/Facecope Output";
+  QDir().mkdir(newpath);
   QDir().mkdir(newpath + "/males");
   QDir().mkdir(newpath + "/females");
   QDir().mkdir(newpath + "/not recognized");
-
+  QDir().mkdir(newpath + "/not recognized");
+  QDir().mkdir(newpath + "/both");
   on_recognize_B_clicked();
   auto list = model->get_paths();
   int i = 0;
@@ -210,12 +212,14 @@ void FWorkingWidget::on_save_B_clicked() {
     bool is_male = it.value()->contains(MALE);
     bool is_female = it.value()->contains(FEMALE);
     QString subpath;
-    if ((is_male && is_female) || (!is_male && !is_female)) {
-      subpath = "not recognized/";
+    if (is_male && is_female) {
+      subpath = "/both/";
     } else if (is_male) {
-      subpath = "males/";
+      subpath = "/males/";
+    } else if (is_female) {
+      subpath = "/females/";
     } else {
-      subpath = "female/";
+      subpath = "/not recognized/";
     }
     it++;
 
@@ -224,6 +228,7 @@ void FWorkingWidget::on_save_B_clicked() {
       if (facecope->settings->getCut_files()) {
         QFile::remove(oldpath);
       }
+      qDebug() << "copied";
     }
   }
 }

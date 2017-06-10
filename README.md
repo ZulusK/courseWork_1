@@ -12,3 +12,19 @@ __Facecope__ is a desktop application for control and management image files sto
 5. etc.
 
 As mentioned above, the main purpose Facecope - automation of routine management of images, browsing, organizing and limited photo editing, indexing them on your hard drive.
+
+### Supporting platforms
+Linux Ubuntu
+MacOS
+
+### Before start
+* ##### Install gtk+3 
+ `sudo apt-get install libgtk-3-dev`
+* ##### Install opencv2:
+`git clone https://github.com/opencv/opencv.git`
+`cd ~/opencv`
+`mkdir release`
+`cd release`
+`cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local ..`
+
+

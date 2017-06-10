@@ -1,3 +1,6 @@
+/** @file
+    @brief defines help-widget
+*/
 #ifndef FHELPWIDGET_H
 #define FHELPWIDGET_H
 

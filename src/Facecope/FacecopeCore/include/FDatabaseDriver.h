@@ -1,3 +1,6 @@
+/** @file
+    @brief defines database drivers, for work with facecope's database
+*/
 #ifndef FDATABASEDRIVER_H
 #define FDATABASEDRIVER_H
 #include <QMap>

@@ -1,3 +1,6 @@
+/** @file
+    @brief Declaration of the class of editing face model
+*/
 #ifndef FFACEMODEL_H
 #define FFACEMODEL_H
 

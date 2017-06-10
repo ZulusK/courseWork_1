@@ -1,0 +1,83 @@
+\hypertarget{classFImage}{}\section{F\+Image Class Reference}
+\label{classFImage}\index{F\+Image@{F\+Image}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classFImage_ab0b48ac01caee473e5e4363274f4e166}\label{classFImage_ab0b48ac01caee473e5e4363274f4e166}} 
+{\bfseries F\+Image} (const Q\+String \&path)
+\item 
+\mbox{\Hypertarget{classFImage_abd1c56744d46d6d7cc559d902532f9e2}\label{classFImage_abd1c56744d46d6d7cc559d902532f9e2}} 
+{\bfseries F\+Image} (const cv\+::\+Mat \&mat)
+\item 
+\mbox{\Hypertarget{classFImage_a5769ad6633c2f37fb5f13c4b552bb8ed}\label{classFImage_a5769ad6633c2f37fb5f13c4b552bb8ed}} 
+Q\+String {\bfseries get\+\_\+name} () const
+\item 
+\mbox{\Hypertarget{classFImage_ac14200c10a9a112ee92792c2958ec710}\label{classFImage_ac14200c10a9a112ee92792c2958ec710}} 
+void {\bfseries set\+\_\+name} (const Q\+String \&name)
+\item 
+\mbox{\Hypertarget{classFImage_a82cab8d4bf02ed4e316bcbafd7503bb6}\label{classFImage_a82cab8d4bf02ed4e316bcbafd7503bb6}} 
+Q\+Image {\bfseries to\+\_\+q\+\_\+image} ()
+\item 
+\mbox{\Hypertarget{classFImage_ac20f0314cc27a646f7c051ed30521791}\label{classFImage_ac20f0314cc27a646f7c051ed30521791}} 
+cv\+::\+Mat {\bfseries to\+\_\+cv\+\_\+image} ()
+\item 
+\mbox{\Hypertarget{classFImage_a6ddf652e7426034db1928ab6f712ffe1}\label{classFImage_a6ddf652e7426034db1928ab6f712ffe1}} 
+void {\bfseries set\+\_\+recognized} (bool recognized, double threahold\+\_\+of\+\_\+recognition)
+\item 
+\mbox{\Hypertarget{classFImage_a552d285fc2e3af631a62f0919a445c62}\label{classFImage_a552d285fc2e3af631a62f0919a445c62}} 
+void {\bfseries set\+\_\+detected} (bool detected, int steps)
+\item 
+\mbox{\Hypertarget{classFImage_a9df7dccbbfedc6fcd0d9277b9d84da04}\label{classFImage_a9df7dccbbfedc6fcd0d9277b9d84da04}} 
+int {\bfseries add\+\_\+face} (\hyperlink{classFFace}{F\+Face} $\ast$face)
+\item 
+\mbox{\Hypertarget{classFImage_a6075a7daf1825d3b36d48a1cab394528}\label{classFImage_a6075a7daf1825d3b36d48a1cab394528}} 
+void {\bfseries add\+\_\+faces} (std\+::vector$<$ \hyperlink{classFFace}{F\+Face} $\ast$$>$ \&faces)
+\item 
+\mbox{\Hypertarget{classFImage_a929e98398242b5c90b89189d4dc8e6e3}\label{classFImage_a929e98398242b5c90b89189d4dc8e6e3}} 
+\hyperlink{classFFace}{F\+Face} $\ast$ {\bfseries remove\+\_\+face} (long ID)
+\item 
+\mbox{\Hypertarget{classFImage_a106c5f6eb73bb7f9688f986c8648f8d1}\label{classFImage_a106c5f6eb73bb7f9688f986c8648f8d1}} 
+Q\+Vector$<$ \hyperlink{classFFace}{F\+Face} $\ast$ $>$ \& {\bfseries get\+\_\+faces} ()
+\item 
+\mbox{\Hypertarget{classFImage_a4b5522340534c0cdb89c1f33734626ab}\label{classFImage_a4b5522340534c0cdb89c1f33734626ab}} 
+\hyperlink{classFFace}{F\+Face} $\ast$ {\bfseries get\+\_\+face} (long ID)
+\item 
+\mbox{\Hypertarget{classFImage_a6a103bfcb9e83c062dd5ae8ede68cab9}\label{classFImage_a6a103bfcb9e83c062dd5ae8ede68cab9}} 
+void {\bfseries clear} ()
+\item 
+\mbox{\Hypertarget{classFImage_a82d60358d733dce9caef827a17928bc5}\label{classFImage_a82d60358d733dce9caef827a17928bc5}} 
+bool {\bfseries empty} () const
+\item 
+\mbox{\Hypertarget{classFImage_adf4496205cd140b3410cdabcfe40d5ae}\label{classFImage_adf4496205cd140b3410cdabcfe40d5ae}} 
+cv\+::\+Size {\bfseries cv\+\_\+size} () const
+\item 
+\mbox{\Hypertarget{classFImage_a799b0c83add0d9dee24b192c587596ed}\label{classFImage_a799b0c83add0d9dee24b192c587596ed}} 
+Q\+Size {\bfseries q\+\_\+size} () const
+\item 
+\mbox{\Hypertarget{classFImage_a721d1e114f45d53d50296bfe2e22f41f}\label{classFImage_a721d1e114f45d53d50296bfe2e22f41f}} 
+bool {\bfseries contains} (int val)
+\item 
+\mbox{\Hypertarget{classFImage_a4c6d99e648fbd7a107337b6bd2991012}\label{classFImage_a4c6d99e648fbd7a107337b6bd2991012}} 
+cv\+::\+Mat {\bfseries get\+\_\+face\+\_\+cv\+\_\+image} (\hyperlink{classFFace}{F\+Face} $\ast$face)
+\item 
+\mbox{\Hypertarget{classFImage_a0edb8f7b81d65d7d28e22f1417a601df}\label{classFImage_a0edb8f7b81d65d7d28e22f1417a601df}} 
+Q\+Rect {\bfseries get\+\_\+face\+\_\+q\+\_\+frame} (\hyperlink{classFFace}{F\+Face} $\ast$face)
+\item 
+\mbox{\Hypertarget{classFImage_aa00488f14f8f8c8ea49f27a7f26a0a6b}\label{classFImage_aa00488f14f8f8c8ea49f27a7f26a0a6b}} 
+bool {\bfseries is\+Recognized} () const
+\item 
+\mbox{\Hypertarget{classFImage_a3a9633f8b7b7c0f64520770135c518b4}\label{classFImage_a3a9633f8b7b7c0f64520770135c518b4}} 
+bool {\bfseries is\+Detected} () const
+\item 
+\mbox{\Hypertarget{classFImage_aeb31036059d0c85596118019d4ba8b5c}\label{classFImage_aeb31036059d0c85596118019d4ba8b5c}} 
+int {\bfseries get\+Detection\+\_\+steps} () const
+\item 
+\mbox{\Hypertarget{classFImage_acc32b56d339159ba4e8a6a16fd25e375}\label{classFImage_acc32b56d339159ba4e8a6a16fd25e375}} 
+double {\bfseries get\+Threahold\+\_\+of\+\_\+recognition} () const
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Facecope/\+Facecope\+Core/include/\hyperlink{FImage_8h}{F\+Image.\+h}\item 
+Facecope/\+Facecope\+Core/F\+Image.\+cpp\end{DoxyCompactItemize}

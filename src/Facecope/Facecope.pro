@@ -67,7 +67,7 @@ FORMS    +=  \
     widgets/uis/FSettingsWidget.ui \
     widgets/uis/FImageShowDialog.ui \
     widgets/uis/FImageDrawAreaWidget.ui \
-    widgets/FSetFaceInfoDialog.ui
+    widgets/uis/FSetFaceInfoDialog.ui
 
 unix: CONFIG += link_pkgconfig
 unix: PKGCONFIG += opencv

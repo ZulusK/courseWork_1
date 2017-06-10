@@ -1,3 +1,7 @@
+/** @file
+    @brief Declaration of the class of image storage and persons on it
+*/
+
 #ifndef FIMAGE_H
 #define FIMAGE_H
 #include <FFace.h>

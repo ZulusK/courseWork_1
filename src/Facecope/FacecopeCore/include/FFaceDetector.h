@@ -1,3 +1,8 @@
+/** @file
+    @brief The class declaration - the face detector on the photo
+*/
+
+
 #ifndef FFACEDETECTOR_H
 #define FFACEDETECTOR_H
 #include <FacecopeTypes.h>

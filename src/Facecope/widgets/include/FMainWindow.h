@@ -1,3 +1,6 @@
+/** @file
+    @brief main container of widgets
+*/
 #ifndef FMAINWINDOW_H
 #define FMAINWINDOW_H
 

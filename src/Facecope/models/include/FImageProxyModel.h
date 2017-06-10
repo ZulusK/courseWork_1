@@ -1,3 +1,6 @@
+/** @file
+    @brief Declaration of the class for image view filtering
+*/
 #ifndef QIMAGEPROXYMODEL_H
 #define QIMAGEPROXYMODEL_H
 #include <FImage.h>

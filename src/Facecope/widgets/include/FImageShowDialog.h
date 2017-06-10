@@ -1,3 +1,6 @@
+/** @file
+    @brief defines dialog for lavel viewing and editing
+*/
 #ifndef FIMAGESHOWDIALOG_H
 #define FIMAGESHOWDIALOG_H
 #include <FDatabaseDriver.h>

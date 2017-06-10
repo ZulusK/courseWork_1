@@ -1,0 +1,97 @@
+\hypertarget{classFMainFacecopeModel}{}\section{F\+Main\+Facecope\+Model Class Reference}
+\label{classFMainFacecopeModel}\index{F\+Main\+Facecope\+Model@{F\+Main\+Facecope\+Model}}
+
+
+Inheritance diagram for F\+Main\+Facecope\+Model\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=193pt]{classFMainFacecopeModel__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for F\+Main\+Facecope\+Model\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=193pt]{classFMainFacecopeModel__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classFMainFacecopeModel_aa2377ed7d59faa527c01161500c1a18d}\label{classFMainFacecopeModel_aa2377ed7d59faa527c01161500c1a18d}} 
+void {\bfseries slot\+\_\+set\+\_\+image\+\_\+size} (const Q\+Size \&new\+Size)
+\item 
+\mbox{\Hypertarget{classFMainFacecopeModel_a8c639e2873a4e433b30575d8cfc1d660}\label{classFMainFacecopeModel_a8c639e2873a4e433b30575d8cfc1d660}} 
+void {\bfseries slot\+\_\+clear} ()
+\item 
+\mbox{\Hypertarget{classFMainFacecopeModel_abba3d83f3b85760d28d5c878ce646e7c}\label{classFMainFacecopeModel_abba3d83f3b85760d28d5c878ce646e7c}} 
+void {\bfseries slot\+\_\+recognize} (int row)
+\item 
+\mbox{\Hypertarget{classFMainFacecopeModel_a22d8ffec6b8cdafa8cea02032dfd0203}\label{classFMainFacecopeModel_a22d8ffec6b8cdafa8cea02032dfd0203}} 
+void {\bfseries slot\+\_\+detect} (int row)
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classFMainFacecopeModel_a978bd3890e0639437639d1c3a93c8f92}\label{classFMainFacecopeModel_a978bd3890e0639437639d1c3a93c8f92}} 
+{\bfseries F\+Main\+Facecope\+Model} (\hyperlink{structFacecope}{Facecope} \&facecope, Q\+Object $\ast$parent=0)
+\item 
+\mbox{\Hypertarget{classFMainFacecopeModel_a2963e38095e5b333887d5e40a29e97c4}\label{classFMainFacecopeModel_a2963e38095e5b333887d5e40a29e97c4}} 
+int {\bfseries row\+Count} (const Q\+Model\+Index \&parent=Q\+Model\+Index()) const override
+\item 
+\mbox{\Hypertarget{classFMainFacecopeModel_aed374733f42dc4431adae47c67a5c536}\label{classFMainFacecopeModel_aed374733f42dc4431adae47c67a5c536}} 
+Q\+Variant {\bfseries data} (const Q\+Model\+Index \&index, int role=Qt\+::\+Display\+Role) const override
+\item 
+\mbox{\Hypertarget{classFMainFacecopeModel_ae1554769d52e9759c3d083014490b9e5}\label{classFMainFacecopeModel_ae1554769d52e9759c3d083014490b9e5}} 
+bool {\bfseries remove\+Row} (int row, const Q\+Model\+Index \&parent=Q\+Model\+Index())
+\item 
+\mbox{\Hypertarget{classFMainFacecopeModel_aa7044acf807fae60da413b23d127ae9f}\label{classFMainFacecopeModel_aa7044acf807fae60da413b23d127ae9f}} 
+const Q\+Map$<$ Q\+String, \hyperlink{classFImage}{F\+Image} $\ast$ $>$ \& {\bfseries get\+\_\+items} ()
+\item 
+\mbox{\Hypertarget{classFMainFacecopeModel_a1e252ebb83462b92197d5dc69262007d}\label{classFMainFacecopeModel_a1e252ebb83462b92197d5dc69262007d}} 
+bool {\bfseries load} (const Q\+String \&path)
+\item 
+\mbox{\Hypertarget{classFMainFacecopeModel_a0c6aa5e8a388759a1c6c81d4e98ce903}\label{classFMainFacecopeModel_a0c6aa5e8a388759a1c6c81d4e98ce903}} 
+bool {\bfseries remove} (const Q\+String \&key)
+\item 
+\mbox{\Hypertarget{classFMainFacecopeModel_acf3adfcfe3736363aee73856dc1fa142}\label{classFMainFacecopeModel_acf3adfcfe3736363aee73856dc1fa142}} 
+bool {\bfseries remove} (int index)
+\item 
+\mbox{\Hypertarget{classFMainFacecopeModel_a9e181078dac81a412706a76f86b0bcce}\label{classFMainFacecopeModel_a9e181078dac81a412706a76f86b0bcce}} 
+bool {\bfseries is\+Valid\+\_\+path} (const Q\+String \&key)
+\item 
+\mbox{\Hypertarget{classFMainFacecopeModel_acf65e2eb6cd2ebd5f1ddc448de077a04}\label{classFMainFacecopeModel_acf65e2eb6cd2ebd5f1ddc448de077a04}} 
+\hyperlink{classFImage}{F\+Image} $\ast$ {\bfseries get\+\_\+item} (const Q\+String \&path)
+\item 
+\mbox{\Hypertarget{classFMainFacecopeModel_aef457c2256cfa706fb1dd98bf7106c45}\label{classFMainFacecopeModel_aef457c2256cfa706fb1dd98bf7106c45}} 
+\hyperlink{classFImage}{F\+Image} $\ast$ {\bfseries get\+\_\+item} (int index)
+\item 
+\mbox{\Hypertarget{classFMainFacecopeModel_af0ed30ded3f6f2006d2e24ba1a5f8cb1}\label{classFMainFacecopeModel_af0ed30ded3f6f2006d2e24ba1a5f8cb1}} 
+Q\+String\+List {\bfseries get\+\_\+paths} ()
+\item 
+\mbox{\Hypertarget{classFMainFacecopeModel_aec85665ecd3eab4e6afb0c1f235e9ab5}\label{classFMainFacecopeModel_aec85665ecd3eab4e6afb0c1f235e9ab5}} 
+int {\bfseries get\+\_\+detected\+\_\+image\+\_\+count} ()
+\item 
+\mbox{\Hypertarget{classFMainFacecopeModel_a3696dceac101ebfccc8a92eba2665aea}\label{classFMainFacecopeModel_a3696dceac101ebfccc8a92eba2665aea}} 
+int {\bfseries get\+\_\+recognized\+\_\+image\+\_\+count} ()
+\item 
+\mbox{\Hypertarget{classFMainFacecopeModel_a5ad9d47c93e55787f4ff3c875a1bb937}\label{classFMainFacecopeModel_a5ad9d47c93e55787f4ff3c875a1bb937}} 
+int {\bfseries get\+\_\+detected\+\_\+faces\+\_\+count} ()
+\item 
+\mbox{\Hypertarget{classFMainFacecopeModel_a632ecbb41c7cd190cef750e4829d1556}\label{classFMainFacecopeModel_a632ecbb41c7cd190cef750e4829d1556}} 
+int {\bfseries get\+\_\+recognized\+\_\+faces\+\_\+count} ()
+\item 
+\mbox{\Hypertarget{classFMainFacecopeModel_a65c4b0a8bfe723266905329c17c66341}\label{classFMainFacecopeModel_a65c4b0a8bfe723266905329c17c66341}} 
+int {\bfseries get\+\_\+loaded\+\_\+images\+\_\+count} ()
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Facecope/models/include/\hyperlink{FMainFacecopeModel_8h}{F\+Main\+Facecope\+Model.\+h}\item 
+Facecope/models/F\+Main\+Facecope\+Model.\+cpp\end{DoxyCompactItemize}

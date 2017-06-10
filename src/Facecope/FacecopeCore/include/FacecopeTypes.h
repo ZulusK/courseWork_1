@@ -1,3 +1,6 @@
+/** @file
+    @brief defines core functional of Facecope
+*/
 #ifndef FACECOPETYPES_H
 #define FACECOPETYPES_H
 #include <QString>

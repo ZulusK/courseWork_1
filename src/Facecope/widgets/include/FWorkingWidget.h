@@ -1,3 +1,7 @@
+/** @file
+    @brief defines main working-widget
+*/
+
 #ifndef FWORKINGWIDGET_H
 #define FWORKINGWIDGET_H
 

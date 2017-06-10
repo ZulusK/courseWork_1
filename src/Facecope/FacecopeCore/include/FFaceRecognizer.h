@@ -1,3 +1,7 @@
+/** @file
+    @brief The class recognizer - the face recognizing on the photo
+*/
+
 #ifndef FFACERECOGNIZER_H
 #define FFACERECOGNIZER_H
 #include <FacecopeTypes.h>

@@ -1,3 +1,7 @@
+/** @file
+    @brief Declaration of the human face class on the photo
+*/
+
 #ifndef FPERSON_H
 #define FPERSON_H
 #include <FacecopeTypes.h>
