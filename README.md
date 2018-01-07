@@ -1,4 +1,4 @@
-#Facecope#
+# Facecope #
 ### The photo management program ###
 
 _[Technical documentation](https://docs.google.com/document/d/1uAafzIcO1uX_CPPadWWjw2VOkqY7Sk7aB99loCDafI4/edit?usp=sharing)_
@@ -21,10 +21,11 @@ MacOS
 * ##### Install gtk+3 
  `sudo apt-get install libgtk-3-dev`
 * ##### Install opencv2:
-`git clone https://github.com/opencv/opencv.git`
-`cd ~/opencv`
-`mkdir release`
-`cd release`
-`cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local ..`
-
+````
+git clone https://github.com/opencv/opencv.git
+cd ~/opencv
+mkdir release
+cd release
+cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local ..
+````
 
